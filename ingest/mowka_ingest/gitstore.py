@@ -49,14 +49,23 @@ def dedupe_run(offers: list[Offer]) -> dict[Key, dict]:
     return {k: rank(v) for k, v in grouped.items()}
 
 
-def apply_run(prev: dict[Key, dict], offers: list[Offer]) -> tuple[dict[Key, dict], list[dict]]:
+def apply_run(prev: dict[Key, dict], offers: list[Offer],
+              active_stores: set[str] | None = None) -> tuple[dict[Key, dict], list[dict]]:
     """Merge a run's offers into the previous state.
 
     Returns (new_latest, events). An event records the offer plus what it
     changed from; prev_* are None on first sighting.
+
+    active_stores: the set of store names currently configured. Entries from
+    stores no longer configured are evicted — this is how a same-day takedown
+    actually leaves the site. None (dev paths) keeps everything: a transient
+    fetch failure must never erase real observations.
     """
     current = dedupe_run(offers)
-    latest = dict(prev)
+    if active_stores is None:
+        latest = dict(prev)
+    else:
+        latest = {k: v for k, v in prev.items() if k[1] in active_stores}
     events: list[dict] = []
     for key, offer in sorted(current.items()):
         old = prev.get(key)

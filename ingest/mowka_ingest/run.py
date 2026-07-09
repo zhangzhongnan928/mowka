@@ -38,13 +38,14 @@ def main() -> None:
                                         base_url="https://fixture.example", catalog=catalog)
     elif args.stores:
         cfg = yaml.safe_load(pathlib.Path(args.stores).read_text())
-        for store in cfg["stores"]:
-            if store["type"] != "shopify":
-                print(f"skip {store['name']}: unsupported type {store['type']}")
+        for store in cfg.get("stores", []):
+            name = store.get("name") or store.get("base_url") or "<unnamed>"
+            if store.get("type") != "shopify":
+                print(f"skip {name}: unsupported type {store.get('type')}")
                 continue
-            got = shopify.fetch(store["name"], store["base_url"], catalog,
+            got = shopify.fetch(name, store["base_url"], catalog,
                                 contact=cfg.get("contact"))
-            print(f"{store['name']}: {len(got)} offers")
+            print(f"{name}: {len(got)} offers")
             offers.extend(got)
     else:
         ap.error("provide --stores or --fixture")

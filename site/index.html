@@ -80,7 +80,7 @@ footer a{text-decoration:underline}
 <header>
   <div class="wrap">
     <div class="masthead">
-      <div class="logo">Mow<span>ka</span></div>
+      <h1 class="logo">Mow<span>ka</span></h1>
       <div class="oss">open source · no pinned listings</div>
     </div>
     <p class="tag">Live AUD prices and stock for sealed Pokémon TCG product across Australian stores. Free for collectors and stores. The ranking rule is public code.</p>
@@ -95,7 +95,7 @@ footer a{text-decoration:underline}
 <main class="wrap">
   <h2>Cheapest in stock, right now</h2>
   <p class="rule-note">rank = lowest in-stock price → ties by freshest observation. Nothing pays to move up. <a href="https://github.com/zhangzhongnan928/mowka/blob/main/ingest/mowka_ingest/ranking.py" rel="noopener">The rule is public code.</a></p>
-  <div id="index"><div class="empty">Loading the index…</div></div>
+  <div id="index" role="list" aria-live="polite"><div class="empty">Loading the index…</div></div>
 
   <section class="alerts" id="alerts">
     <h2>Restock alerts</h2>
@@ -123,6 +123,14 @@ const ago = iso => {
   const m = Math.max(0, Math.round((Date.now() - new Date(iso))/60000));
   return m < 60 ? `${m}m ago` : m < 1440 ? `${Math.round(m/60)}h ago` : `${Math.round(m/1440)}d ago`;
 };
+// data.json carries strings scraped from external stores — escape everything,
+// and only ever link to http(s) URLs.
+const esc = s => String(s).replace(/[&<>"']/g, c =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl = u => {
+  try { const x = new URL(u); return x.protocol === "http:" || x.protocol === "https:" ? x.href : "#"; }
+  catch { return "#"; }
+};
 
 fetch("data.json").then(r => { if(!r.ok) throw 0; return r.json(); }).then(d => {
   const el = document.getElementById("index");
@@ -140,11 +148,11 @@ fetch("data.json").then(r => { if(!r.ok) throw 0; return r.json(); }).then(d => 
       const stock = b.in_stock
         ? `<span class="instock"><span class="dot"></span>in stock</span>`
         : `<span class="oos"><span class="dot"></span>out of stock everywhere</span>`;
-      return `<div class="row ${b.in_stock ? "" : "oosrow"}">
-        <div><div class="name">${p.name}</div><div class="set">${p.set}</div></div>
+      return `<div class="row ${b.in_stock ? "" : "oosrow"}" role="listitem">
+        <div><div class="name">${esc(p.name)}</div><div class="set">${esc(p.set)}</div></div>
         <div class="price">${fmt(b.price_cents)}</div>
         <div class="meta">${stock}
-          <span class="store">at <a href="${b.url}" rel="nofollow noopener">${b.store}</a></span>
+          <span class="store">at <a href="${esc(safeUrl(b.url))}" rel="nofollow noopener">${esc(b.store)}</a></span>
           <span>${p.stores_tracked} store${p.stores_tracked===1?"":"s"} tracked</span>
           <span>seen ${ago(b.observed_at)}</span></div>
       </div>`;

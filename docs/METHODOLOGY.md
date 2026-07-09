@@ -22,14 +22,19 @@ Etiquette, enforced in code and non-negotiable:
 
 The store target list is private (the engine is open; the dataset and target
 list are the project's asset), but any store can check its own logs for the
-`MowkaAU` user agent and reach us at the contact address inside it.
+`MowkaAU` user agent and reach us at the contact address inside it. Removing
+a store from the target list also removes all of its offers from the site on
+the next hourly run — a takedown request takes effect the same day.
 
 ## How listings map to SKUs
 
 `catalog/skus.yaml` defines every tracked SKU with a permanent id and a list
 of lowercase aliases. A store listing matches a SKU when its title contains an
-alias (case-insensitive; the longest matching alias wins). Deliberately dumb
-and auditable — see `ingest/mowka_ingest/normalize.py`.
+alias (case-insensitive; the longest matching alias wins). Titles containing
+an exclusion term (`psa`, `graded`, `japanese`, `empty box`, …) never match:
+they are graded slabs, foreign-language variants, or empty packaging, not the
+English sealed product. Both lists are public code — deliberately dumb and
+auditable — see `ingest/mowka_ingest/normalize.py`.
 
 For one SKU at one store, the offer shown is the cheapest available variant;
 if no variant is available the listing counts as out of stock at its cheapest

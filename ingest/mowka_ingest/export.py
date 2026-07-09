@@ -25,6 +25,6 @@ def build_payload(catalog: list[Sku], offers: list[dict],
         out["products"].append({
             "id": sku.id, "name": sku.name, "set": sku.set, "category": sku.category,
             "best": rank(sku_offers), "offers": sku_offers,
-            "stores_tracked": len(sku_offers),
+            "stores_tracked": len({o["store"] for o in sku_offers}),
         })
     return out
