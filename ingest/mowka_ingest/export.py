@@ -9,12 +9,18 @@ from datetime import datetime, timezone
 from .models import Sku
 from .ranking import rank
 
+# The sealed data.json schema predates Offer.source_type; emit exactly these
+# keys so the public sealed payload never changes shape underneath consumers.
+_SEALED_OFFER_KEYS = ("sku_id", "store", "url", "price_cents", "currency",
+                      "in_stock", "observed_at")
+
 
 def build_payload(catalog: list[Sku], offers: list[dict],
                   generated_at: str | None = None) -> dict:
     by_sku: dict[str, list[dict]] = {}
     for o in offers:
-        by_sku.setdefault(o["sku_id"], []).append(o)
+        slim = {k: o[k] for k in _SEALED_OFFER_KEYS}
+        by_sku.setdefault(slim["sku_id"], []).append(slim)
     out = {
         "generated_at": generated_at
         or datetime.now(timezone.utc).isoformat(timespec="seconds"),

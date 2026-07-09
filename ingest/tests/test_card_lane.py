@@ -107,16 +107,29 @@ def umbreon():
 
 
 def test_search_card_picks_cheapest_matching_ungraded():
-    offer, count = ebay.search_card(umbreon(), "tok", session=StubSession(EBAY_PAYLOAD))
-    assert count == 2
+    offer, count, capped = ebay.search_card(umbreon(), "tok", session=StubSession(EBAY_PAYLOAD))
+    assert count == 2 and capped is False
     assert offer.price_cents == 139995 and offer.url == "https://ebay/b"
     assert offer.source_type == "ebay_active" and offer.store == "eBay AU"
 
 
 def test_search_card_no_matches_returns_none():
-    offer, count = ebay.search_card(umbreon(), "tok",
-                                    session=StubSession({"itemSummaries": []}))
-    assert offer is None and count == 0
+    offer, count, capped = ebay.search_card(umbreon(), "tok",
+                                            session=StubSession({"itemSummaries": []}))
+    assert offer is None and count == 0 and capped is False
+
+
+def test_search_card_skips_malformed_prices_without_crashing():
+    payload = {"itemSummaries": [
+        {"title": "Pokemon Umbreon ex 161/131 Prismatic Evolutions",
+         "price": {"currency": "AUD"}, "itemWebUrl": "https://ebay/noval"},   # no value
+        {"title": "Pokemon Umbreon ex 161/131 Prismatic Evolutions",
+         "price": {"value": "abc", "currency": "AUD"}, "itemWebUrl": "https://ebay/junk"},
+        {"title": "Pokemon Umbreon ex 161/131 Prismatic Evolutions",
+         "price": {"value": "1500.00", "currency": "AUD"}, "itemWebUrl": "https://ebay/good"},
+    ]}
+    offer, count, _ = ebay.search_card(umbreon(), "tok", session=StubSession(payload))
+    assert count == 1 and offer.url == "https://ebay/good"
 
 
 def test_fetch_cards_respects_call_budget(monkeypatch):
@@ -124,9 +137,44 @@ def test_fetch_cards_respects_call_budget(monkeypatch):
     monkeypatch.setattr(ebay.time, "sleep", lambda _: None)
     searched_cards = []
     monkeypatch.setattr(ebay, "search_card",
-                        lambda card, token, session=None: (searched_cards.append(card.id), (None, 0))[1])
+                        lambda card, token, session=None: (searched_cards.append(card.id), (None, 0, False))[1])
     offers, counts, searched = ebay.fetch_cards(cards(), "id", "secret", max_calls=3)
     assert len(searched) == 3 and searched_cards == searched
+    assert all(set(v) == {"count", "capped", "searched_at"} for v in counts.values())
+
+
+def test_fetch_cards_isolates_per_card_failures(monkeypatch):
+    import requests as req
+    monkeypatch.setattr(ebay, "get_token", lambda *a, **k: "tok")
+    monkeypatch.setattr(ebay.time, "sleep", lambda _: None)
+    calls = []
+
+    def flaky(card, token, session=None):
+        calls.append(card.id)
+        if len(calls) == 1:
+            raise req.ConnectionError("boom")
+        return None, 0, False
+
+    monkeypatch.setattr(ebay, "search_card", flaky)
+    offers, counts, searched = ebay.fetch_cards(cards()[:3], "id", "secret")
+    assert len(calls) == 3                    # kept going after the failure
+    assert calls[0] not in searched           # failed card not marked searched
+    assert len(searched) == 2
+
+
+def test_fetch_cards_aborts_on_auth_failure(monkeypatch):
+    import requests as req
+    monkeypatch.setattr(ebay, "get_token", lambda *a, **k: "tok")
+    monkeypatch.setattr(ebay.time, "sleep", lambda _: None)
+
+    def unauthorized(card, token, session=None):
+        resp = req.Response()
+        resp.status_code = 401
+        raise req.HTTPError(response=resp)
+
+    monkeypatch.setattr(ebay, "search_card", unauthorized)
+    with pytest.raises(req.HTTPError):
+        ebay.fetch_cards(cards()[:3], "id", "secret")
 
 
 # --- card_sync ----------------------------------------------------------------
@@ -192,7 +240,9 @@ def test_card_sync_prunes_only_researched_ebay_offers(tmp_path, monkeypatch):
     # this run only re-searches umbreon and finds nothing -> its stale offer goes,
     # charizard (not searched: budget) keeps its offer
     monkeypatch.setattr(card_sync.ebay, "fetch_cards",
-                        lambda *a, **k: ([], {"card-sv08.5-161": 0}, ["card-sv08.5-161"]))
+                        lambda *a, **k: ([], {"card-sv08.5-161": {"count": 0, "capped": False,
+                                                                  "searched_at": "2026-07-09T10:00:00+00:00"}},
+                                         ["card-sv08.5-161"]))
     payload = run_card_sync(tmp_path, monkeypatch, env_keys=True)
     umb = next(c for c in payload["cards"] if c["id"] == "card-sv08.5-161")
     zard = next(c for c in payload["cards"] if c["id"] == "card-sv03.5-199")
@@ -243,3 +293,86 @@ def test_card_restock_does_not_queue_sealed_alert(tmp_path, monkeypatch):
     events_now = gitstore.load_events(tmp_path / "data")
     assert any(e["sku_id"] == "card-sv08.5-161" and gitstore.restocks([e]) for e in events_now)
     assert not (tmp_path / "data" / "alerts" / "outbox").exists()
+
+
+# --- review-fix regressions -----------------------------------------------------
+
+def test_scarcity_suffix_does_not_trip_multiword_excludes():
+    sealed = load_catalog(SEALED)
+    hit = match("Surging Sparks Booster Box - Only 2 left!", sealed)
+    assert hit and hit.id == "sv-surging-sparks-booster-box"
+    hit2 = match("Destined Rivals Booster Box (only 1 per customer)", sealed)
+    assert hit2 and hit2.id == "sv-destined-rivals-booster-box"
+
+
+def test_hyphenated_sealed_titles_now_match():
+    # deliberate improvement from punctuation-free alias matching (documented)
+    sealed = load_catalog(SEALED)
+    hit = match("Prismatic Evolutions - Elite Trainer Box", sealed)
+    assert hit and hit.id == "sv-prismatic-evolutions-etb"
+
+
+def test_dollar_price_in_title_is_not_a_card_number():
+    assert match("Umbreon ex $161 - Prismatic Evolutions 059/131 NM", cards()) is None
+
+
+def test_alias_number_needs_token_boundary():
+    assert match("Umbreon ex 1610 points redemption card", cards()) is None
+
+
+def test_played_condition_listings_are_excluded():
+    assert match("Umbreon ex 161/131 Prismatic Evolutions Heavily Played", cards()) is None
+    assert match("Umbreon ex 161/131 Prismatic Evolutions damaged", cards()) is None
+
+
+def test_sealed_payload_offers_have_stable_schema(tmp_path):
+    from mowka_ingest.export import build_payload
+    catalog = load_catalog(SEALED)
+    offer_dict = {"sku_id": "sv-151-etb", "store": "A", "url": "u", "price_cents": 1,
+                  "currency": "AUD", "in_stock": True,
+                  "observed_at": "2026-07-09T10:00:00+00:00", "source_type": "store_shopify"}
+    payload = build_payload(catalog, [offer_dict], generated_at="t")
+    etb = next(p for p in payload["products"] if p["id"] == "sv-151-etb")
+    assert set(etb["offers"][0]) == {"sku_id", "store", "url", "price_cents",
+                                     "currency", "in_stock", "observed_at"}
+
+
+def test_card_sync_reobservation_emits_no_junk_events(tmp_path, monkeypatch):
+    def offer_at(price):
+        return Offer(sku_id="card-sv08.5-161", store="eBay AU", url="https://e",
+                     price_cents=price, currency="AUD", in_stock=True,
+                     observed_at="2026-07-09T10:00:00+00:00", source_type="ebay_active")
+    counts = {"card-sv08.5-161": {"count": 1, "capped": False,
+                                  "searched_at": "2026-07-09T10:00:00+00:00"}}
+    # run 1: first sighting
+    monkeypatch.setattr(card_sync.ebay, "fetch_cards",
+                        lambda *a, **k: ([offer_at(100000)], counts, ["card-sv08.5-161"]))
+    run_card_sync(tmp_path, monkeypatch, env_keys=True)
+    # run 2: same price re-observed -> no new event
+    monkeypatch.setattr(card_sync.ebay, "fetch_cards",
+                        lambda *a, **k: ([offer_at(100000)], counts, ["card-sv08.5-161"]))
+    run_card_sync(tmp_path, monkeypatch, env_keys=True)
+    events = gitstore.load_events(tmp_path / "data")
+    assert len(events) == 1
+    # run 3: price change -> event carries the REAL previous price
+    monkeypatch.setattr(card_sync.ebay, "fetch_cards",
+                        lambda *a, **k: ([offer_at(90000)], counts, ["card-sv08.5-161"]))
+    run_card_sync(tmp_path, monkeypatch, env_keys=True)
+    events = gitstore.load_events(tmp_path / "data")
+    assert len(events) == 2
+    assert events[-1]["prev_price_cents"] == 100000
+
+
+def test_card_sync_orders_queue_stalest_first(tmp_path, monkeypatch):
+    data = tmp_path / "data" / "cards"
+    data.mkdir(parents=True)
+    stale_id = cards()[3].id
+    counts = {c.id: {"count": 0, "capped": False, "searched_at": "2026-07-09T10:00:00+00:00"}
+              for c in cards()}
+    counts[stale_id]["searched_at"] = "2026-07-01T00:00:00+00:00"
+    (data / "ebay_counts.json").write_text(json.dumps(counts))
+    seen_order = []
+    monkeypatch.setattr(card_sync.ebay, "fetch_cards",
+                        lambda cs, *a, **k: (seen_order.extend(c.id for c in cs), ([], {}, []))[1])
+    run_card_sync(tmp_path, monkeypatch, env_keys=True)
+    assert seen_order[0] == stale_id

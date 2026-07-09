@@ -63,8 +63,9 @@ Instrumented with GoatCounter (privacy-friendly, no cookies) + Buttondown;
 
 ## Card lane (beta)
 
-Mowka's long-term core: AUD prices for every card, starting with a curated
-chase list (`catalog/cards.yaml`, Simon's Top-200). Card identity comes from an
+Mowka's long-term core: AUD prices for every card, starting with a draft
+14-card sample chase list (`catalog/cards.yaml`) that Simon's curated Top-200
+replaces wholesale before card ids freeze. Card identity comes from an
 external catalog behind the `mowka_ingest/cardcatalog` adapter (TCGdex first —
 single-maintainer insurance). AU prices come from store listings (same ingest)
 plus eBay AU active listings (`mowka_ingest/sources/ebay.py`, dormant until an

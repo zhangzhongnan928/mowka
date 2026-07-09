@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-09T08:23:28+00:00",
+ "generated_at": "2026-07-09T09:14:20+00:00",
  "cards": [
   {
    "id": "card-sv08.5-161",
@@ -13,7 +13,8 @@
    "usd_reference": 1528.09,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv08.5-155",
@@ -27,7 +28,8 @@
    "usd_reference": 324.11,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv08.5-156",
@@ -41,7 +43,8 @@
    "usd_reference": 555.64,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv08.5-144",
@@ -55,7 +58,8 @@
    "usd_reference": 332.1,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv03.5-199",
@@ -69,7 +73,8 @@
    "usd_reference": 406.14,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv03.5-205",
@@ -83,7 +88,8 @@
    "usd_reference": 29.61,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv04.5-234",
@@ -97,7 +103,8 @@
    "usd_reference": 325.94,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv08-238",
@@ -111,7 +118,8 @@
    "usd_reference": 362.3,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv08-239",
@@ -125,7 +133,8 @@
    "usd_reference": 197.26,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv10-231",
@@ -139,7 +148,8 @@
    "usd_reference": 548.09,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv10-230",
@@ -153,7 +163,8 @@
    "usd_reference": 193.67,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv10.5b-166",
@@ -167,7 +178,8 @@
    "usd_reference": 283.68,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-sv10.5w-166",
@@ -181,7 +193,8 @@
    "usd_reference": 221.07,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   },
   {
    "id": "card-me01-178",
@@ -195,7 +208,8 @@
    "usd_reference": 202.86,
    "best": null,
    "offers": [],
-   "active_count": null
+   "active_count": null,
+   "active_count_capped": false
   }
  ]
 }

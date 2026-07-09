@@ -43,6 +43,7 @@ h2{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;
      padding:12px 16px;margin-bottom:10px;transition:transform .12s ease}
 .row:hover{transform:translateX(3px)}
 .row.nooffer{border-left-color:var(--line)}
+.row.oosrow{border-left-color:var(--oos)}
 .thumb{width:56px;height:78px;object-fit:contain;background:#eceae3}
 .thumb-empty{width:56px;height:78px;background:#eceae3;display:flex;align-items:center;justify-content:center;
   color:var(--dim);font:600 10px "IBM Plex Mono",monospace}
@@ -56,12 +57,14 @@ h2{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;
 .usd{color:var(--dim)}
 .empty{border:1px dashed var(--line);padding:34px 20px;text-align:center;color:var(--dim);
        font:400 13px/1.6 "IBM Plex Mono",monospace}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 footer{border-top:1px solid var(--line);padding:18px 0 40px;color:var(--dim);
        font:400 12px/1.7 "IBM Plex Mono",monospace;margin-top:26px}
 footer a{text-decoration:underline}
 input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media(max-width:560px){
   .price{font-size:19px}
+  .price small{max-width:90px;white-space:normal}
   .ticker{flex-wrap:wrap}.ticker div{border-right:0;padding:8px 0 0;margin-right:14px}
 }
 </style>
@@ -73,7 +76,7 @@ input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offs
       <h1 class="logo"><a href="index.html">Mow<span>ka</span></a> <span style="color:var(--dim);font-size:.45em;font-weight:600">cards beta</span></h1>
       <div class="oss"><a href="index.html">sealed index</a> · cards</div>
     </div>
-    <p class="tag">Cheapest available AUD price for chase Pokémon TCG cards, from Australian listings. Near-mint sealed-language listings only; graded cards are excluded. The US figure is a reference, never part of the AU ranking.</p>
+    <p class="tag">Cheapest available AUD price for chase Pokémon TCG cards, from Australian listings. Near-mint, English-language listings only; graded cards are excluded. The US figure is a reference, never part of the AU ranking.</p>
     <div class="ticker" id="ticker">
       <div>Cards tracked <b id="t-cards">–</b></div>
       <div>With AU offers <b id="t-offers">–</b></div>
@@ -84,9 +87,10 @@ input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offs
 
 <main class="wrap">
   <h2>Chase list</h2>
-  <p class="rule-note">rank = lowest available AU price → ties by freshest observation. Same public rule as sealed. <a href="https://github.com/zhangzhongnan928/mowka/blob/main/docs/METHODOLOGY.md" rel="noopener">Methodology.</a></p>
+  <p class="rule-note">rank = lowest available AU price → ties by freshest observation. Same public rule as sealed. Draft chase list — the curated Top-200 lands next. <a href="https://github.com/zhangzhongnan928/mowka/blob/main/docs/METHODOLOGY.md" rel="noopener">Methodology.</a></p>
   <input class="search" id="search" type="search" placeholder="Search name, set, number…" aria-label="Search cards">
-  <div id="cards" role="list" aria-live="polite"><div class="empty">Loading cards…</div></div>
+  <div id="cards-status" class="empty" role="status">Loading cards…</div>
+  <div id="cards" role="list"></div>
 </main>
 
 <footer>
@@ -113,32 +117,39 @@ const safeUrl = u => {
 };
 
 let all = [];
+const status = document.getElementById("cards-status");
 const render = q => {
   const el = document.getElementById("cards");
   const needle = q.trim().toLowerCase();
   const shown = needle ? all.filter(c =>
     `${c.name} ${c.set} ${c.number} ${c.set_code}`.toLowerCase().includes(needle)) : all;
   if (!shown.length) {
-    el.innerHTML = `<div class="empty">${all.length ? "No cards match that search." : "No cards in the chase list yet."}</div>`;
+    el.innerHTML = "";
+    status.className = "empty";
+    status.textContent = all.length ? "No cards match that search." : "No cards in the chase list yet.";
     return;
   }
+  status.className = "sr-only";
+  status.textContent = `${shown.length} of ${all.length} cards shown`;
   el.innerHTML = shown.map(c => {
-    const img = c.image
-      ? `<img class="thumb" loading="lazy" alt="" src="${esc(safeUrl(c.image))}">`
+    const imgSrc = c.image ? safeUrl(c.image) : "#";
+    const img = imgSrc !== "#"
+      ? `<img class="thumb" loading="lazy" alt="" src="${esc(imgSrc)}">`
       : `<div class="thumb-empty">no img</div>`;
     const price = c.best
-      ? `${fmt(c.best.price_cents)}<small>cheapest AU</small>`
-      : `–<small>no AU listing seen</small>`;
+      ? `${fmt(c.best.price_cents)}<small>${c.best.in_stock ? "cheapest AU" : "lowest seen · out of stock"}</small>`
+      : `–`;
     const offerBits = [];
     if (c.best) offerBits.push(`at <a href="${esc(safeUrl(c.best.url))}" rel="nofollow noopener">${esc(c.best.store)}</a> · seen ${ago(c.best.observed_at)}`);
-    if (Number.isInteger(c.active_count)) offerBits.push(`${c.active_count} active AU listing${c.active_count===1?"":"s"}`);
+    else offerBits.push("no AU listing seen yet");
+    if (Number.isInteger(c.active_count)) offerBits.push(`${c.active_count}${c.active_count_capped ? "+" : ""} active AU listing${c.active_count===1 && !c.active_count_capped ?"":"s"}`);
     if (c.usd_reference) offerBits.push(`<span class="usd">US ref ${usd(c.usd_reference)} (TCGplayer, not ranked)</span>`);
-    return `<div class="row ${c.best ? "" : "nooffer"}" role="listitem">
+    return `<div class="row ${c.best ? (c.best.in_stock ? "" : "oosrow") : "nooffer"}" role="listitem">
       ${img}
       <div><div class="name">${esc(c.name)}</div>
         <div class="set">${esc(c.set)} · #${esc(c.number || "?")}${c.variant ? " · " + esc(c.variant) : ""}</div></div>
       <div class="price">${price}</div>
-      <div class="meta">${offerBits.join(" <span>·</span> ") || "waiting for first price data"}</div>
+      <div class="meta">${offerBits.join(" <span>·</span> ")}</div>
     </div>`;
   }).join("");
 };
@@ -146,12 +157,13 @@ const render = q => {
 fetch("cards.json").then(r => { if(!r.ok) throw 0; return r.json(); }).then(d => {
   all = d.cards;
   document.getElementById("t-cards").textContent = all.length;
-  document.getElementById("t-offers").textContent = all.filter(c => c.best).length || "–";
+  document.getElementById("t-offers").textContent = all.filter(c => c.best).length;
   document.getElementById("t-updated").textContent = ago(d.generated_at);
   render("");
 }).catch(() => {
-  document.getElementById("cards").innerHTML =
-    `<div class="empty">cards.json not found yet. The card sync publishes it:<br>python -m mowka_ingest.card_sync --data-dir … --site-out cards.json</div>`;
+  status.className = "empty";
+  status.innerHTML =
+    `cards.json not found yet. The card sync publishes it:<br>python -m mowka_ingest.card_sync --data-dir … --site-out cards.json`;
 });
 
 let searchCounted = false;

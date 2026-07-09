@@ -96,17 +96,26 @@ def main() -> None:
     client_secret = os.environ.get("EBAY_CLIENT_SECRET")
     prev = gitstore.load_latest(data_dir)
     if client_id and client_secret:
+        # stalest-first so a budget-limited run rotates through the whole list
+        queue = sorted(cards, key=lambda c: counts.get(c.id, {}).get("searched_at", ""))
         offers, new_counts, searched = ebay.fetch_cards(
-            cards, client_id, client_secret, max_calls=args.max_calls)
+            queue, client_id, client_secret, max_calls=args.max_calls)
         counts.update(new_counts)
         counts_path.write_text(json.dumps(counts, indent=1) + "\n")
+        # Diff against the TRUE prev (events must carry real prev_price), then
+        # drop searched entries that got no fresh offer: that listing is gone
+        # and must not linger as "cheapest available".
+        latest, events = gitstore.apply_run(prev, offers)
+        observed = {(o.sku_id, o.store) for o in offers}
         searched_set = set(searched)
-        pruned = {k: v for k, v in prev.items()
-                  if not (v.get("source_type") == "ebay_active" and k[0] in searched_set)}
-        latest, events = gitstore.apply_run(pruned, offers)
+        stale = [k for k, v in latest.items()
+                 if v.get("source_type") == "ebay_active"
+                 and k[0] in searched_set and k not in observed]
+        for key in stale:
+            del latest[key]
         gitstore.save_run(data_dir, latest, events)
         print(f"ebay: {len(offers)} offers over {len(searched)} cards "
-              f"-> {len(events)} change events")
+              f"-> {len(events)} change events, {len(stale)} delistings")
     else:
         latest = prev
         print("ebay: EBAY_CLIENT_ID/SECRET not set — price refresh skipped")
@@ -119,6 +128,7 @@ def main() -> None:
     for card in cards:
         info = cache.get(card.catalog_ref or "", {})
         offers = sorted(by_sku.get(card.id, []), key=lambda o: o["price_cents"])
+        count_entry = counts.get(card.id) or {}
         payload["cards"].append({
             "id": card.id, "name": card.name, "set": card.set,
             "set_code": card.set_code, "number": card.number,
@@ -126,7 +136,8 @@ def main() -> None:
             "image": info.get("image_url"),
             "usd_reference": info.get("usd_market"),
             "best": rank(offers), "offers": offers,
-            "active_count": counts.get(card.id),
+            "active_count": count_entry.get("count"),
+            "active_count_capped": count_entry.get("capped", False),
         })
     site_out = pathlib.Path(args.site_out)
     site_out.parent.mkdir(parents=True, exist_ok=True)
