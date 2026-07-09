@@ -5,13 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mowka · sealed Pokémon TCG prices across Australian stores</title>
 <meta name="description" content="Live AUD prices and stock for sealed Pokémon TCG product across Australian stores. Free, open source, no pinned listings.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
+  /* canonical Mowka palette (docs/brand/mowka-design-sheet.png):
+     ink #17171C · gum leaf #6E846E · gold #DAA643 · spark #D6412B · paper #F6F5F1 */
   --paper:#f6f5f1; --card:#fffefb; --ink:#17171c; --dim:#6c6c74;
   --line:#e3e1d9; --accent:#d6412b; --stock:#1e7d4f; --oos:#a1471f;
+  --gumleaf:#6e846e; --gold:#daa643;
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
@@ -25,6 +30,7 @@ header{border-bottom:2px solid var(--ink)}
 .masthead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:26px 0 10px}
 .logo{font-weight:900;font-size:clamp(28px,6vw,44px);letter-spacing:-.02em;font-variation-settings:"wdth" 72}
 .logo span{color:var(--accent)}
+.logo .mark{height:1.1em;width:auto;vertical-align:-0.18em;margin-right:8px;mix-blend-mode:multiply}
 .oss{font:600 11px/1 "IBM Plex Mono",monospace;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
 .tag{padding:0 0 14px;color:var(--dim);max-width:56ch}
 .ticker{display:flex;gap:0;border-top:1px solid var(--line);font:600 12px/1 "IBM Plex Mono",monospace}
@@ -38,7 +44,7 @@ h2{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;
 .rule-note{font:400 12px/1.5 "IBM Plex Mono",monospace;color:var(--dim);margin-bottom:18px}
 .rule-note a{text-decoration underline}
 .row{display:grid;grid-template-columns:1fr auto;gap:4px 18px;align-items:center;
-     background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ink);
+     background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gumleaf);
      padding:14px 16px;margin-bottom:10px;transition:transform .12s ease}
 .row:hover{transform:translateX(3px)}
 .row.oosrow{border-left-color:var(--line)}
@@ -48,15 +54,17 @@ h2{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;
 .meta{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;
       font:400 12px/1.4 "IBM Plex Mono",monospace;color:var(--dim);padding-top:2px}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:baseline}
-.instock .dot{background:var(--stock)} .instock{color:var(--stock)}
+.instock .dot{background:var(--gumleaf)} .instock{color:var(--stock)}
 .oos .dot{background:var(--oos)} .oos{color:var(--oos)}
 .store a{text-decoration:underline;text-underline-offset:2px}
 .empty{border:1px dashed var(--line);padding:34px 20px;text-align:center;color:var(--dim);
        font:400 13px/1.6 "IBM Plex Mono",monospace}
 
 /* alerts band */
-.alerts{margin:34px 0;border:2px solid var(--ink);background:var(--ink);color:var(--paper);padding:22px 20px}
-.alerts h2{color:var(--paper);margin-bottom:6px}
+.alerts{margin:0 0 34px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);padding:22px 20px}
+.alerts h2{color:var(--gold);margin-bottom:6px}
+.alerts-figure{display:flex;justify-content:flex-end;padding:0 8px;margin-top:26px}
+.alerts-figure img{height:104px;width:auto;mix-blend-mode:multiply}
 .alerts p{color:#c9c8c2;font-size:13.5px;max-width:52ch;margin-bottom:14px}
 .alerts form{display:flex;gap:8px;flex-wrap:wrap}
 .alerts input[type=email]{flex:1;min-width:220px;padding:11px 12px;border:1px solid #4a4a52;background:#222228;
@@ -80,7 +88,7 @@ footer a{text-decoration:underline}
 <header>
   <div class="wrap">
     <div class="masthead">
-      <h1 class="logo">Mow<span>ka</span></h1>
+      <h1 class="logo"><img class="mark" src="assets/mowka-head.webp" alt="" width="37" height="48">Mow<span>ka</span></h1>
       <div class="oss">open source · no pinned listings · <a href="cards.html">cards beta</a></div>
     </div>
     <p class="tag">Live AUD prices and stock for sealed Pokémon TCG product across Australian stores. Free for collectors and stores. The ranking rule is public code.</p>
@@ -97,9 +105,10 @@ footer a{text-decoration:underline}
   <p class="rule-note">rank = lowest in-stock price → ties by freshest observation. Nothing pays to move up. <a href="https://github.com/zhangzhongnan928/mowka/blob/main/ingest/mowka_ingest/ranking.py" rel="noopener">The rule is public code.</a></p>
   <div id="index" role="list" aria-live="polite"><div class="empty">Loading the index…</div></div>
 
+  <div class="alerts-figure" aria-hidden="true"><img src="assets/mowka-swoop.webp" alt=""></div>
   <section class="alerts" id="alerts">
     <h2>Restock alerts</h2>
-    <p>Sealed product sells out in hours. Get one email when a tracked SKU comes back in stock, with its price against the 30-day median. No spam, unsubscribe is one click.</p>
+    <p>Sealed product sells out in hours — Mowka swoops when good stock lands. Get one email when a tracked SKU comes back in stock, with its price against the 30-day median. No spam, unsubscribe is one click.</p>
     <form id="signup" method="POST" action="https://buttondown.com/api/emails/embed-subscribe/mowka">
       <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address">
       <input type="hidden" name="embed" value="1">
