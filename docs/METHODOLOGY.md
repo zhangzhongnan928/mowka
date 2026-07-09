@@ -30,7 +30,9 @@ the next hourly run — a takedown request takes effect the same day.
 
 `catalog/skus.yaml` defines every tracked SKU with a permanent id and a list
 of lowercase aliases. A store listing matches a SKU when its title contains an
-alias (case-insensitive; the longest matching alias wins). Titles containing
+alias on token boundaries, compared punctuation-insensitively ("Prismatic
+Evolutions - Elite Trainer Box" matches; card number 161 never matches 1610 or
+a $161 price; the longest matching alias wins). Titles containing
 an exclusion term (`psa`, `graded`, `japanese`, `empty box`, …) never match:
 they are graded slabs, foreign-language variants, or empty packaging, not the
 English sealed product. Both lists are public code — deliberately dumb and
@@ -57,6 +59,29 @@ store, at most once per 24 hours per (SKU, store) to absorb inventory
 flapping. When at least 7 days of price history exist, the alert includes the
 price relative to the SKU's 30-day median (median of the daily best in-stock
 price). Signup is double-opt-in; unsubscribe is one click in every email.
+
+## Card prices
+
+The card lane tracks a curated chase list (`catalog/cards.yaml`), not the full
+card catalog. The current list is a draft sample pending curation; ids freeze
+when the curated list publishes. Card identity data — names, set codes, numbers, images — is
+consumed from an external card catalog (TCGdex) behind an adapter; Mowka does
+not build catalog data.
+
+The AUD price shown is **cheapest available right now**, ranked by the same
+public rule as sealed product, from two AU sources:
+
+- Australian store listings that match a card's number-qualified alias
+  (same Shopify ingestion, same exclusions — graded slabs and
+  foreign-language cards never match; condition is NM-by-default in v0)
+- eBay Australia active fixed-price listings in AUD, located in Australia
+  (eBay Browse API), where the listing title must match the exact card
+
+A **US market reference** (TCGplayer market price, via the card catalog) is
+displayed for context, clearly labeled. It is never blended into the AU index
+and never affects ranking. When eBay sold-price data becomes available it will
+ship as a separate "last sold (AU)" metric — also never a rank input without
+an update to this document.
 
 ## History
 

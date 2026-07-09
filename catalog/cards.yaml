@@ -1,0 +1,156 @@
+# =====================================================================
+# DRAFT — Mowka card lane chase list (SAMPLE, pending Simon's Top-200).
+# Simon's list replaces this file wholesale; ids are NOT yet frozen.
+# Every catalog_ref below was validated against TCGdex on 2026-07-09.
+#
+# Conventions:
+#   - id: card-<set_code>-<number> (set_code is the TCGdex set id with dots
+#     kept; number is the localId). Frozen only once published.
+#   - kind: card (the loader defaults to sealed when absent)
+#   - aliases are number-qualified ("umbreon ex 161") so the same Pokémon in a
+#     different set can never cross-match; matching is punctuation-free, so
+#     "Umbreon ex - 161/131" matches "umbreon ex 161".
+#   - variant is descriptive only in v0; condition is NM-default per spec.
+#   - graded listings never match (EXCLUDE_TERMS: psa/bgs/cgc/graded).
+# =====================================================================
+skus:
+  - id: card-sv08.5-161
+    name: "Umbreon ex (Prismatic Evolutions 161/131)"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: single
+    kind: card
+    catalog_ref: "sv08.5-161"
+    set_code: "sv08.5"
+    number: "161"
+    variant: "special-illustration-rare"
+    aliases: ["umbreon ex 161"]
+  - id: card-sv08.5-155
+    name: "Espeon ex (Prismatic Evolutions 155/131)"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: single
+    kind: card
+    catalog_ref: "sv08.5-155"
+    set_code: "sv08.5"
+    number: "155"
+    variant: "special-illustration-rare"
+    aliases: ["espeon ex 155"]
+  - id: card-sv08.5-156
+    name: "Sylveon ex (Prismatic Evolutions 156/131)"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: single
+    kind: card
+    catalog_ref: "sv08.5-156"
+    set_code: "sv08.5"
+    number: "156"
+    variant: "special-illustration-rare"
+    aliases: ["sylveon ex 156"]
+  - id: card-sv08.5-144
+    name: "Leafeon ex (Prismatic Evolutions 144/131)"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: single
+    kind: card
+    catalog_ref: "sv08.5-144"
+    set_code: "sv08.5"
+    number: "144"
+    variant: "special-illustration-rare"
+    aliases: ["leafeon ex 144"]
+  - id: card-sv03.5-199
+    name: "Charizard ex (151 199/165)"
+    set: "Scarlet & Violet: 151"
+    category: single
+    kind: card
+    catalog_ref: "sv03.5-199"
+    set_code: "sv03.5"
+    number: "199"
+    variant: "special-illustration-rare"
+    aliases: ["charizard ex 199"]
+  - id: card-sv03.5-205
+    name: "Mew ex (151 205/165)"
+    set: "Scarlet & Violet: 151"
+    category: single
+    kind: card
+    catalog_ref: "sv03.5-205"
+    set_code: "sv03.5"
+    number: "205"
+    variant: "hyper-rare"
+    aliases: ["mew ex 205"]
+  - id: card-sv04.5-234
+    name: "Charizard ex (Paldean Fates 234/091)"
+    set: "Scarlet & Violet: Paldean Fates"
+    category: single
+    kind: card
+    catalog_ref: "sv04.5-234"
+    set_code: "sv04.5"
+    number: "234"
+    variant: "shiny-ultra-rare"
+    aliases: ["charizard ex 234"]
+  - id: card-sv08-238
+    name: "Pikachu ex (Surging Sparks 238/191)"
+    set: "Scarlet & Violet: Surging Sparks"
+    category: single
+    kind: card
+    catalog_ref: "sv08-238"
+    set_code: "sv08"
+    number: "238"
+    variant: "special-illustration-rare"
+    aliases: ["pikachu ex 238"]
+  - id: card-sv08-239
+    name: "Latias ex (Surging Sparks 239/191)"
+    set: "Scarlet & Violet: Surging Sparks"
+    category: single
+    kind: card
+    catalog_ref: "sv08-239"
+    set_code: "sv08"
+    number: "239"
+    variant: "special-illustration-rare"
+    aliases: ["latias ex 239"]
+  - id: card-sv10-231
+    name: "Team Rocket's Mewtwo ex (Destined Rivals 231/182)"
+    set: "Scarlet & Violet: Destined Rivals"
+    category: single
+    kind: card
+    catalog_ref: "sv10-231"
+    set_code: "sv10"
+    number: "231"
+    variant: "special-illustration-rare"
+    aliases: ["team rocket s mewtwo ex 231", "rocket s mewtwo ex 231", "mewtwo ex 231"]
+  - id: card-sv10-230
+    name: "Ethan's Ho-Oh ex (Destined Rivals 230/182)"
+    set: "Scarlet & Violet: Destined Rivals"
+    category: single
+    kind: card
+    catalog_ref: "sv10-230"
+    set_code: "sv10"
+    number: "230"
+    variant: "special-illustration-rare"
+    aliases: ["ethan s ho oh ex 230", "ho oh ex 230"]
+  - id: card-sv10.5b-166
+    name: "Zekrom ex (Black Bolt 166/086)"
+    set: "Scarlet & Violet: Black Bolt"
+    category: single
+    kind: card
+    catalog_ref: "sv10.5b-166"
+    set_code: "sv10.5b"
+    number: "166"
+    variant: "special-illustration-rare"
+    aliases: ["zekrom ex 166"]
+  - id: card-sv10.5w-166
+    name: "Reshiram ex (White Flare 166/086)"
+    set: "Scarlet & Violet: White Flare"
+    category: single
+    kind: card
+    catalog_ref: "sv10.5w-166"
+    set_code: "sv10.5w"
+    number: "166"
+    variant: "special-illustration-rare"
+    aliases: ["reshiram ex 166"]
+  - id: card-me01-178
+    name: "Mega Gardevoir ex (Mega Evolution 178/132)"   # VERIFY: 178 vs 187 — which slot is the SIR chase
+    set: "Mega Evolution"
+    category: single
+    kind: card
+    catalog_ref: "me01-178"
+    set_code: "me01"
+    number: "178"
+    variant: "special-illustration-rare"
+    aliases: ["mega gardevoir ex 178"]

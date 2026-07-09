@@ -56,16 +56,22 @@ def apply_run(prev: dict[Key, dict], offers: list[Offer],
     Returns (new_latest, events). An event records the offer plus what it
     changed from; prev_* are None on first sighting.
 
-    active_stores: the set of store names currently configured. Entries from
-    stores no longer configured are evicted — this is how a same-day takedown
-    actually leaves the site. None (dev paths) keeps everything: a transient
-    fetch failure must never erase real observations.
+    active_stores: the set of store names currently configured. Shopify-store
+    entries no longer configured are evicted — this is how a same-day takedown
+    actually leaves the site. Scoped to source_type == "store_shopify" so the
+    sealed cron never evicts marketplace offers it doesn't manage (the card
+    sync prunes its own stale eBay entries before calling). None (dev paths)
+    keeps everything: a transient fetch failure must never erase real
+    observations.
     """
     current = dedupe_run(offers)
-    if active_stores is None:
-        latest = dict(prev)
-    else:
-        latest = {k: v for k, v in prev.items() if k[1] in active_stores}
+    latest: dict[Key, dict] = {}
+    for k, v in prev.items():
+        source = v.get("source_type", "store_shopify")
+        if (active_stores is not None and source == "store_shopify"
+                and k[1] not in active_stores):
+            continue
+        latest[k] = v
     events: list[dict] = []
     for key, offer in sorted(current.items()):
         old = prev.get(key)

@@ -42,6 +42,30 @@ def weekly_visitors() -> int | None:
     raise ValueError(f"unrecognized GoatCounter response keys: {sorted(payload)}")
 
 
+def weekly_card_lookups() -> int | None:
+    """Retention metric (no gate threshold): cards-page views + card-search
+    events over the last 7 days."""
+    site = os.environ.get("GOATCOUNTER_SITE")
+    token = os.environ.get("GOATCOUNTER_API_TOKEN")
+    if not site or not token:
+        return None
+    end = datetime.now(timezone.utc)
+    start = end - timedelta(days=7)
+    resp = requests.get(
+        f"https://{site}.goatcounter.com/api/v0/stats/hits",
+        params={"start": start.strftime("%Y-%m-%d"), "end": end.strftime("%Y-%m-%d")},
+        headers={"Authorization": f"Bearer {token}"},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    total = 0
+    for hit in resp.json().get("hits", []):
+        path = hit.get("path", "")
+        if "cards" in path or path == "card-search":
+            total += hit.get("count", 0)
+    return total
+
+
 def subscriber_count() -> int | None:
     key = os.environ.get("BUTTONDOWN_API_KEY")
     if not key:
@@ -67,6 +91,7 @@ def main() -> None:
     out_path = sys.argv[1] if len(sys.argv) > 1 else "KILLGATE.md"
     visitors = weekly_visitors()
     subscribers = subscriber_count()
+    card_lookups = weekly_card_lookups()
     passed = (visitors is not None and visitors >= VISITOR_GATE) or (
         subscribers is not None and subscribers >= SIGNUP_GATE)
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -80,6 +105,9 @@ def main() -> None:
         "|---|---|---|---|",
         fmt(visitors, VISITOR_GATE, "Weekly visitors (GoatCounter, last 7d)"),
         fmt(subscribers, SIGNUP_GATE, "Alert subscribers (Buttondown)"),
+        "",
+        "Retention (tracked, no gate): weekly card lookups/searches = "
+        + ("not configured" if card_lookups is None else str(card_lookups)),
         "",
     ]
     with open(out_path, "w") as f:

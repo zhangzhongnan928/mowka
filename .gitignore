@@ -5,3 +5,4 @@ mowka.db
 # PRIVATE by policy: engine is open, target list is not
 ingest/stores.yaml
 .DS_Store
+.gstack/
