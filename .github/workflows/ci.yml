@@ -2,7 +2,7 @@ name: ci
 on:
   push:
     branches: [main]
-    paths-ignore: ["site/data.json"]   # hourly bot data refreshes don't need CI
+    paths-ignore: ["site/data.json", "site/cards.json"]   # bot data refreshes don't need CI
   pull_request:
 jobs:
   test:

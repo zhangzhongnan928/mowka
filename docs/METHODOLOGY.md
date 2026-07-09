@@ -58,6 +58,28 @@ flapping. When at least 7 days of price history exist, the alert includes the
 price relative to the SKU's 30-day median (median of the daily best in-stock
 price). Signup is double-opt-in; unsubscribe is one click in every email.
 
+## Card prices
+
+The card lane tracks a curated chase list (`catalog/cards.yaml`), not the full
+card catalog. Card identity data — names, set codes, numbers, images — is
+consumed from an external card catalog (TCGdex) behind an adapter; Mowka does
+not build catalog data.
+
+The AUD price shown is **cheapest available right now**, ranked by the same
+public rule as sealed product, from two AU sources:
+
+- Australian store listings that match a card's number-qualified alias
+  (same Shopify ingestion, same exclusions — graded slabs and
+  foreign-language cards never match; condition is NM-by-default in v0)
+- eBay Australia active fixed-price listings in AUD, located in Australia
+  (eBay Browse API), where the listing title must match the exact card
+
+A **US market reference** (TCGplayer market price, via the card catalog) is
+displayed for context, clearly labeled. It is never blended into the AU index
+and never affects ranking. When eBay sold-price data becomes available it will
+ship as a separate "last sold (AU)" metric — also never a rank input without
+an update to this document.
+
 ## History
 
 Price observations are stored as an append-only change log in a git

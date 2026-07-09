@@ -65,6 +65,9 @@ def gather_offers(args, catalog):
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--catalog", default=str(ROOT / "catalog" / "skus.yaml"))
+    ap.add_argument("--cards", default=str(ROOT / "catalog" / "cards.yaml"),
+                    help="chase-card list; store listings matching a card land in "
+                         "the same data store (card lane reads them from there)")
     ap.add_argument("--stores", default=None)
     ap.add_argument("--fixture", default=None)
     ap.add_argument("--data-dir", required=True, help="private data repo's data/ dir")
@@ -74,8 +77,10 @@ def main() -> None:
     if not args.stores and not args.fixture:
         ap.error("provide --stores or --fixture")
 
-    catalog = load_catalog(args.catalog)
-    offers, active_stores = gather_offers(args, catalog)
+    catalog = load_catalog(args.catalog)  # sealed SKUs: the sealed page and alerts
+    cards = (load_catalog(args.cards)
+             if args.cards and pathlib.Path(args.cards).exists() else [])
+    offers, active_stores = gather_offers(args, catalog + cards)
 
     prev = gitstore.load_latest(args.data_dir)
     latest, events = gitstore.apply_run(prev, offers, active_stores)
@@ -88,7 +93,10 @@ def main() -> None:
     site_out.write_text(json.dumps(payload, indent=1) + "\n")
     print(f"exported {len(payload['products'])} products -> {site_out}")
 
-    restock_events = alerts.filter_flapping(gitstore.restocks(events), args.data_dir)
+    # Restock alerts are a sealed-lane product; card restocks don't email anyone.
+    sealed_ids = {s.id for s in catalog}
+    sealed_restocks = [e for e in gitstore.restocks(events) if e["sku_id"] in sealed_ids]
+    restock_events = alerts.filter_flapping(sealed_restocks, args.data_dir)
     if restock_events:
         history = gitstore.load_events(args.data_dir)
         medians = {e["sku_id"]: gitstore.median_30d(history, e["sku_id"], e["observed_at"])

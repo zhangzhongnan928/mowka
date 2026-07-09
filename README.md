@@ -61,9 +61,19 @@ the same day. We link every price to its source.
 Instrumented with GoatCounter (privacy-friendly, no cookies) + Buttondown;
 `scripts/kill_gate.py` renders the dashboard.
 
+## Card lane (beta)
+
+Mowka's long-term core: AUD prices for every card, starting with a curated
+chase list (`catalog/cards.yaml`, Simon's Top-200). Card identity comes from an
+external catalog behind the `mowka_ingest/cardcatalog` adapter (TCGdex first —
+single-maintainer insurance). AU prices come from store listings (same ingest)
+plus eBay AU active listings (`mowka_ingest/sources/ebay.py`, dormant until an
+eBay keyset is configured). `mowka_ingest.card_sync` builds `site/cards.json`;
+the same `rank()` picks the cheapest available. USD reference is display-only.
+
 ## Roadmap
 
-1. **Now:** sealed index + restock alerts. Kill gate above.
+1. **Now:** sealed index + restock alerts (kill gate above) + card lane beta.
 2. Phone scan app: identify card → price → collection tracker (also the future sorter brain).
 3. UGC price reports, reputation-weighted. Points ledger, token-convertible schema, no token at launch.
 4. Commerce, ranked by the same public rule.

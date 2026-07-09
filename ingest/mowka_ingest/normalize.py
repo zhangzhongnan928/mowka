@@ -15,14 +15,21 @@ def load_catalog(path: str) -> list[Sku]:
     return [
         Sku(
             id=s["id"], name=s["name"], set=s["set"],
-            category=s["category"], aliases=tuple(a.lower() for a in s.get("aliases", ())),
+            category=s["category"], aliases=tuple(_clean(a) for a in s.get("aliases", ())),
+            kind=s.get("kind", "sealed"),
+            catalog_ref=s.get("catalog_ref"), set_code=s.get("set_code"),
+            number=s.get("number"), variant=s.get("variant"),
+            language=s.get("language", "EN"),
         )
         for s in raw["skus"]
     ]
 
 
 def _clean(title: str) -> str:
-    return re.sub(r"\s+", " ", title).strip().lower()
+    """Lowercase, strip punctuation to spaces, collapse whitespace. Punctuation
+    varies wildly across listings ("161/131", "ETB - Prismatic", "Ultra-Premium");
+    matching happens in punctuation-free space for both titles and aliases."""
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", title.lower())).strip()
 
 
 # Listings whose title contains an alias but is NOT the English sealed product:
