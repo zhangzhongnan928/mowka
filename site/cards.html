@@ -5,13 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mowka · card prices — cheapest available in AUD</title>
 <meta name="description" content="AUD prices for chase Pokémon TCG cards across Australian listings. Cheapest available now, active listing counts, and a labeled US reference.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
+  /* canonical Mowka palette (docs/brand/mowka-design-sheet.png):
+     ink #17171C · gum leaf #6E846E · gold #DAA643 · spark #D6412B · paper #F6F5F1 */
   --paper:#f6f5f1; --card:#fffefb; --ink:#17171c; --dim:#6c6c74;
   --line:#e3e1d9; --accent:#d6412b; --stock:#1e7d4f; --oos:#a1471f;
+  --gumleaf:#6e846e; --gold:#daa643;
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
@@ -24,6 +29,11 @@ header{border-bottom:2px solid var(--ink)}
 .logo{font-weight:900;font-size:clamp(28px,6vw,44px);letter-spacing:-.02em;font-variation-settings:"wdth" 72}
 .logo a{text-decoration:none}
 .logo span{color:var(--accent)}
+.logo .mark{height:1.1em;width:auto;vertical-align:-0.18em;margin-right:8px;mix-blend-mode:multiply}
+.head-flex{display:flex;align-items:flex-end;gap:20px}
+.head-flex > div{flex:1;min-width:0}
+.hero-art{height:170px;width:auto;mix-blend-mode:multiply;margin-bottom:-2px}
+@media(max-width:720px){.hero-art{display:none}}
 .oss{font:600 11px/1 "IBM Plex Mono",monospace;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
 .oss a{color:var(--ink)}
 .tag{padding:0 0 14px;color:var(--dim);max-width:56ch}
@@ -73,14 +83,19 @@ input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offs
 <header>
   <div class="wrap">
     <div class="masthead">
-      <h1 class="logo"><a href="index.html">Mow<span>ka</span></a> <span style="color:var(--dim);font-size:.45em;font-weight:600">cards beta</span></h1>
+      <h1 class="logo"><a href="index.html"><img class="mark" src="assets/mowka-head.webp" alt="" width="37" height="48">Mow<span>ka</span></a> <span style="color:var(--dim);font-size:.45em;font-weight:600">cards beta</span></h1>
       <div class="oss"><a href="index.html">sealed index</a> · cards</div>
     </div>
-    <p class="tag">Cheapest available AUD price for chase Pokémon TCG cards, from Australian listings. Near-mint, English-language listings only; graded cards are excluded. The US figure is a reference, never part of the AU ranking.</p>
-    <div class="ticker" id="ticker">
-      <div>Cards tracked <b id="t-cards">–</b></div>
-      <div>With AU offers <b id="t-offers">–</b></div>
-      <div>Updated <b id="t-updated">–</b></div>
+    <div class="head-flex">
+      <div>
+        <p class="tag">Cheapest available AUD price for chase Pokémon TCG cards, from Australian listings. Near-mint, English-language listings only; graded cards are excluded. The US figure is a reference, never part of the AU ranking.</p>
+        <div class="ticker" id="ticker">
+          <div>Cards tracked <b id="t-cards">–</b></div>
+          <div>With AU offers <b id="t-offers">–</b></div>
+          <div>Updated <b id="t-updated">–</b></div>
+        </div>
+      </div>
+      <img class="hero-art" src="assets/mowka-hero.webp" alt="Mowka, the bush fossicker, proudly holding a prized card">
     </div>
   </div>
 </header>
