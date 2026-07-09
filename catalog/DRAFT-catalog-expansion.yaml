@@ -1,0 +1,304 @@
+# =====================================================================
+# DRAFT — Pokémon TCG (AU) sealed-product price index: catalog expansion
+# Pending review and approval by Simon. Do NOT publish without sign-off.
+# NOT loaded by the pipeline: the live catalog is skus.yaml. To publish,
+# Simon reviews, then this content replaces skus.yaml.
+# ids are stable slugs (<series-prefix>-<set-slug>-<category>) and become
+# PERMANENT on publish — rename only while in draft.
+#
+# Research date: July 2026. Covers TPCi international (English) products
+# actively sold/traded in the Australian market.
+# Conventions:
+#   - category: one of etb, booster-box, booster-bundle, collection-box, tin, blister
+#   - aliases: lowercase substrings for title matching (case-insensitive
+#     substring, longest alias wins). All aliases are set-qualified to avoid
+#     cross-set false matches; bare set names/numbers (e.g. "151") avoided.
+#   - Black Bolt / White Flare keep the sv- prefix: they are official
+#     "Scarlet & Violet" expansions and collectors use the full set names
+#     (no bb-/wf- shorthand in common store-listing usage).
+#   - Special sets (151, Paldean Fates, Shrouded Fable, Prismatic Evolutions,
+#     Black Bolt, White Flare, Ascended Heroes) have NO standard booster box;
+#     packs retail via booster bundles/ETBs — no booster-box SKU for them.
+#   - Mega Evolution era adds "Enhanced Booster Box" (36 packs + stamped promo)
+#     alongside the regular display.
+#   - Pokemon Center-exclusive ETBs deliberately excluded (separate price tier,
+#     not AU retail).
+#   - Not yet included (unreleased as of draft): Storm Emerald (ME06, ~Sep 2026)
+#     and the 30th Celebration anniversary set — add after release.
+# =====================================================================
+skus:
+  # ---- existing entries (ids frozen) --------------------------------
+  - id: sv-prismatic-evolutions-etb
+    name: "Prismatic Evolutions Elite Trainer Box"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: etb
+    aliases: ["prismatic evolutions elite trainer", "prismatic evolutions etb"]
+  - id: sv-prismatic-evolutions-booster-bundle
+    name: "Prismatic Evolutions Booster Bundle"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: booster-bundle
+    aliases: ["prismatic evolutions booster bundle"]
+  - id: sv-surging-sparks-booster-box
+    name: "Surging Sparks Booster Box"
+    set: "Scarlet & Violet: Surging Sparks"
+    category: booster-box
+    aliases: ["surging sparks booster box", "surging sparks booster display", "surging sparks bb36"]
+  - id: sv-151-etb
+    name: "151 Elite Trainer Box"
+    set: "Scarlet & Violet: 151"
+    category: etb
+    aliases: ["151 elite trainer", "151 etb"]
+  - id: sv-destined-rivals-booster-box
+    name: "Destined Rivals Booster Box"
+    set: "Scarlet & Violet: Destined Rivals"
+    category: booster-box
+    aliases: ["destined rivals booster box", "destined rivals booster display", "destined rivals bb36"]
+  - id: me-mega-evolution-etb
+    name: "Mega Evolution Elite Trainer Box"
+    set: "Mega Evolution"
+    category: etb
+    aliases: ["mega evolution elite trainer", "mega evolution etb"]
+
+  # ---- Scarlet & Violet era (2023-2025) ------------------------------
+  - id: sv-151-booster-bundle
+    name: "151 Booster Bundle"
+    set: "Scarlet & Violet: 151"
+    category: booster-bundle
+    aliases: ["151 booster bundle"]
+  - id: sv-151-upc
+    name: "151 Ultra-Premium Collection"
+    set: "Scarlet & Violet: 151"
+    category: collection-box
+    aliases: ["151 ultra premium", "151 ultra-premium", "151 upc"]
+  - id: sv-paldean-fates-etb
+    name: "Paldean Fates Elite Trainer Box"
+    set: "Scarlet & Violet: Paldean Fates"
+    category: etb
+    aliases: ["paldean fates elite trainer", "paldean fates etb"]
+  - id: sv-paldean-fates-booster-bundle
+    name: "Paldean Fates Booster Bundle"
+    set: "Scarlet & Violet: Paldean Fates"
+    category: booster-bundle
+    aliases: ["paldean fates booster bundle"]
+  - id: sv-temporal-forces-etb
+    name: "Temporal Forces Elite Trainer Box"     # two box arts (Walking Wake / Iron Leaves) priced as one SKU
+    set: "Scarlet & Violet: Temporal Forces"
+    category: etb
+    aliases: ["temporal forces elite trainer", "temporal forces etb"]
+  - id: sv-temporal-forces-booster-box
+    name: "Temporal Forces Booster Box"
+    set: "Scarlet & Violet: Temporal Forces"
+    category: booster-box
+    aliases: ["temporal forces booster box", "temporal forces booster display", "temporal forces bb36"]
+  - id: sv-twilight-masquerade-etb
+    name: "Twilight Masquerade Elite Trainer Box"
+    set: "Scarlet & Violet: Twilight Masquerade"
+    category: etb
+    aliases: ["twilight masquerade elite trainer", "twilight masquerade etb"]
+  - id: sv-twilight-masquerade-booster-box
+    name: "Twilight Masquerade Booster Box"
+    set: "Scarlet & Violet: Twilight Masquerade"
+    category: booster-box
+    aliases: ["twilight masquerade booster box", "twilight masquerade booster display", "twilight masquerade bb36"]
+  - id: sv-shrouded-fable-etb
+    name: "Shrouded Fable Elite Trainer Box"
+    set: "Scarlet & Violet: Shrouded Fable"
+    category: etb
+    aliases: ["shrouded fable elite trainer", "shrouded fable etb"]
+  - id: sv-shrouded-fable-booster-bundle
+    name: "Shrouded Fable Booster Bundle"
+    set: "Scarlet & Violet: Shrouded Fable"
+    category: booster-bundle
+    aliases: ["shrouded fable booster bundle"]
+  - id: sv-stellar-crown-etb
+    name: "Stellar Crown Elite Trainer Box"
+    set: "Scarlet & Violet: Stellar Crown"
+    category: etb
+    aliases: ["stellar crown elite trainer", "stellar crown etb"]
+  - id: sv-stellar-crown-booster-box
+    name: "Stellar Crown Booster Box"
+    set: "Scarlet & Violet: Stellar Crown"
+    category: booster-box
+    aliases: ["stellar crown booster box", "stellar crown booster display", "stellar crown bb36"]
+  - id: sv-surging-sparks-etb
+    name: "Surging Sparks Elite Trainer Box"
+    set: "Scarlet & Violet: Surging Sparks"
+    category: etb
+    aliases: ["surging sparks elite trainer", "surging sparks etb"]
+  - id: sv-surging-sparks-booster-bundle
+    name: "Surging Sparks Booster Bundle"
+    set: "Scarlet & Violet: Surging Sparks"
+    category: booster-bundle
+    aliases: ["surging sparks booster bundle"]
+  - id: sv-prismatic-evolutions-spc
+    name: "Prismatic Evolutions Super Premium Collection"   # released 2025-05-16
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: collection-box
+    aliases: ["prismatic evolutions super premium", "prismatic evolutions super-premium", "prismatic evolutions spc"]
+  - id: sv-prismatic-evolutions-accessory-pouch
+    name: "Prismatic Evolutions Accessory Pouch Special Collection"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: collection-box
+    aliases: ["prismatic evolutions accessory pouch", "accessory pouch special collection"]
+  - id: sv-prismatic-evolutions-surprise-box
+    name: "Prismatic Evolutions Surprise Box"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: collection-box
+    aliases: ["prismatic evolutions surprise box"]
+  - id: sv-prismatic-evolutions-binder-collection
+    name: "Prismatic Evolutions Binder Collection"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: collection-box
+    aliases: ["prismatic evolutions binder"]
+  - id: sv-journey-together-etb
+    name: "Journey Together Elite Trainer Box"
+    set: "Scarlet & Violet: Journey Together"
+    category: etb
+    aliases: ["journey together elite trainer", "journey together etb"]
+  - id: sv-journey-together-booster-box
+    name: "Journey Together Booster Box"
+    set: "Scarlet & Violet: Journey Together"
+    category: booster-box
+    aliases: ["journey together booster box", "journey together booster display", "journey together bb36"]
+  - id: sv-journey-together-booster-bundle
+    name: "Journey Together Booster Bundle"
+    set: "Scarlet & Violet: Journey Together"
+    category: booster-bundle
+    aliases: ["journey together booster bundle"]
+  - id: sv-destined-rivals-etb
+    name: "Destined Rivals Elite Trainer Box"
+    set: "Scarlet & Violet: Destined Rivals"
+    category: etb
+    aliases: ["destined rivals elite trainer", "destined rivals etb"]
+  - id: sv-destined-rivals-booster-bundle
+    name: "Destined Rivals Booster Bundle"
+    set: "Scarlet & Violet: Destined Rivals"
+    category: booster-bundle
+    aliases: ["destined rivals booster bundle"]
+  - id: sv-black-bolt-etb
+    name: "Black Bolt Elite Trainer Box"
+    set: "Scarlet & Violet: Black Bolt"
+    category: etb
+    aliases: ["black bolt elite trainer", "black bolt etb"]
+  - id: sv-black-bolt-booster-bundle
+    name: "Black Bolt Booster Bundle"          # primary pack product; no standard retail booster box exists for this set
+    set: "Scarlet & Violet: Black Bolt"
+    category: booster-bundle
+    aliases: ["black bolt booster bundle"]
+  - id: sv-white-flare-etb
+    name: "White Flare Elite Trainer Box"
+    set: "Scarlet & Violet: White Flare"
+    category: etb
+    aliases: ["white flare elite trainer", "white flare etb"]
+  - id: sv-white-flare-booster-bundle
+    name: "White Flare Booster Bundle"         # primary pack product; no standard retail booster box exists for this set
+    set: "Scarlet & Violet: White Flare"
+    category: booster-bundle
+    aliases: ["white flare booster bundle"]
+  - id: sv-black-bolt-white-flare-victini-collection
+    name: "Unova Victini Illustration Collection"   # shared Black Bolt / White Flare product
+    set: "Scarlet & Violet: Black Bolt & White Flare"
+    category: collection-box
+    aliases: ["victini illustration collection", "unova victini"]
+
+  # ---- Mega Evolution era (2025-2026) --------------------------------
+  - id: me-mega-evolution-booster-box
+    name: "Mega Evolution Booster Box"
+    # VERIFY: official display is 36 packs, but 18-pack "booster display" listings
+    # also circulate at some retailers — confirm which configuration the index tracks.
+    set: "Mega Evolution"
+    category: booster-box
+    aliases: ["mega evolution booster box", "mega evolution booster display"]
+  - id: me-mega-evolution-enhanced-booster-box
+    name: "Mega Evolution Enhanced Booster Box"     # 36 packs + stamped Bulbasaur illustration-rare promo
+    # NOTE for Simon: some stores title Phantasmal Flames enhanced boxes as
+    # "Mega Evolution Enhanced Booster Box - Phantasmal Flames", which this alias
+    # would also match; review before publish.
+    set: "Mega Evolution"
+    category: booster-box
+    aliases: ["mega evolution enhanced booster"]
+  - id: me-mega-evolution-booster-bundle
+    name: "Mega Evolution Booster Bundle"
+    set: "Mega Evolution"
+    category: booster-bundle
+    aliases: ["mega evolution booster bundle"]
+  - id: me-mega-charizard-x-upc
+    name: "Mega Charizard X ex Ultra-Premium Collection"   # standalone promo product released alongside Phantasmal Flames (2025-11-14)
+    set: "Mega Evolution: Phantasmal Flames"
+    category: collection-box
+    aliases: ["mega charizard x ex ultra premium", "mega charizard x ultra premium", "mega charizard x ultra-premium", "charizard x upc"]
+  - id: me-phantasmal-flames-etb
+    name: "Phantasmal Flames Elite Trainer Box"
+    set: "Mega Evolution: Phantasmal Flames"
+    category: etb
+    aliases: ["phantasmal flames elite trainer", "phantasmal flames etb"]
+  - id: me-phantasmal-flames-booster-box
+    name: "Phantasmal Flames Booster Box"       # 36 packs
+    set: "Mega Evolution: Phantasmal Flames"
+    category: booster-box
+    aliases: ["phantasmal flames booster box", "phantasmal flames booster display"]
+  - id: me-phantasmal-flames-enhanced-booster-box
+    name: "Phantasmal Flames Enhanced Booster Box"
+    set: "Mega Evolution: Phantasmal Flames"
+    category: booster-box
+    aliases: ["phantasmal flames enhanced booster"]
+  - id: me-phantasmal-flames-booster-bundle
+    name: "Phantasmal Flames Booster Bundle"
+    set: "Mega Evolution: Phantasmal Flames"
+    category: booster-bundle
+    aliases: ["phantasmal flames booster bundle"]
+  - id: me-ascended-heroes-etb
+    name: "Ascended Heroes Elite Trainer Box"   # special set (no booster box); ETB released 2026-02-20
+    set: "Mega Evolution: Ascended Heroes"
+    category: etb
+    aliases: ["ascended heroes elite trainer", "ascended heroes etb"]
+  - id: me-ascended-heroes-booster-bundle
+    name: "Ascended Heroes Booster Bundle"      # VERIFY: staggered release reported 2026-04-24 — confirm AU availability
+    set: "Mega Evolution: Ascended Heroes"
+    category: booster-bundle
+    aliases: ["ascended heroes booster bundle"]
+  - id: me-perfect-order-etb
+    name: "Perfect Order Elite Trainer Box"     # released 2026-03-27
+    set: "Mega Evolution: Perfect Order"
+    category: etb
+    aliases: ["perfect order elite trainer", "perfect order etb"]
+  - id: me-perfect-order-booster-box
+    name: "Perfect Order Booster Box"           # 36 packs
+    set: "Mega Evolution: Perfect Order"
+    category: booster-box
+    aliases: ["perfect order booster box", "perfect order booster display"]
+  - id: me-perfect-order-booster-bundle
+    name: "Perfect Order Booster Bundle"
+    set: "Mega Evolution: Perfect Order"
+    category: booster-bundle
+    aliases: ["perfect order booster bundle"]
+  - id: me-chaos-rising-etb
+    name: "Chaos Rising Elite Trainer Box"      # released 2026-05-22
+    set: "Mega Evolution: Chaos Rising"
+    category: etb
+    aliases: ["chaos rising elite trainer", "chaos rising etb"]
+  - id: me-chaos-rising-booster-box
+    name: "Chaos Rising Booster Box"            # 36 packs
+    set: "Mega Evolution: Chaos Rising"
+    category: booster-box
+    aliases: ["chaos rising booster box", "chaos rising booster display"]
+  - id: me-chaos-rising-booster-bundle
+    name: "Chaos Rising Booster Bundle"
+    set: "Mega Evolution: Chaos Rising"
+    category: booster-bundle
+    aliases: ["chaos rising booster bundle"]
+  - id: me-pitch-black-etb
+    name: "Pitch Black Elite Trainer Box"       # releases 2026-07-17; preorders actively traded at draft time
+    set: "Mega Evolution: Pitch Black"
+    category: etb
+    aliases: ["pitch black elite trainer", "pitch black etb"]
+  - id: me-pitch-black-booster-box
+    name: "Pitch Black Booster Box"             # 36 packs; releases 2026-07-17
+    set: "Mega Evolution: Pitch Black"
+    category: booster-box
+    aliases: ["pitch black booster box", "pitch black booster display"]
+  - id: me-pitch-black-booster-bundle
+    name: "Pitch Black Booster Bundle"          # releases 2026-07-17
+    set: "Mega Evolution: Pitch Black"
+    category: booster-bundle
+    aliases: ["pitch black booster bundle"]

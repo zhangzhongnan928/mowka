@@ -42,7 +42,8 @@ def main() -> None:
             if store["type"] != "shopify":
                 print(f"skip {store['name']}: unsupported type {store['type']}")
                 continue
-            got = shopify.fetch(store["name"], store["base_url"], catalog)
+            got = shopify.fetch(store["name"], store["base_url"], catalog,
+                                contact=cfg.get("contact"))
             print(f"{store['name']}: {len(got)} offers")
             offers.extend(got)
     else:

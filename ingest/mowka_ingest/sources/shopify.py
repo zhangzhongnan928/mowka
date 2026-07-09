@@ -18,7 +18,8 @@ import requests
 from ..models import Offer, Sku
 from ..normalize import match
 
-UA = "MowkaAU/0.1 (+contact: set-me-in-stores.yaml) price index bot"
+UA_TEMPLATE = "MowkaAU/0.1 (+contact: {contact}) price index bot"
+UA = UA_TEMPLATE.format(contact="set-me-in-stores.yaml")
 
 
 def _now() -> str:
@@ -54,10 +55,10 @@ def parse_products(payload: dict, store: str, base_url: str, catalog: list[Sku])
 
 
 def fetch(store: str, base_url: str, catalog: list[Sku], max_pages: int = 8,
-          session: requests.Session | None = None) -> list[Offer]:
+          session: requests.Session | None = None, contact: str | None = None) -> list[Offer]:
     """Fetch live prices from one Shopify store."""
     s = session or requests.Session()
-    s.headers["User-Agent"] = UA
+    s.headers["User-Agent"] = UA_TEMPLATE.format(contact=contact) if contact else UA
     offers: list[Offer] = []
     for page in range(1, max_pages + 1):
         url = f"{base_url.rstrip('/')}/products.json?limit=250&page={page}"

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mowka · sealed TCG prices, tracked locally</title>
+<title>Mowka · sealed Pokémon TCG prices across Australian stores</title>
 <meta name="description" content="Live AUD prices and stock for sealed Pokémon TCG product across Australian stores. Free, open source, no pinned listings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,7 +80,7 @@ footer a{text-decoration:underline}
 <header>
   <div class="wrap">
     <div class="masthead">
-      <div class="logo">Price<span>Dex</span> AU</div>
+      <div class="logo">Mow<span>ka</span></div>
       <div class="oss">open source · no pinned listings</div>
     </div>
     <p class="tag">Live AUD prices and stock for sealed Pokémon TCG product across Australian stores. Free for collectors and stores. The ranking rule is public code.</p>
@@ -94,17 +94,18 @@ footer a{text-decoration:underline}
 
 <main class="wrap">
   <h2>Cheapest in stock, right now</h2>
-  <p class="rule-note">rank = lowest in-stock price → ties by freshest observation. Nothing pays to move up.</p>
+  <p class="rule-note">rank = lowest in-stock price → ties by freshest observation. Nothing pays to move up. <a href="https://github.com/zhangzhongnan928/mowka/blob/main/ingest/mowka_ingest/ranking.py" rel="noopener">The rule is public code.</a></p>
   <div id="index"><div class="empty">Loading the index…</div></div>
 
   <section class="alerts" id="alerts">
     <h2>Restock alerts</h2>
-    <p>Sealed product sells out in hours. Get one email when a tracked SKU comes back in stock under its 30-day median. No spam, unsubscribe is one click.</p>
-    <form id="signup" method="POST" action="#">
+    <p>Sealed product sells out in hours. Get one email when a tracked SKU comes back in stock, with its price against the 30-day median. No spam, unsubscribe is one click.</p>
+    <form id="signup" method="POST" action="https://buttondown.com/api/emails/embed-subscribe/mowka">
       <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address">
+      <input type="hidden" name="embed" value="1">
       <button type="submit">Alert me</button>
     </form>
-    <p class="fine" id="signup-note">We store your email for alerts only. Never sold, never shared.</p>
+    <p class="fine" id="signup-note">Double opt-in: confirm via the email we send you. Unsubscribe is one click in every alert. We store your email for alerts only — never sold, never shared.</p>
   </section>
 </main>
 
@@ -112,7 +113,7 @@ footer a{text-decoration:underline}
   <div class="wrap">
     Mowka is open source: the app and the ranking algorithm are public; the store list and dataset are not.
     Prices belong to the stores that set them; we link every offer to its source.
-    <a href="#" rel="noopener">GitHub</a> · <a href="#" rel="noopener">Methodology</a> · Contact: <a href="#">hello@[domain]</a>
+    <a href="https://github.com/zhangzhongnan928/mowka" rel="noopener">GitHub</a> · <a href="https://github.com/zhangzhongnan928/mowka/blob/main/docs/METHODOLOGY.md" rel="noopener">Methodology</a> · Contact: <a href="https://github.com/zhangzhongnan928/mowka/issues">GitHub issues</a>
   </div>
 </footer>
 
@@ -164,5 +165,6 @@ document.getElementById("signup").addEventListener("submit", e => {
   }
 });
 </script>
+<script data-goatcounter="https://mowka.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
