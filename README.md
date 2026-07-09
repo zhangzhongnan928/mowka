@@ -1,12 +1,19 @@
 # Mowka
 
-Free, open-source price index for sealed Pokémon TCG product in Australia.
-One page, AUD prices, live stock, restock alerts. Built by collectors, for collectors and stores.
+Free, open-source AUD price index for Pokémon TCG in Australia — **every card
+and sealed product**. Live stock, restock alerts, honest prices. Built by
+collectors, for collectors and stores.
+
+The sealed index with restock alerts is the acquisition wedge and ships first;
+card-level pricing (beta, `site/cards.html`) is the platform's core long-term
+asset.
 
 ## Why
 
-Sealed product is supply-constrained and AU prices are scattered across dozens of stores.
-Nobody publishes a neutral AUD reference. We do, and the ranking rule is public code:
+Sealed product is supply-constrained and AU prices are scattered across dozens
+of stores; card prices barely exist in AUD outside USD-mirror charts. Nobody
+publishes a neutral AUD reference for either. We do, and the ranking rule is
+public code:
 
 > **best offer = lowest in-stock price; if nothing is in stock, lowest price flagged out of stock;
 > ties broken by freshest observation.**
