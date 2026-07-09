@@ -105,5 +105,6 @@ cd ingest && python -m pytest -q
 
 ## License
 
-Recommended: **AGPL-3.0** for the engine and site (closed-source clones of the service must open their changes);
-catalog data in this repo under CC BY-SA 4.0. MIT is the friendlier-to-contributors alternative; decide before first release.
+**AGPL-3.0** for the engine and site ([LICENSE](LICENSE)): run a modified clone
+of the service and you must open your changes. Catalog data in this repo
+(`catalog/*.yaml`) is additionally available under CC BY-SA 4.0.
