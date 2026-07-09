@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PriceDex AU · sealed TCG prices, tracked locally</title>
+<meta name="description" content="Live AUD prices and stock for sealed Pokémon TCG product across Australian stores. Free, open source, no pinned listings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f5f1; --card:#fffefb; --ink:#17171c; --dim:#6c6c74;
+  --line:#e3e1d9; --accent:#d6412b; --stock:#1e7d4f; --oos:#a1471f;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--paper);color:var(--ink);font:15px/1.55 "Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 100}
+a{color:inherit}
+.wrap{max-width:880px;margin:0 auto;padding:0 18px}
+
+/* header */
+header{border-bottom:2px solid var(--ink)}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:26px 0 10px}
+.logo{font-weight:900;font-size:clamp(28px,6vw,44px);letter-spacing:-.02em;font-variation-settings:"wdth" 72}
+.logo span{color:var(--accent)}
+.oss{font:600 11px/1 "IBM Plex Mono",monospace;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+.tag{padding:0 0 14px;color:var(--dim);max-width:56ch}
+.ticker{display:flex;gap:0;border-top:1px solid var(--line);font:600 12px/1 "IBM Plex Mono",monospace}
+.ticker div{padding:10px 16px 10px 0;margin-right:16px;border-right:1px solid var(--line)}
+.ticker div:last-child{border-right:0}
+.ticker b{color:var(--accent);font-weight:600}
+
+/* index table */
+main{padding:26px 0 8px}
+h2{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}
+.rule-note{font:400 12px/1.5 "IBM Plex Mono",monospace;color:var(--dim);margin-bottom:18px}
+.rule-note a{text-decoration underline}
+.row{display:grid;grid-template-columns:1fr auto;gap:4px 18px;align-items:center;
+     background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ink);
+     padding:14px 16px;margin-bottom:10px;transition:transform .12s ease}
+.row:hover{transform:translateX(3px)}
+.row.oosrow{border-left-color:var(--line)}
+.name{font-weight:700;font-size:16px;letter-spacing:-.01em}
+.set{font:400 11.5px/1.4 "IBM Plex Mono",monospace;color:var(--dim)}
+.price{font:600 22px/1 "IBM Plex Mono",monospace;text-align:right;font-feature-settings:"tnum"}
+.meta{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;
+      font:400 12px/1.4 "IBM Plex Mono",monospace;color:var(--dim);padding-top:2px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:baseline}
+.instock .dot{background:var(--stock)} .instock{color:var(--stock)}
+.oos .dot{background:var(--oos)} .oos{color:var(--oos)}
+.store a{text-decoration:underline;text-underline-offset:2px}
+.empty{border:1px dashed var(--line);padding:34px 20px;text-align:center;color:var(--dim);
+       font:400 13px/1.6 "IBM Plex Mono",monospace}
+
+/* alerts band */
+.alerts{margin:34px 0;border:2px solid var(--ink);background:var(--ink);color:var(--paper);padding:22px 20px}
+.alerts h2{color:var(--paper);margin-bottom:6px}
+.alerts p{color:#c9c8c2;font-size:13.5px;max-width:52ch;margin-bottom:14px}
+.alerts form{display:flex;gap:8px;flex-wrap:wrap}
+.alerts input[type=email]{flex:1;min-width:220px;padding:11px 12px;border:1px solid #4a4a52;background:#222228;
+  color:var(--paper);font:400 14px "IBM Plex Mono",monospace}
+.alerts button{padding:11px 18px;border:0;background:var(--accent);color:#fff;font:700 13px "Archivo",sans-serif;
+  text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.alerts button:hover{filter:brightness(1.08)}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fine{font:400 11px/1.5 "IBM Plex Mono",monospace;color:#8f8e96;margin-top:10px}
+
+footer{border-top:1px solid var(--line);padding:18px 0 40px;color:var(--dim);
+       font:400 12px/1.7 "IBM Plex Mono",monospace}
+footer a{text-decoration:underline}
+@media(max-width:560px){
+  .price{font-size:19px}
+  .ticker{flex-wrap:wrap}.ticker div{border-right:0;padding:8px 0 0;margin-right:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="masthead">
+      <div class="logo">Price<span>Dex</span> AU</div>
+      <div class="oss">open source · no pinned listings</div>
+    </div>
+    <p class="tag">Live AUD prices and stock for sealed Pokémon TCG product across Australian stores. Free for collectors and stores. The ranking rule is public code.</p>
+    <div class="ticker" id="ticker">
+      <div>SKUs tracked <b id="t-skus">–</b></div>
+      <div>Stores tracked <b id="t-stores">–</b></div>
+      <div>Updated <b id="t-updated">–</b></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>Cheapest in stock, right now</h2>
+  <p class="rule-note">rank = lowest in-stock price → ties by freshest observation. Nothing pays to move up.</p>
+  <div id="index"><div class="empty">Loading the index…</div></div>
+
+  <section class="alerts" id="alerts">
+    <h2>Restock alerts</h2>
+    <p>Sealed product sells out in hours. Get one email when a tracked SKU comes back in stock under its 30-day median. No spam, unsubscribe is one click.</p>
+    <form id="signup" method="POST" action="#">
+      <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address">
+      <button type="submit">Alert me</button>
+    </form>
+    <p class="fine" id="signup-note">We store your email for alerts only. Never sold, never shared.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    PriceDex AU is open source: the app and the ranking algorithm are public; the store list and dataset are not.
+    Prices belong to the stores that set them; we link every offer to its source.
+    <a href="#" rel="noopener">GitHub</a> · <a href="#" rel="noopener">Methodology</a> · Contact: <a href="#">hello@[domain]</a>
+  </div>
+</footer>
+
+<script>
+const fmt = c => (c/100).toLocaleString("en-AU",{style:"currency",currency:"AUD"});
+const ago = iso => {
+  const m = Math.max(0, Math.round((Date.now() - new Date(iso))/60000));
+  return m < 60 ? `${m}m ago` : m < 1440 ? `${Math.round(m/60)}h ago` : `${Math.round(m/1440)}d ago`;
+};
+
+fetch("data.json").then(r => { if(!r.ok) throw 0; return r.json(); }).then(d => {
+  const el = document.getElementById("index");
+  const stores = new Set();
+  d.products.forEach(p => p.offers.forEach(o => stores.add(o.store)));
+  document.getElementById("t-skus").textContent = d.products.length;
+  document.getElementById("t-stores").textContent = stores.size || "–";
+  document.getElementById("t-updated").textContent = ago(d.generated_at);
+
+  const rows = d.products
+    .filter(p => p.best)
+    .sort((a,b) => (b.best.in_stock - a.best.in_stock) || a.name.localeCompare(b.name))
+    .map(p => {
+      const b = p.best;
+      const stock = b.in_stock
+        ? `<span class="instock"><span class="dot"></span>in stock</span>`
+        : `<span class="oos"><span class="dot"></span>out of stock everywhere</span>`;
+      return `<div class="row ${b.in_stock ? "" : "oosrow"}">
+        <div><div class="name">${p.name}</div><div class="set">${p.set}</div></div>
+        <div class="price">${fmt(b.price_cents)}</div>
+        <div class="meta">${stock}
+          <span class="store">at <a href="${b.url}" rel="nofollow noopener">${b.store}</a></span>
+          <span>${p.stores_tracked} store${p.stores_tracked===1?"":"s"} tracked</span>
+          <span>seen ${ago(b.observed_at)}</span></div>
+      </div>`;
+    });
+  el.innerHTML = rows.length ? rows.join("") :
+    `<div class="empty">No offers in the index yet. Run the ingest pipeline, then scripts/export_site.py.</div>`;
+}).catch(() => {
+  document.getElementById("index").innerHTML =
+    `<div class="empty">data.json not found. Run the pipeline:<br>python -m pricedex_ingest.run --fixture tests/fixtures/shopify_products.json<br>python scripts/export_site.py</div>`;
+});
+
+document.getElementById("signup").addEventListener("submit", e => {
+  const form = e.target;
+  if (form.action.endsWith("#")) {   // no backend wired yet
+    e.preventDefault();
+    document.getElementById("signup-note").textContent =
+      "Alert backend not wired yet: set the form action to your Buttondown/Formspree endpoint in index.html.";
+  }
+});
+</script>
+</body>
+</html>

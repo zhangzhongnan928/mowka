@@ -1,0 +1,27 @@
+{
+  "products": [
+    {
+      "title": "Pokemon TCG: Scarlet & Violet Prismatic Evolutions Elite Trainer Box",
+      "handle": "prismatic-evolutions-etb",
+      "variants": [
+        {"price": "134.95", "available": true},
+        {"price": "129.00", "available": false}
+      ]
+    },
+    {
+      "title": "Pokemon TCG Surging Sparks Booster Display (36 Packs)",
+      "handle": "surging-sparks-booster-box",
+      "variants": [{"price": "289.00", "available": false}]
+    },
+    {
+      "title": "Dragon Shield Matte Sleeves - Black (100)",
+      "handle": "dragon-shield-black",
+      "variants": [{"price": "18.95", "available": true}]
+    },
+    {
+      "title": "Pokemon 151 ETB Elite Trainer Box - Scarlet & Violet 3.5",
+      "handle": "pokemon-151-etb",
+      "variants": [{"price": "119.95", "available": true}]
+    }
+  ]
+}

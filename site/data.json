@@ -1,0 +1,113 @@
+{
+ "generated_at": "2026-07-09T01:34:51+00:00",
+ "products": [
+  {
+   "id": "sv-prismatic-evolutions-etb",
+   "name": "Prismatic Evolutions Elite Trainer Box",
+   "set": "Scarlet & Violet: Prismatic Evolutions",
+   "category": "etb",
+   "best": {
+    "sku_id": "sv-prismatic-evolutions-etb",
+    "store": "Fixture Store",
+    "url": "https://fixture.example/products/prismatic-evolutions-etb",
+    "price_cents": 13495,
+    "currency": "AUD",
+    "in_stock": 1,
+    "observed_at": "2026-07-09T01:34:51+00:00"
+   },
+   "offers": [
+    {
+     "sku_id": "sv-prismatic-evolutions-etb",
+     "store": "Fixture Store",
+     "url": "https://fixture.example/products/prismatic-evolutions-etb",
+     "price_cents": 13495,
+     "currency": "AUD",
+     "in_stock": 1,
+     "observed_at": "2026-07-09T01:34:51+00:00"
+    }
+   ],
+   "stores_tracked": 1
+  },
+  {
+   "id": "sv-prismatic-evolutions-booster-bundle",
+   "name": "Prismatic Evolutions Booster Bundle",
+   "set": "Scarlet & Violet: Prismatic Evolutions",
+   "category": "booster-bundle",
+   "best": null,
+   "offers": [],
+   "stores_tracked": 0
+  },
+  {
+   "id": "sv-surging-sparks-booster-box",
+   "name": "Surging Sparks Booster Box",
+   "set": "Scarlet & Violet: Surging Sparks",
+   "category": "booster-box",
+   "best": {
+    "sku_id": "sv-surging-sparks-booster-box",
+    "store": "Fixture Store",
+    "url": "https://fixture.example/products/surging-sparks-booster-box",
+    "price_cents": 28900,
+    "currency": "AUD",
+    "in_stock": 0,
+    "observed_at": "2026-07-09T01:34:51+00:00"
+   },
+   "offers": [
+    {
+     "sku_id": "sv-surging-sparks-booster-box",
+     "store": "Fixture Store",
+     "url": "https://fixture.example/products/surging-sparks-booster-box",
+     "price_cents": 28900,
+     "currency": "AUD",
+     "in_stock": 0,
+     "observed_at": "2026-07-09T01:34:51+00:00"
+    }
+   ],
+   "stores_tracked": 1
+  },
+  {
+   "id": "sv-151-etb",
+   "name": "151 Elite Trainer Box",
+   "set": "Scarlet & Violet: 151",
+   "category": "etb",
+   "best": {
+    "sku_id": "sv-151-etb",
+    "store": "Fixture Store",
+    "url": "https://fixture.example/products/pokemon-151-etb",
+    "price_cents": 11995,
+    "currency": "AUD",
+    "in_stock": 1,
+    "observed_at": "2026-07-09T01:34:51+00:00"
+   },
+   "offers": [
+    {
+     "sku_id": "sv-151-etb",
+     "store": "Fixture Store",
+     "url": "https://fixture.example/products/pokemon-151-etb",
+     "price_cents": 11995,
+     "currency": "AUD",
+     "in_stock": 1,
+     "observed_at": "2026-07-09T01:34:51+00:00"
+    }
+   ],
+   "stores_tracked": 1
+  },
+  {
+   "id": "sv-destined-rivals-booster-box",
+   "name": "Destined Rivals Booster Box",
+   "set": "Scarlet & Violet: Destined Rivals",
+   "category": "booster-box",
+   "best": null,
+   "offers": [],
+   "stores_tracked": 0
+  },
+  {
+   "id": "me-mega-evolution-etb",
+   "name": "Mega Evolution Elite Trainer Box",
+   "set": "Mega Evolution",
+   "category": "etb",
+   "best": null,
+   "offers": [],
+   "stores_tracked": 0
+  }
+ ]
+}

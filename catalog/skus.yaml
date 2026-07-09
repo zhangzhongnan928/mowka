@@ -1,0 +1,34 @@
+# PriceDex AU - seed catalog of tracked sealed SKUs.
+# PUBLIC file. Add SKUs freely; matching is via aliases (case-insensitive substring).
+# id: stable slug, never change once published (price history keys on it).
+skus:
+  - id: sv-prismatic-evolutions-etb
+    name: "Prismatic Evolutions Elite Trainer Box"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: etb
+    aliases: ["prismatic evolutions elite trainer", "prismatic evolutions etb"]
+  - id: sv-prismatic-evolutions-booster-bundle
+    name: "Prismatic Evolutions Booster Bundle"
+    set: "Scarlet & Violet: Prismatic Evolutions"
+    category: booster-bundle
+    aliases: ["prismatic evolutions booster bundle"]
+  - id: sv-surging-sparks-booster-box
+    name: "Surging Sparks Booster Box"
+    set: "Scarlet & Violet: Surging Sparks"
+    category: booster-box
+    aliases: ["surging sparks booster box", "surging sparks booster display"]
+  - id: sv-151-etb
+    name: "151 Elite Trainer Box"
+    set: "Scarlet & Violet: 151"
+    category: etb
+    aliases: ["151 elite trainer box", "pokemon 151 etb"]
+  - id: sv-destined-rivals-booster-box
+    name: "Destined Rivals Booster Box"
+    set: "Scarlet & Violet: Destined Rivals"
+    category: booster-box
+    aliases: ["destined rivals booster box", "destined rivals booster display"]
+  - id: me-mega-evolution-etb
+    name: "Mega Evolution Elite Trainer Box"
+    set: "Mega Evolution"
+    category: etb
+    aliases: ["mega evolution elite trainer", "mega evolution etb"]

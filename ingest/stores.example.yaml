@@ -1,0 +1,11 @@
+# COPY to stores.yaml (gitignored) and fill in real targets.
+# stores.yaml is PRIVATE by policy: the open repo ships the engine, not the target list.
+# contact: put a real email in User-Agent via this field before running against live stores.
+contact: "you@example.com"
+stores:
+  - name: "Example Card Store"
+    type: shopify
+    base_url: "https://example-store.myshopify.com"
+  # - name: "Another AU Store"
+  #   type: shopify
+  #   base_url: "https://store.com.au"
