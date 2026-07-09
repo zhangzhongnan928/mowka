@@ -1,4 +1,4 @@
-# PriceDex AU
+# Mowka
 
 Free, open-source price index for sealed Pokémon TCG product in Australia.
 One page, AUD prices, live stock, restock alerts. Built by collectors, for collectors and stores.
@@ -28,7 +28,7 @@ The engine is open so the ranking is verifiable. The dataset is the project's as
 
 ```bash
 cd ingest && pip install -r requirements.txt
-python -m pricedex_ingest.run --fixture tests/fixtures/shopify_products.json
+python -m mowka_ingest.run --fixture tests/fixtures/shopify_products.json
 cd .. && python scripts/export_site.py
 cd site && python -m http.server 8080   # open http://localhost:8080
 ```
@@ -37,7 +37,7 @@ cd site && python -m http.server 8080   # open http://localhost:8080
 
 ```bash
 cp ingest/stores.example.yaml ingest/stores.yaml   # fill in real stores + contact email
-cd ingest && python -m pricedex_ingest.run --stores stores.yaml
+cd ingest && python -m mowka_ingest.run --stores stores.yaml
 cd .. && python scripts/export_site.py
 ```
 

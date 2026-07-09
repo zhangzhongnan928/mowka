@@ -18,7 +18,7 @@ import requests
 from ..models import Offer, Sku
 from ..normalize import match
 
-UA = "PriceDexAU/0.1 (+contact: set-me-in-stores.yaml) price index bot"
+UA = "MowkaAU/0.1 (+contact: set-me-in-stores.yaml) price index bot"
 
 
 def _now() -> str:

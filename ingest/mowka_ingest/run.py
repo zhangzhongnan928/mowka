@@ -1,7 +1,7 @@
 """Pipeline entrypoint.
 
-Live mode:     python -m pricedex_ingest.run --stores stores.yaml
-Fixture mode:  python -m pricedex_ingest.run --fixture tests/fixtures/shopify_products.json
+Live mode:     python -m mowka_ingest.run --stores stores.yaml
+Fixture mode:  python -m mowka_ingest.run --fixture tests/fixtures/shopify_products.json
 Fixture mode exists so anyone can run the full pipeline offline in 5 seconds.
 """
 import argparse
@@ -16,7 +16,7 @@ from .sources import shopify
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DEFAULT_CATALOG = ROOT / "catalog" / "skus.yaml"
-DEFAULT_DB = ROOT / "pricedex.db"
+DEFAULT_DB = ROOT / "mowka.db"
 
 
 def main() -> None:

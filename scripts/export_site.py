@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "ingest"))
 
-from pricedex_ingest import db  # noqa: E402
+from mowka_ingest import db  # noqa: E402
 
 
 def rank(offers: list[dict]) -> dict | None:
@@ -47,4 +47,4 @@ def main(db_path: str, out_path: str) -> None:
 
 
 if __name__ == "__main__":
-    main(str(ROOT / "pricedex.db"), str(ROOT / "site" / "data.json"))
+    main(str(ROOT / "mowka.db"), str(ROOT / "site" / "data.json"))

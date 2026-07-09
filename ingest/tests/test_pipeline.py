@@ -1,9 +1,9 @@
 import json
 import pathlib
 
-from pricedex_ingest import db
-from pricedex_ingest.normalize import load_catalog, match
-from pricedex_ingest.sources.shopify import parse_products
+from mowka_ingest import db
+from mowka_ingest.normalize import load_catalog, match
+from mowka_ingest.sources.shopify import parse_products
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 CATALOG = ROOT / "catalog" / "skus.yaml"

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PriceDex AU · sealed TCG prices, tracked locally</title>
+<title>Mowka · sealed TCG prices, tracked locally</title>
 <meta name="description" content="Live AUD prices and stock for sealed Pokémon TCG product across Australian stores. Free, open source, no pinned listings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -110,7 +110,7 @@ footer a{text-decoration:underline}
 
 <footer>
   <div class="wrap">
-    PriceDex AU is open source: the app and the ranking algorithm are public; the store list and dataset are not.
+    Mowka is open source: the app and the ranking algorithm are public; the store list and dataset are not.
     Prices belong to the stores that set them; we link every offer to its source.
     <a href="#" rel="noopener">GitHub</a> · <a href="#" rel="noopener">Methodology</a> · Contact: <a href="#">hello@[domain]</a>
   </div>
@@ -152,7 +152,7 @@ fetch("data.json").then(r => { if(!r.ok) throw 0; return r.json(); }).then(d => 
     `<div class="empty">No offers in the index yet. Run the ingest pipeline, then scripts/export_site.py.</div>`;
 }).catch(() => {
   document.getElementById("index").innerHTML =
-    `<div class="empty">data.json not found. Run the pipeline:<br>python -m pricedex_ingest.run --fixture tests/fixtures/shopify_products.json<br>python scripts/export_site.py</div>`;
+    `<div class="empty">data.json not found. Run the pipeline:<br>python -m mowka_ingest.run --fixture tests/fixtures/shopify_products.json<br>python scripts/export_site.py</div>`;
 });
 
 document.getElementById("signup").addEventListener("submit", e => {
