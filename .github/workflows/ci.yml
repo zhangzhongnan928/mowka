@@ -1,0 +1,25 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ingest/requirements.txt
+      - run: pip install -r ingest/requirements.txt
+      - run: python -m pytest -q
+        working-directory: ingest
+      - name: fixture smoke run (full pipeline offline)
+        run: |
+          python -m mowka_ingest.snapshot \
+            --fixture tests/fixtures/shopify_products.json \
+            --data-dir /tmp/smoke-data --site-out /tmp/smoke-data.json
+          python -c "import json; d=json.load(open('/tmp/smoke-data.json')); assert d['products'], 'empty payload'"
+        working-directory: ingest
