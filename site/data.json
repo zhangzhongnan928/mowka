@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-09T01:34:51+00:00",
+ "generated_at": "2026-07-09T05:08:55+00:00",
  "products": [
   {
    "id": "sv-prismatic-evolutions-etb",
@@ -8,25 +8,34 @@
    "category": "etb",
    "best": {
     "sku_id": "sv-prismatic-evolutions-etb",
-    "store": "Fixture Store",
-    "url": "https://fixture.example/products/prismatic-evolutions-etb",
-    "price_cents": 13495,
+    "store": "ACE Collectibles",
+    "url": "https://www.acecollectibles.com.au/products/pokemon-tcg-scarlet-violet-8-5-prismatic-evolutions-elite-trainer-box",
+    "price_cents": 35000,
     "currency": "AUD",
-    "in_stock": 1,
-    "observed_at": "2026-07-09T01:34:51+00:00"
+    "in_stock": true,
+    "observed_at": "2026-07-09T05:07:46+00:00"
    },
    "offers": [
     {
      "sku_id": "sv-prismatic-evolutions-etb",
-     "store": "Fixture Store",
-     "url": "https://fixture.example/products/prismatic-evolutions-etb",
-     "price_cents": 13495,
+     "store": "GD Games",
+     "url": "https://www.gdgames.com.au/products/prismatic-evolution-elite-trainer-box-pokemon-tcg-preorder",
+     "price_cents": 9995,
      "currency": "AUD",
-     "in_stock": 1,
-     "observed_at": "2026-07-09T01:34:51+00:00"
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:01:36+00:00"
+    },
+    {
+     "sku_id": "sv-prismatic-evolutions-etb",
+     "store": "ACE Collectibles",
+     "url": "https://www.acecollectibles.com.au/products/pokemon-tcg-scarlet-violet-8-5-prismatic-evolutions-elite-trainer-box",
+     "price_cents": 35000,
+     "currency": "AUD",
+     "in_stock": true,
+     "observed_at": "2026-07-09T05:07:46+00:00"
     }
    ],
-   "stores_tracked": 1
+   "stores_tracked": 2
   },
   {
    "id": "sv-prismatic-evolutions-booster-bundle",
@@ -44,25 +53,34 @@
    "category": "booster-box",
    "best": {
     "sku_id": "sv-surging-sparks-booster-box",
-    "store": "Fixture Store",
-    "url": "https://fixture.example/products/surging-sparks-booster-box",
-    "price_cents": 28900,
+    "store": "GD Games",
+    "url": "https://www.gdgames.com.au/products/scarlet-violet-surging-sparks-booster-box-pokemon-tcg-preorder",
+    "price_cents": 32400,
     "currency": "AUD",
-    "in_stock": 0,
-    "observed_at": "2026-07-09T01:34:51+00:00"
+    "in_stock": false,
+    "observed_at": "2026-07-09T05:01:36+00:00"
    },
    "offers": [
     {
      "sku_id": "sv-surging-sparks-booster-box",
-     "store": "Fixture Store",
-     "url": "https://fixture.example/products/surging-sparks-booster-box",
-     "price_cents": 28900,
+     "store": "GD Games",
+     "url": "https://www.gdgames.com.au/products/scarlet-violet-surging-sparks-booster-box-pokemon-tcg-preorder",
+     "price_cents": 32400,
      "currency": "AUD",
-     "in_stock": 0,
-     "observed_at": "2026-07-09T01:34:51+00:00"
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:01:36+00:00"
+    },
+    {
+     "sku_id": "sv-surging-sparks-booster-box",
+     "store": "Kollecter",
+     "url": "https://www.kollecter.com.au/products/pre-order-pokemon-tcg-scarlet-violet-surging-sparks-booster-box",
+     "price_cents": 36000,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:03:33+00:00"
     }
    ],
-   "stores_tracked": 1
+   "stores_tracked": 2
   },
   {
    "id": "sv-151-etb",
@@ -71,43 +89,106 @@
    "category": "etb",
    "best": {
     "sku_id": "sv-151-etb",
-    "store": "Fixture Store",
-    "url": "https://fixture.example/products/pokemon-151-etb",
-    "price_cents": 11995,
+    "store": "Drop Store",
+    "url": "https://dropstore.com.au/products/pokemon-scarlet-violet-151-elite-trainer-box",
+    "price_cents": 94000,
     "currency": "AUD",
-    "in_stock": 1,
-    "observed_at": "2026-07-09T01:34:51+00:00"
+    "in_stock": true,
+    "observed_at": "2026-07-09T05:04:52+00:00"
    },
    "offers": [
     {
      "sku_id": "sv-151-etb",
-     "store": "Fixture Store",
-     "url": "https://fixture.example/products/pokemon-151-etb",
-     "price_cents": 11995,
+     "store": "GD Games",
+     "url": "https://www.gdgames.com.au/products/scarlet-violet-151-elite-trainer-box-pokemon-tcg",
+     "price_cents": 9995,
      "currency": "AUD",
-     "in_stock": 1,
-     "observed_at": "2026-07-09T01:34:51+00:00"
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:01:40+00:00"
+    },
+    {
+     "sku_id": "sv-151-etb",
+     "store": "Drop Store",
+     "url": "https://dropstore.com.au/products/pokemon-scarlet-violet-151-elite-trainer-box",
+     "price_cents": 94000,
+     "currency": "AUD",
+     "in_stock": true,
+     "observed_at": "2026-07-09T05:04:52+00:00"
     }
    ],
-   "stores_tracked": 1
+   "stores_tracked": 2
   },
   {
    "id": "sv-destined-rivals-booster-box",
    "name": "Destined Rivals Booster Box",
    "set": "Scarlet & Violet: Destined Rivals",
    "category": "booster-box",
-   "best": null,
-   "offers": [],
-   "stores_tracked": 0
+   "best": {
+    "sku_id": "sv-destined-rivals-booster-box",
+    "store": "GD Games",
+    "url": "https://www.gdgames.com.au/products/scarlet-violet-destined-rivals-booster-box-pokemon-tcg-preorder",
+    "price_cents": 32400,
+    "currency": "AUD",
+    "in_stock": false,
+    "observed_at": "2026-07-09T05:01:36+00:00"
+   },
+   "offers": [
+    {
+     "sku_id": "sv-destined-rivals-booster-box",
+     "store": "GD Games",
+     "url": "https://www.gdgames.com.au/products/scarlet-violet-destined-rivals-booster-box-pokemon-tcg-preorder",
+     "price_cents": 32400,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:01:36+00:00"
+    },
+    {
+     "sku_id": "sv-destined-rivals-booster-box",
+     "store": "ACE Collectibles",
+     "url": "https://www.acecollectibles.com.au/products/pokemon-tcg-scarlet-violet-destined-rivals-booster",
+     "price_cents": 100000,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:07:15+00:00"
+    }
+   ],
+   "stores_tracked": 2
   },
   {
    "id": "me-mega-evolution-etb",
    "name": "Mega Evolution Elite Trainer Box",
    "set": "Mega Evolution",
    "category": "etb",
-   "best": null,
-   "offers": [],
-   "stores_tracked": 0
+   "best": {
+    "sku_id": "me-mega-evolution-etb",
+    "store": "GD Games",
+    "url": "https://www.gdgames.com.au/products/mega-evolution-elite-trainer-box-pokemon-tcg",
+    "price_cents": 9900,
+    "currency": "AUD",
+    "in_stock": false,
+    "observed_at": "2026-07-09T05:01:35+00:00"
+   },
+   "offers": [
+    {
+     "sku_id": "me-mega-evolution-etb",
+     "store": "GD Games",
+     "url": "https://www.gdgames.com.au/products/mega-evolution-elite-trainer-box-pokemon-tcg",
+     "price_cents": 9900,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:01:35+00:00"
+    },
+    {
+     "sku_id": "me-mega-evolution-etb",
+     "store": "ACE Collectibles",
+     "url": "https://www.acecollectibles.com.au/products/pokemon-tcg-mega-evolution-elite-trainer-box",
+     "price_cents": 19000,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:07:46+00:00"
+    }
+   ],
+   "stores_tracked": 2
   }
  ]
 }

@@ -1,4 +1,4 @@
-# PriceDex AU - seed catalog of tracked sealed SKUs.
+# Mowka - seed catalog of tracked sealed SKUs.
 # PUBLIC file. Add SKUs freely; matching is via aliases (case-insensitive substring).
 # id: stable slug, never change once published (price history keys on it).
 skus:

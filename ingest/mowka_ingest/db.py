@@ -2,6 +2,7 @@
 import sqlite3
 
 from .models import Offer, Sku
+from .ranking import rank
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS products (
@@ -58,4 +59,12 @@ def latest_offers(conn: sqlite3.Connection) -> list[dict]:
         """
     ).fetchall()
     keys = ["sku_id", "store", "url", "price_cents", "currency", "in_stock", "observed_at"]
-    return [dict(zip(keys, r)) for r in rows]
+    offers = [dict(zip(keys, r)) for r in rows]
+    for o in offers:
+        o["in_stock"] = bool(o["in_stock"])  # match the gitstore path's JSON booleans
+    # Several listings at one store can match one SKU and tie on observed_at;
+    # keep the ranked best per (sku, store), same as gitstore.dedupe_run.
+    grouped: dict[tuple[str, str], list[dict]] = {}
+    for o in offers:
+        grouped.setdefault((o["sku_id"], o["store"]), []).append(o)
+    return [rank(group) for _, group in sorted(grouped.items())]

@@ -1,7 +1,7 @@
 """Pipeline entrypoint.
 
-Live mode:     python -m pricedex_ingest.run --stores stores.yaml
-Fixture mode:  python -m pricedex_ingest.run --fixture tests/fixtures/shopify_products.json
+Live mode:     python -m mowka_ingest.run --stores stores.yaml
+Fixture mode:  python -m mowka_ingest.run --fixture tests/fixtures/shopify_products.json
 Fixture mode exists so anyone can run the full pipeline offline in 5 seconds.
 """
 import argparse
@@ -16,7 +16,7 @@ from .sources import shopify
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DEFAULT_CATALOG = ROOT / "catalog" / "skus.yaml"
-DEFAULT_DB = ROOT / "pricedex.db"
+DEFAULT_DB = ROOT / "mowka.db"
 
 
 def main() -> None:
@@ -38,12 +38,14 @@ def main() -> None:
                                         base_url="https://fixture.example", catalog=catalog)
     elif args.stores:
         cfg = yaml.safe_load(pathlib.Path(args.stores).read_text())
-        for store in cfg["stores"]:
-            if store["type"] != "shopify":
-                print(f"skip {store['name']}: unsupported type {store['type']}")
+        for store in cfg.get("stores", []):
+            name = store.get("name") or store.get("base_url") or "<unnamed>"
+            if store.get("type") != "shopify":
+                print(f"skip {name}: unsupported type {store.get('type')}")
                 continue
-            got = shopify.fetch(store["name"], store["base_url"], catalog)
-            print(f"{store['name']}: {len(got)} offers")
+            got = shopify.fetch(name, store["base_url"], catalog,
+                                contact=cfg.get("contact"))
+            print(f"{name}: {len(got)} offers")
             offers.extend(got)
     else:
         ap.error("provide --stores or --fixture")

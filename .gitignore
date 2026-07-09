@@ -1,7 +1,7 @@
 __pycache__/
 *.pyc
 .venv/
-pricedex.db
+mowka.db
 # PRIVATE by policy: engine is open, target list is not
 ingest/stores.yaml
 .DS_Store
