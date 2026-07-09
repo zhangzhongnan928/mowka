@@ -1,12 +1,19 @@
 # Mowka
 
-Free, open-source price index for sealed Pokémon TCG product in Australia.
-One page, AUD prices, live stock, restock alerts. Built by collectors, for collectors and stores.
+Free, open-source AUD price index for Pokémon TCG in Australia — **every card
+and sealed product**. Live stock, restock alerts, honest prices. Built by
+collectors, for collectors and stores.
+
+The sealed index with restock alerts is the acquisition wedge and ships first;
+card-level pricing (beta, `site/cards.html`) is the platform's core long-term
+asset.
 
 ## Why
 
-Sealed product is supply-constrained and AU prices are scattered across dozens of stores.
-Nobody publishes a neutral AUD reference. We do, and the ranking rule is public code:
+Sealed product is supply-constrained and AU prices are scattered across dozens
+of stores; card prices barely exist in AUD outside USD-mirror charts. Nobody
+publishes a neutral AUD reference for either. We do, and the ranking rule is
+public code:
 
 > **best offer = lowest in-stock price; if nothing is in stock, lowest price flagged out of stock;
 > ties broken by freshest observation.**
@@ -44,8 +51,17 @@ cd ingest && python -m mowka_ingest.snapshot --stores stores.yaml \
 
 `--data-dir` is the git-as-database directory (in production, the private data
 repo): `latest.json` current state, `events/YYYY-MM.jsonl` append-only change
-log, `alerts/` restock-alert history and outbox. Restock alerts send via
-Buttondown when `BUTTONDOWN_API_KEY` is set, otherwise they land in the outbox.
+log, `alerts/` restock-alert history and outbox. The snapshot only QUEUES
+restock alerts (to `alerts/outbox/`); delivery is a separate step so an email
+can never leave before its flap-guard state is committed:
+
+```bash
+BUTTONDOWN_API_KEY=... python -m mowka_ingest.send_outbox --data-dir /path/to/data
+```
+
+Without the key, `send_outbox` is a no-op and the queue survives for the next
+run; queued alerts older than 6 hours are retired unsent (restocks are
+time-sensitive).
 
 `mowka_ingest.run` + `scripts/export_site.py` remain as the SQLite local/dev path.
 
@@ -59,7 +75,8 @@ the same day. We link every price to its source.
 
 500 weekly visitors OR 100 restock-alert signups by end of week 4 after launch.
 Instrumented with GoatCounter (privacy-friendly, no cookies) + Buttondown;
-`scripts/kill_gate.py` renders the dashboard.
+`scripts/kill_gate.py` renders the dashboard, which also tracks weekly card
+lookups/searches as the card-lane retention metric (no gate threshold).
 
 ## Card lane (beta)
 
