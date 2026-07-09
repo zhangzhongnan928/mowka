@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-09T05:12:22+00:00",
+ "generated_at": "2026-07-09T05:23:26+00:00",
  "products": [
   {
    "id": "sv-prismatic-evolutions-etb",
@@ -13,7 +13,7 @@
     "price_cents": 35000,
     "currency": "AUD",
     "in_stock": true,
-    "observed_at": "2026-07-09T05:07:46+00:00"
+    "observed_at": "2026-07-09T05:22:59+00:00"
    },
    "offers": [
     {
@@ -23,7 +23,43 @@
      "price_cents": 9995,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-09T05:01:36+00:00"
+     "observed_at": "2026-07-09T05:17:59+00:00"
+    },
+    {
+     "sku_id": "sv-prismatic-evolutions-etb",
+     "store": "Eclipse Games",
+     "url": "https://eclipsegames.com.au/products/pokemon-tcg-prismatic-evolutions-elite-trainer-box-etb",
+     "price_cents": 9995,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:23:11+00:00"
+    },
+    {
+     "sku_id": "sv-prismatic-evolutions-etb",
+     "store": "TC Game",
+     "url": "https://tcgame.com.au/products/pokemon-tcg-scarlet-violet-prismatic-evolutions-elite-trainer-box-etb",
+     "price_cents": 10500,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:21:12+00:00"
+    },
+    {
+     "sku_id": "sv-prismatic-evolutions-etb",
+     "store": "Kawaii Collector",
+     "url": "https://kawaiicollector.com.au/products/scarlet-violet-8-5-prismatic-evolutions-elite-trainer-box-pokemon-tcg",
+     "price_cents": 14999,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:21:25+00:00"
+    },
+    {
+     "sku_id": "sv-prismatic-evolutions-etb",
+     "store": "Collectible Madness",
+     "url": "https://collectiblemadness.com.au/products/pokemon-tcg-prismatic-evolutions-elite-trainer-box",
+     "price_cents": 23900,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:15:45+00:00"
     },
     {
      "sku_id": "sv-prismatic-evolutions-etb",
@@ -32,19 +68,46 @@
      "price_cents": 35000,
      "currency": "AUD",
      "in_stock": true,
-     "observed_at": "2026-07-09T05:07:46+00:00"
+     "observed_at": "2026-07-09T05:22:59+00:00"
     }
    ],
-   "stores_tracked": 2
+   "stores_tracked": 6
   },
   {
    "id": "sv-prismatic-evolutions-booster-bundle",
    "name": "Prismatic Evolutions Booster Bundle",
    "set": "Scarlet & Violet: Prismatic Evolutions",
    "category": "booster-bundle",
-   "best": null,
-   "offers": [],
-   "stores_tracked": 0
+   "best": {
+    "sku_id": "sv-prismatic-evolutions-booster-bundle",
+    "store": "Kawaii Collector",
+    "url": "https://kawaiicollector.com.au/products/8-5-prismatic-evolutions-booster-bundle-pokemon-tcg",
+    "price_cents": 5999,
+    "currency": "AUD",
+    "in_stock": false,
+    "observed_at": "2026-07-09T05:21:25+00:00"
+   },
+   "offers": [
+    {
+     "sku_id": "sv-prismatic-evolutions-booster-bundle",
+     "store": "Kawaii Collector",
+     "url": "https://kawaiicollector.com.au/products/8-5-prismatic-evolutions-booster-bundle-pokemon-tcg",
+     "price_cents": 5999,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:21:25+00:00"
+    },
+    {
+     "sku_id": "sv-prismatic-evolutions-booster-bundle",
+     "store": "Collectible Madness",
+     "url": "https://collectiblemadness.com.au/products/pokemon-tcg-prismatic-evolutions-booster-bundle",
+     "price_cents": 16900,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:15:45+00:00"
+    }
+   ],
+   "stores_tracked": 2
   },
   {
    "id": "sv-surging-sparks-booster-box",
@@ -53,14 +116,41 @@
    "category": "booster-box",
    "best": {
     "sku_id": "sv-surging-sparks-booster-box",
-    "store": "GD Games",
-    "url": "https://www.gdgames.com.au/products/scarlet-violet-surging-sparks-booster-box-pokemon-tcg-preorder",
-    "price_cents": 32400,
+    "store": "Card Bot",
+    "url": "https://cardbot.com.au/products/pokemon-tcg-scarlet-violet-surging-sparks-booster-box",
+    "price_cents": 18999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-09T05:01:36+00:00"
+    "observed_at": "2026-07-09T05:20:55+00:00"
    },
    "offers": [
+    {
+     "sku_id": "sv-surging-sparks-booster-box",
+     "store": "Card Bot",
+     "url": "https://cardbot.com.au/products/pokemon-tcg-scarlet-violet-surging-sparks-booster-box",
+     "price_cents": 18999,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:20:55+00:00"
+    },
+    {
+     "sku_id": "sv-surging-sparks-booster-box",
+     "store": "Eclipse Games",
+     "url": "https://eclipsegames.com.au/products/pokemon-tcg-surging-sparks-booster-box",
+     "price_cents": 19995,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:23:09+00:00"
+    },
+    {
+     "sku_id": "sv-surging-sparks-booster-box",
+     "store": "Kawaii Collector",
+     "url": "https://kawaiicollector.com.au/products/surging-sparks-booster-box-pokemon-tcg-scarlet-violet-8",
+     "price_cents": 29995,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:21:28+00:00"
+    },
     {
      "sku_id": "sv-surging-sparks-booster-box",
      "store": "GD Games",
@@ -68,7 +158,7 @@
      "price_cents": 32400,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-09T05:01:36+00:00"
+     "observed_at": "2026-07-09T05:17:59+00:00"
     },
     {
      "sku_id": "sv-surging-sparks-booster-box",
@@ -77,10 +167,19 @@
      "price_cents": 36000,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-09T05:03:33+00:00"
+     "observed_at": "2026-07-09T05:19:53+00:00"
+    },
+    {
+     "sku_id": "sv-surging-sparks-booster-box",
+     "store": "Collectible Madness",
+     "url": "https://collectiblemadness.com.au/products/pokemon-tcg-surging-sparks-booster-box-options",
+     "price_cents": 41900,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:15:48+00:00"
     }
    ],
-   "stores_tracked": 2
+   "stores_tracked": 6
   },
   {
    "id": "sv-151-etb",
@@ -94,7 +193,7 @@
     "price_cents": 94000,
     "currency": "AUD",
     "in_stock": true,
-    "observed_at": "2026-07-09T05:04:52+00:00"
+    "observed_at": "2026-07-09T05:21:10+00:00"
    },
    "offers": [
     {
@@ -104,7 +203,16 @@
      "price_cents": 9995,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-09T05:01:40+00:00"
+     "observed_at": "2026-07-09T05:18:04+00:00"
+    },
+    {
+     "sku_id": "sv-151-etb",
+     "store": "Eclipse Games",
+     "url": "https://eclipsegames.com.au/products/pokemon-tcg-scarlet-violet-151-elite-trainer-box",
+     "price_cents": 9995,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:23:18+00:00"
     },
     {
      "sku_id": "sv-151-etb",
@@ -113,10 +221,19 @@
      "price_cents": 94000,
      "currency": "AUD",
      "in_stock": true,
-     "observed_at": "2026-07-09T05:04:52+00:00"
+     "observed_at": "2026-07-09T05:21:10+00:00"
+    },
+    {
+     "sku_id": "sv-151-etb",
+     "store": "Collectible Madness",
+     "url": "https://collectiblemadness.com.au/products/pokemon-tcg-scarlet-violet-151-elite-trainer-box-options",
+     "price_cents": 129900,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:15:56+00:00"
     }
    ],
-   "stores_tracked": 2
+   "stores_tracked": 4
   },
   {
    "id": "sv-destined-rivals-booster-box",
@@ -130,7 +247,7 @@
     "price_cents": 32400,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-09T05:01:36+00:00"
+    "observed_at": "2026-07-09T05:17:59+00:00"
    },
    "offers": [
     {
@@ -140,7 +257,16 @@
      "price_cents": 32400,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-09T05:01:36+00:00"
+     "observed_at": "2026-07-09T05:17:59+00:00"
+    },
+    {
+     "sku_id": "sv-destined-rivals-booster-box",
+     "store": "Collectible Madness",
+     "url": "https://collectiblemadness.com.au/products/pokemon-tcg-destined-rivals-booster-box",
+     "price_cents": 41900,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:15:45+00:00"
     },
     {
      "sku_id": "sv-destined-rivals-booster-box",
@@ -149,10 +275,19 @@
      "price_cents": 100000,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-09T05:07:15+00:00"
+     "observed_at": "2026-07-09T05:22:29+00:00"
+    },
+    {
+     "sku_id": "sv-destined-rivals-booster-box",
+     "store": "Eclipse Games",
+     "url": "https://eclipsegames.com.au/products/pokemon-tcg-sv10-destined-rivals-booster-box",
+     "price_cents": 255000,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:23:11+00:00"
     }
    ],
-   "stores_tracked": 2
+   "stores_tracked": 4
   },
   {
    "id": "me-mega-evolution-etb",
@@ -166,7 +301,7 @@
     "price_cents": 9900,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-09T05:01:35+00:00"
+    "observed_at": "2026-07-09T05:17:56+00:00"
    },
    "offers": [
     {
@@ -176,7 +311,25 @@
      "price_cents": 9900,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-09T05:01:35+00:00"
+     "observed_at": "2026-07-09T05:17:56+00:00"
+    },
+    {
+     "sku_id": "me-mega-evolution-etb",
+     "store": "Card Bot",
+     "url": "https://cardbot.com.au/products/live-opening-pokemon-tcg-mega-evolution-elite-trainer-box",
+     "price_cents": 10500,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:20:32+00:00"
+    },
+    {
+     "sku_id": "me-mega-evolution-etb",
+     "store": "Collectible Madness",
+     "url": "https://collectiblemadness.com.au/products/pokemon-tcg-mega-evolution-elite-trainer-box",
+     "price_cents": 14900,
+     "currency": "AUD",
+     "in_stock": false,
+     "observed_at": "2026-07-09T05:15:45+00:00"
     },
     {
      "sku_id": "me-mega-evolution-etb",
@@ -185,10 +338,10 @@
      "price_cents": 19000,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-09T05:07:46+00:00"
+     "observed_at": "2026-07-09T05:22:59+00:00"
     }
    ],
-   "stores_tracked": 2
+   "stores_tracked": 4
   }
  ]
 }
