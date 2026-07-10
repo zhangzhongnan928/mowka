@@ -1,0 +1,91 @@
+/* Mowka design tokens — synced from the claude.ai/design project
+   "Mowka mascot design brief" (tokens/{colors,typography,spacing,effects}.css).
+   Edit there first; this file follows the design source. */
+:root {
+  /* Canonical palette */
+  --ink: #17171C;
+  --gum-leaf: #6E846E;
+  --gold: #DAA643;
+  --spark: #D6412B;
+  --paper: #F6F5F1;
+  --paper-art: #F2EBDC;
+
+  /* Ink ramp (text) */
+  --text-body: #17171C;
+  --text-soft: #4A4944;
+  --text-muted: #6B6960;
+  --text-faint: #8A8880;
+  --text-on-ink: #F6F5F1;
+
+  /* Lines */
+  --line: #DEDCD4;
+  --line-strong: #17171C;
+
+  /* Surfaces */
+  --surface-page: var(--paper);
+  --surface-card: #FFFFFF;
+  --surface-sunken: #EDEBE4;
+  --surface-ink: #17171C;
+  --ink-raise: #2C2C34;
+  --surface-art: var(--paper-art);
+
+  /* Functional ramps */
+  --gum-leaf-tint: #E4E9E1;
+  --gum-leaf-deep: #4E6350;
+  --gold-tint: #F5EBD2;
+  --gold-deep: #8A6A1F;
+  --spark-tint: #F9E3DC;
+  --spark-deep: #B03A28;
+
+  /* Semantic aliases */
+  --accent: var(--spark);
+  --success: var(--gum-leaf);
+  --treasure: var(--gold);
+  --danger: var(--spark-deep);
+  --focus-ring: 0 0 0 3px rgba(214, 65, 43, 0.22);
+
+  /* Type */
+  --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --text-label: 10.5px;
+  --text-xs: 11px;
+  --text-sm: 12.5px;
+  --text-base: 14px;
+  --text-md: 15px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 36px;
+  --text-4xl: 48px;
+  --weight-body: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-heading: 700;
+  --weight-display: 800;
+  --tracking-label: 0.08em;
+  --tracking-tight: -0.02em;
+  --leading-tight: 1.1;
+  --leading-body: 1.6;
+
+  /* Spacing — 4px grid */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px;
+  --measure: 68ch;
+  --page-max: 1120px;
+  --page-pad: 40px;
+
+  /* Radii, borders, elevation, motion */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --border-hairline: 1px solid var(--line);
+  --border-keyline: 2px solid var(--line-strong);
+  --shadow-lift: 0 2px 8px rgba(23, 23, 28, 0.08);
+  --shadow-pop: 0 12px 32px rgba(23, 23, 28, 0.18);
+  --ease-swoop: cubic-bezier(0.2, 0.9, 0.3, 1);
+  --duration-quick: 150ms;
+  --duration-swoop: 300ms;
+}

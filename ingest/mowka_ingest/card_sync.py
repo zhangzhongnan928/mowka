@@ -32,6 +32,26 @@ from .sources import ebay
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 CATALOG_TTL_HOURS = 24
 TCGDEX_SPACING_SECONDS = 0.5
+# Stores publish sold-out "placeholder" singles listings at token prices
+# (live-verified: a $99.99 Umbreon ex vs US$1,528 market). An offer far below
+# the USD-converted reference is noise, not a price. Applies to cards only.
+PLACEHOLDER_BAND = 0.2          # offer < 20% of converted reference
+PLACEHOLDER_MIN_REF_CENTS = 2000  # only when the reference is >= A$20
+
+
+def _looks_like_placeholder(offer: dict, usd_market: float | None,
+                            fx: dict | None, card_id: str) -> bool:
+    if not usd_market or not fx or not fx.get("usd_aud"):
+        return False
+    ref_cents = usd_market * fx["usd_aud"] * 100
+    if ref_cents < PLACEHOLDER_MIN_REF_CENTS:
+        return False
+    if offer["price_cents"] < PLACEHOLDER_BAND * ref_cents:
+        print(f"WARN {card_id}: dropping placeholder offer "
+              f"{offer['price_cents']}c at {offer['store']} "
+              f"(reference ~{round(ref_cents)}c)")
+        return True
+    return False
 
 
 def _now() -> datetime:
@@ -123,7 +143,12 @@ def main() -> None:
         latest = prev
         print("ebay: EBAY_CLIENT_ID/SECRET not set — price refresh skipped")
 
-    # 3. cards.json export
+    # 3. cards.json export — fx first, it also powers the placeholder band
+    try:
+        fx = pricing.fetch_fx()
+    except Exception as exc:  # a rates outage must not sink the card sync
+        print(f"WARN fx fetch failed: {exc}")
+        fx = None
     by_sku: dict[str, list[dict]] = {}
     for offer in latest.values():
         by_sku.setdefault(offer["sku_id"], []).append(offer)
@@ -131,6 +156,8 @@ def main() -> None:
     for card in cards:
         info = cache.get(card.catalog_ref or "", {})
         offers = sorted(by_sku.get(card.id, []), key=lambda o: o["price_cents"])
+        offers = [o for o in offers
+                  if not _looks_like_placeholder(o, info.get("usd_market"), fx, card.id)]
         count_entry = counts.get(card.id) or {}
         payload["cards"].append({
             "id": card.id, "name": card.name, "set": card.set,
@@ -157,12 +184,11 @@ def main() -> None:
     (api_dir / "au-prices.json").write_text(json.dumps({
         "generated_at": payload["generated_at"], "prices": au_prices}, indent=1) + "\n")
     print(f"au-prices: {len(au_prices)} refs -> {api_dir / 'au-prices.json'}")
-    try:
-        fx = pricing.fetch_fx()
+    if fx:
         (api_dir / "fx.json").write_text(json.dumps(fx, indent=1) + "\n")
         print(f"fx: USD/AUD {fx['usd_aud']}, EUR/AUD {fx['eur_aud']} ({fx['date']})")
-    except Exception as exc:  # a rates outage must not sink the card sync
-        print(f"WARN fx fetch failed, keeping previous fx.json: {exc}")
+    else:
+        print("WARN keeping previous fx.json")
 
 
 if __name__ == "__main__":

@@ -209,3 +209,60 @@ def test_cli_answers_from_artifacts_when_network_is_down(tmp_path, monkeypatch, 
     out = jsonlib.loads(capsys.readouterr().out)
     assert out["price"]["aud_cents"] == 140000
     assert out["price"]["source_type"] == "au_store"
+
+
+def test_conversion_rounds_half_up_matching_js():
+    # US$1000 x 1.441005 = 144100.5c: JS Math.round says 144101; Python's
+    # banker's round would say 144100 — clients and reference must agree
+    fx = {**FX, "usd_aud": 1.441005}
+    got = pricing.resolve_price("x", {}, info(usd=1000.0), fx)
+    assert got["aud_cents"] == 144101
+
+
+def test_vintage_cards_use_top_level_pricing():
+    from mowka_ingest.cardcatalog.tcgdex import _usd_market, _eur_market
+    vintage = {"variants_detailed": [{"type": "holo"}],  # no pricing per variant
+               "pricing": {"tcgplayer": {"holofoil": {"marketPrice": 425.63}},
+                            "cardmarket": {"trend": 335.57}}}
+    assert _usd_market(vintage) == 425.63
+    assert _eur_market(vintage) == 335.57
+
+
+def test_placeholder_offers_dropped_from_card_export(tmp_path, monkeypatch):
+    from mowka_ingest import card_sync, gitstore
+    from mowka_ingest.models import Offer
+    import json as jsonlib, sys as syslib
+    # seed: sold-out $99.99 offer for a card whose US reference is $1528
+    placeholder = Offer(sku_id="card-sv08.5-161", store="Kawaii Collector",
+                        url="https://k/x", price_cents=9999, currency="AUD",
+                        in_stock=False, observed_at="2026-07-09T10:00:00+00:00")
+    legit = Offer(sku_id="card-sv03.5-199", store="Gameology", url="https://g/x",
+                  price_cents=70399, currency="AUD", in_stock=True,
+                  observed_at="2026-07-09T10:00:00+00:00")
+    latest, events = gitstore.apply_run({}, [placeholder, legit])
+    gitstore.save_run(tmp_path / "data", latest, events)
+    cache_dir = tmp_path / "data" / "cards"
+    cache_dir.mkdir(parents=True)
+    (cache_dir / "catalog.json").write_text(jsonlib.dumps({
+        "sv08.5-161": {"usd_market": 1528.09, "fetched_at": "2099-01-01T00:00:00"},
+        "sv03.5-199": {"usd_market": 406.14, "fetched_at": "2099-01-01T00:00:00"},
+    }))
+
+    class FakeAdapter:
+        def card(self, ref):
+            return None
+
+    monkeypatch.setattr(card_sync, "get_adapter", lambda name="tcgdex": FakeAdapter())
+    monkeypatch.setattr(card_sync.pricing, "fetch_fx", lambda: dict(FX))
+    monkeypatch.delenv("EBAY_CLIENT_ID", raising=False)
+    monkeypatch.setattr(card_sync.time, "sleep", lambda _: None)
+    monkeypatch.setattr(syslib, "argv", ["card_sync", "--data-dir", str(tmp_path / "data"),
+                                         "--site-out", str(tmp_path / "cards.json")])
+    card_sync.main()
+    payload = jsonlib.loads((tmp_path / "cards.json").read_text())
+    umb = next(c for c in payload["cards"] if c["id"] == "card-sv08.5-161")
+    zard = next(c for c in payload["cards"] if c["id"] == "card-sv03.5-199")
+    assert umb["best"] is None and umb["offers"] == []       # placeholder dropped
+    assert zard["best"]["price_cents"] == 70399              # legit kept
+    au = jsonlib.loads((tmp_path / "cards.json").parent.joinpath("api/au-prices.json").read_text())
+    assert "sv08.5-161" not in au["prices"] and "sv03.5-199" in au["prices"]

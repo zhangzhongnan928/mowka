@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mowka · Fossick — AU collectibles index</title>
+<meta name="description" content="Fossick AU prices for Pokémon TCG cards and sealed product, scan a card for an instant AUD price with its source, and track finds in your Nest.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* ============ base ============ */
+*{box-sizing:border-box;margin:0}
+body{background:var(--surface-page);color:var(--text-body);font-family:var(--font-body);font-size:var(--text-base);line-height:var(--leading-body)}
+img{max-width:100%}
+.wrap{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad)}
+@media(max-width:720px){:root{--page-pad:16px}}
+.art{mix-blend-mode:multiply}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+a{color:inherit}
+
+/* ============ kit: button ============ */
+.mwk-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-display);font-weight:var(--weight-semibold);border-radius:var(--radius-sm);border:1.5px solid transparent;cursor:pointer;line-height:1;text-decoration:none;transition:background var(--duration-quick) var(--ease-swoop),color var(--duration-quick),transform var(--duration-quick) var(--ease-swoop)}
+.mwk-btn:active{transform:translateY(1px)}
+.mwk-btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.mwk-btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.mwk-btn--sm{height:30px;padding:0 12px;font-size:var(--text-sm)}
+.mwk-btn--md{height:38px;padding:0 16px;font-size:var(--text-base)}
+.mwk-btn--primary{background:var(--ink);color:var(--text-on-ink)}
+.mwk-btn--primary:hover:not([disabled]){background:var(--ink-raise)}
+.mwk-btn--spark{background:var(--spark);color:#fff}
+.mwk-btn--spark:hover:not([disabled]){background:var(--spark-deep)}
+.mwk-btn--outline{background:transparent;border-color:var(--ink);color:var(--ink)}
+.mwk-btn--outline:hover:not([disabled]){background:rgba(23,23,28,.06)}
+.mwk-btn--ghost{background:transparent;color:var(--ink)}
+.mwk-btn--ghost:hover:not([disabled]){background:var(--surface-sunken)}
+
+/* ============ kit: badge ============ */
+.mwk-badge{display:inline-flex;align-items:center;gap:6px;height:20px;padding:0 8px;border-radius:var(--radius-full);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:1px solid transparent;white-space:nowrap}
+.mwk-badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.mwk-badge--neutral{background:var(--surface-sunken);color:var(--text-soft)}
+.mwk-badge--leaf{background:var(--gum-leaf-tint);color:var(--gum-leaf-deep)}
+.mwk-badge--gold{background:var(--gold-tint);color:var(--gold-deep)}
+.mwk-badge--spark{background:var(--spark-tint);color:var(--spark-deep)}
+.mwk-badge--ink{background:var(--ink);color:var(--text-on-ink)}
+.mwk-badge--outline{background:transparent;border-color:var(--line);color:var(--text-muted)}
+
+/* ============ kit: card ============ */
+.mwk-card{background:var(--surface-card);border:var(--border-hairline);border-radius:var(--radius-md);display:flex;flex-direction:column}
+.mwk-card--art{background:var(--surface-art)}
+.mwk-card--hover{transition:box-shadow var(--duration-quick) var(--ease-swoop),transform var(--duration-quick) var(--ease-swoop)}
+.mwk-card--hover:hover{box-shadow:var(--shadow-lift);transform:translateY(-1px)}
+.mwk-card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 16px 0}
+.mwk-card-label{font-family:var(--font-mono);font-size:var(--text-label);font-weight:600;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-muted)}
+.mwk-card-title{font-size:var(--text-lg);font-weight:var(--weight-heading);letter-spacing:var(--tracking-tight);color:var(--text-body);margin:2px 0 0}
+.mwk-card-body{padding:14px 16px;flex:1}
+.mwk-card-foot{padding:12px 16px;border-top:var(--border-hairline);display:flex;align-items:center;gap:8px}
+
+/* ============ kit: tabs ============ */
+.mwk-tabs{display:flex;gap:4px;border-bottom:var(--border-hairline)}
+.mwk-tab{appearance:none;background:transparent;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:10px 14px;font-family:var(--font-display);font-size:var(--text-base);font-weight:var(--weight-semibold);color:var(--text-muted);cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:color var(--duration-quick)}
+.mwk-tab:hover{color:var(--text-body)}
+.mwk-tab:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--radius-sm)}
+.mwk-tab--active{color:var(--text-body);border-bottom-color:var(--ink)}
+.mwk-tab-count{font-family:var(--font-mono);font-size:10px;font-weight:600;background:var(--surface-sunken);border-radius:var(--radius-full);padding:2px 7px;color:var(--text-muted)}
+.mwk-tab--active .mwk-tab-count{background:var(--ink);color:var(--text-on-ink)}
+
+/* ============ kit: input/field ============ */
+.mwk-field{display:flex;flex-direction:column;gap:6px}
+.mwk-field-label{font-family:var(--font-mono);font-size:var(--text-label);font-weight:600;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-muted)}
+.mwk-input-wrap{display:flex;align-items:center;gap:8px;background:var(--surface-card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0 12px;height:38px;transition:border-color var(--duration-quick),box-shadow var(--duration-quick)}
+.mwk-input-wrap:focus-within{border-color:var(--ink);box-shadow:var(--focus-ring)}
+.mwk-input{flex:1;border:0;outline:none;background:transparent;font-family:var(--font-body);font-size:var(--text-base);color:var(--text-body);height:100%;min-width:0}
+.mwk-input::placeholder{color:var(--text-faint)}
+.mwk-input-prefix{display:inline-flex;color:var(--text-muted)}
+.mwk-select{height:38px;background:var(--surface-card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0 10px;font-family:var(--font-body);font-size:var(--text-base);color:var(--text-body)}
+.mwk-select:focus-visible{outline:none;border-color:var(--ink);box-shadow:var(--focus-ring)}
+.mwk-check{display:inline-flex;align-items:center;gap:8px;font-size:var(--text-base);cursor:pointer;height:38px}
+.mwk-check input{width:16px;height:16px;accent-color:var(--ink)}
+.mwk-switch{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:var(--text-base)}
+.mwk-switch input{appearance:none;width:36px;height:20px;border-radius:var(--radius-full);background:var(--line);position:relative;transition:background var(--duration-quick);cursor:pointer;flex-shrink:0}
+.mwk-switch input:checked{background:var(--gum-leaf)}
+.mwk-switch input::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform var(--duration-quick) var(--ease-swoop)}
+.mwk-switch input:checked::after{transform:translateX(16px)}
+.mwk-switch input:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+
+/* ============ kit: swoop alert ============ */
+.mwk-swoop{display:flex;align-items:stretch;gap:0;background:var(--surface-art);border:var(--border-keyline);border-radius:var(--radius-lg);overflow:hidden}
+.mwk-swoop-body{flex:1;padding:16px 0 16px 20px;display:flex;flex-direction:column;gap:6px;justify-content:center}
+.mwk-swoop-label{font-family:var(--font-mono);font-size:var(--text-label);font-weight:600;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--spark-deep)}
+.mwk-swoop-title{font-family:var(--font-display);font-size:var(--text-lg);font-weight:var(--weight-heading);letter-spacing:var(--tracking-tight)}
+.mwk-swoop-meta{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--text-soft)}
+.mwk-swoop-meta strong{font-weight:600;color:var(--gold-deep)}
+.mwk-swoop-actions{display:flex;gap:8px;margin-top:8px}
+.mwk-swoop-art{width:180px;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mwk-swoop-art img{width:105%;animation:mwk-swoop-in .5s var(--ease-swoop)}
+@keyframes mwk-swoop-in{from{opacity:0;transform:translate(24px,-12px)}to{opacity:1;transform:none}}
+@media(max-width:560px){.mwk-swoop-art{width:110px}}
+
+/* ============ kit: toast ============ */
+#toasts{position:fixed;right:16px;bottom:16px;left:16px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:60;pointer-events:none}
+#toasts .mwk-toast{pointer-events:auto}
+.mwk-toast{display:flex;align-items:flex-start;gap:12px;background:var(--surface-ink);color:var(--text-on-ink);border-radius:var(--radius-md);padding:14px 14px 14px 16px;max-width:420px;box-shadow:var(--shadow-pop);animation:mwk-toast-in var(--duration-swoop) var(--ease-swoop)}
+@keyframes mwk-toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.mwk-toast-label{font-family:var(--font-mono);font-size:var(--text-label);font-weight:600;letter-spacing:var(--tracking-label);text-transform:uppercase;margin:0 0 3px;color:var(--gold)}
+.mwk-toast--success .mwk-toast-label{color:#A9BCA9}
+.mwk-toast-msg{font-size:var(--text-base);line-height:1.5}
+.mwk-toast-x{margin-left:auto;flex-shrink:0;background:transparent;border:0;color:var(--text-on-ink);opacity:.6;cursor:pointer;font-size:16px;line-height:1;padding:2px}
+.mwk-toast-x:hover{opacity:1}
+
+/* ============ app header ============ */
+header.app{background:var(--surface-card);border-bottom:1px solid var(--line)}
+.masthead{display:flex;align-items:center;gap:20px;height:64px}
+.masthead .wordmark{height:30px;width:auto}
+.masthead .tagline{font-family:var(--font-mono);font-size:var(--text-label);font-weight:600;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-muted);border-left:1px solid var(--line);padding-left:16px}
+.masthead .end{margin-left:auto;display:flex;align-items:center;gap:12px}
+.headmark{width:36px;height:36px;border-radius:50%;background:var(--surface-art);object-fit:cover}
+.scan-eye{height:16px;width:auto;mix-blend-mode:multiply}
+@media(max-width:560px){.masthead .tagline{display:none}}
+@media(pointer:coarse){.mwk-btn--sm{height:40px;padding:0 14px}.mwk-toast-x,.mwk-tab{min-height:40px}}
+
+/* ============ screens ============ */
+main{padding:20px 0 64px}
+.screen{display:flex;flex-direction:column;gap:20px}
+.screen[hidden]{display:none}
+.controls{display:grid;grid-template-columns:1fr 200px auto;gap:12px;align-items:end}
+@media(max-width:720px){.controls{grid-template-columns:1fr}}
+.table-card{background:var(--surface-card);border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:var(--text-base)}
+th{font-family:var(--font-mono);font-size:var(--text-label);font-weight:600;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-muted);padding:12px 16px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th.num{text-align:right}
+td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td .pname{display:flex;align-items:center;gap:8px;font-weight:600}
+td .pmeta{font-size:var(--text-sm);color:var(--text-muted);margin-top:2px}
+td .pmeta a{text-decoration:underline;text-underline-offset:2px}
+td.price{text-align:right;font-family:var(--font-mono);font-weight:600;font-size:15px;white-space:nowrap}
+td.seen{text-align:right;font-family:var(--font-mono);font-size:12.5px;color:var(--text-muted);white-space:nowrap}
+td.act{text-align:right;white-space:nowrap}
+.tbl-empty{padding:28px 16px;text-align:center;color:var(--text-muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:720px){.stats{grid-template-columns:1fr}}
+.nest-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:720px){.nest-grid{grid-template-columns:1fr}}
+.tagchip{display:inline-flex;align-items:center;height:22px;padding:0 10px;border:1px solid var(--line);border-radius:var(--radius-full);font-family:var(--font-mono);font-size:11px;color:var(--text-soft);background:var(--surface-card)}
+.skillnote{display:flex;align-items:center;gap:14px;border-top:1px solid var(--line);padding-top:16px}
+.skillnote img{width:48px;height:48px;object-fit:contain}
+.skillnote p{font-size:var(--text-sm);color:var(--text-muted);max-width:60ch}
+.empty-nest{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 0;text-align:center}
+.empty-nest img{height:140px;width:auto}
+.empty-nest p{font-size:var(--text-md);color:var(--text-soft);max-width:42ch}
+.delta-down{color:var(--gum-leaf-deep)}
+.delta-up{color:var(--spark-deep)}
+
+/* ============ scan dialog ============ */
+dialog#scan{border:var(--border-keyline);border-radius:var(--radius-lg);padding:0;width:min(560px,calc(100vw - 32px));background:var(--surface-card);margin:auto}
+dialog#scan::backdrop{background:rgba(23,23,28,.5)}
+.scan-head{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.scan-head img{height:22px;width:auto}
+.scan-head h2{font-size:var(--text-lg);font-weight:var(--weight-heading);letter-spacing:var(--tracking-tight)}
+.scan-head .mwk-toast-x{color:var(--ink)}
+.scan-body{padding:20px;display:flex;flex-direction:column;gap:16px}
+.scan-drop{border:2px dashed var(--line);border-radius:var(--radius-md);padding:22px;text-align:center;color:var(--text-muted);font-size:var(--text-sm);cursor:pointer;background:var(--surface-sunken)}
+.scan-drop:hover,.scan-drop:focus-within{border-color:var(--ink);color:var(--text-body)}
+.scan-drop:focus-within{box-shadow:var(--focus-ring)}
+.scan-status{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--text-muted)}
+.cand{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--line);border-radius:var(--radius-md);cursor:pointer;background:var(--surface-card);width:100%;text-align:left;font:inherit}
+.cand:hover{border-color:var(--ink);box-shadow:var(--shadow-lift)}
+.cand img{width:44px;height:61px;object-fit:contain;background:var(--surface-sunken);border-radius:2px}
+.cand .cname{font-weight:600}
+.cand .cmeta{font-size:var(--text-sm);color:var(--text-muted)}
+.result{display:flex;gap:16px;align-items:flex-start}
+.result img{width:110px;border-radius:6px}
+.result .rprice{font-family:var(--font-mono);font-size:var(--text-2xl);font-weight:600}
+.result .rsource{font-size:var(--text-sm);color:var(--text-soft);margin-top:4px}
+.result .rsource a{text-decoration:underline}
+.result .rwork{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--text-muted);margin-top:6px}
+.result .ractions{margin-top:14px;display:flex;gap:8px}
+</style>
+</head>
+<body>
+<header class="app">
+  <div class="wrap">
+    <div class="masthead">
+      <a href="index.html" aria-label="Mowka home"><img class="wordmark art" src="assets/mowka-wordmark.webp" alt="Mowka"></a>
+      <span class="tagline">AU collectibles index</span>
+      <div class="end">
+        <button class="mwk-btn mwk-btn--outline mwk-btn--sm" id="open-scan">
+          <img class="scan-eye" src="assets/mowka-emblem-eye.webp" alt="">Scan a card
+        </button>
+        <img class="headmark" src="assets/mowka-head.webp" alt="">
+      </div>
+    </div>
+    <div class="mwk-tabs" role="tablist" style="border-bottom:0">
+      <button class="mwk-tab mwk-tab--active" role="tab" aria-selected="true" aria-controls="screen-fossick" id="tab-fossick" data-tab="fossick">Fossick</button>
+      <button class="mwk-tab" role="tab" aria-selected="false" aria-controls="screen-nest" tabindex="-1" id="tab-nest" data-tab="nest">Nest <span class="mwk-tab-count" id="nest-count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="swoop-slot"></div>
+
+  <section class="screen" id="screen-fossick" role="tabpanel" aria-labelledby="tab-fossick">
+    <div class="controls">
+      <label class="mwk-field">
+        <span class="mwk-field-label">Fossick</span>
+        <span class="mwk-input-wrap">
+          <span class="mwk-input-prefix"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+          <input class="mwk-input" id="q" type="search" placeholder="Search a card, set, or product…">
+        </span>
+      </label>
+      <label class="mwk-field">
+        <span class="mwk-field-label">Sort by</span>
+        <select class="mwk-select" id="sort">
+          <option value="price">Lowest price</option>
+          <option value="fresh">Freshest</option>
+          <option value="name">Name</option>
+        </select>
+      </label>
+      <label class="mwk-check"><input type="checkbox" id="sealed-only">Sealed only</label>
+    </div>
+    <div class="table-card"><div class="table-scroll">
+      <table>
+        <thead><tr><th>Product</th><th class="num">Lowest price</th><th class="num">Seen</th><th>Stock</th><th></th></tr></thead>
+        <tbody id="rows"><tr><td colspan="5" class="tbl-empty">Fossicking…</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section class="screen" id="screen-nest" role="tabpanel" aria-labelledby="tab-nest" hidden>
+    <div class="stats">
+      <div class="mwk-card"><div class="mwk-card-head"><div><div class="mwk-card-label">In the nest</div><h3 class="mwk-card-title" id="stat-count">0 items</h3></div></div>
+        <div class="mwk-card-body" id="stat-tags"></div></div>
+      <div class="mwk-card"><div class="mwk-card-head"><div><div class="mwk-card-label">Nest value</div><h3 class="mwk-card-title" id="stat-value">$0.00</h3></div></div>
+        <div class="mwk-card-body"><span style="font-family:var(--font-mono);font-size:12.5px" id="stat-delta"></span></div></div>
+      <div class="mwk-card"><div class="mwk-card-head"><div><div class="mwk-card-label">Swoop alerts</div><h3 class="mwk-card-title">On this device</h3></div></div>
+        <div class="mwk-card-body"><label class="mwk-switch"><input type="checkbox" id="alerts-switch" checked>Alert me on restocks</label></div></div>
+    </div>
+    <div id="nest-items"></div>
+    <div class="skillnote">
+      <img class="art" src="assets/mowka-emblem-nest.webp" alt="">
+      <p>Mowka learned Nest — track anything from Fossick and it lands here with live prices from AU stores. Stored on this device only.</p>
+    </div>
+  </section>
+</main>
+
+<dialog id="scan" aria-labelledby="scan-title">
+  <div class="scan-head">
+    <img class="art" src="assets/mowka-emblem-eye.webp" alt="">
+    <h2 id="scan-title">Scan a card</h2>
+    <button class="mwk-toast-x" style="margin-left:auto" id="scan-close" aria-label="Close">×</button>
+  </div>
+  <div class="scan-body" id="scan-body"></div>
+</dialog>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* Implements docs/SCAN_PRICING.md + the "Mowka Index" ui_kit from the design project. */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl = u => {
+  try { const x = new URL(u); return x.protocol === "http:" || x.protocol === "https:" ? x.href : "#"; }
+  catch { return "#"; }
+};
+const aud = c => (c/100).toLocaleString("en-AU", {style:"currency", currency:"AUD"});
+const ago = iso => {
+  const m = Math.max(0, Math.round((Date.now() - new Date(iso))/60000));
+  return m < 60 ? `${m}m ago` : m < 1440 ? `${Math.round(m/60)}h ago` : `${Math.round(m/1440)}d ago`;
+};
+const COLLECTION_KEY = "mowka.collection.v1";   // schema per docs/SCAN_PRICING.md
+const ALERTS_KEY = "mowka.alerts.v1";
+const TCGDEX = "https://api.tcgdex.net/v2/en";
+
+/* ---------- state ---------- */
+let rows = [];          // merged fossick rows
+let auPrices = {};      // ref -> offer
+let fx = null;
+let cardIndex = null;   // lazy (716KB)
+const nest = () => {
+  // corruption-tolerant per spec: wrong-shape JSON must never brick the app
+  try {
+    const v = JSON.parse(localStorage.getItem(COLLECTION_KEY));
+    return Array.isArray(v) ? v.filter(i => i && typeof i === "object" && typeof i.ref === "string") : [];
+  } catch { return []; }
+};
+const saveNest = items => localStorage.setItem(COLLECTION_KEY, JSON.stringify(items));
+const alertsOn = () => localStorage.getItem(ALERTS_KEY) !== "off";
+
+/* ---------- toasts (Squawk voice) ---------- */
+function toast(msg, variant = "squawk") {
+  const el = document.createElement("div");
+  el.className = "mwk-toast mwk-toast--" + variant;
+  el.setAttribute("role", "status");
+  el.innerHTML = `<div><p class="mwk-toast-label">${variant === "success" ? "Found" : "Squawk"}</p>
+    <p class="mwk-toast-msg">${esc(msg)}</p></div>
+    <button class="mwk-toast-x" aria-label="Dismiss">×</button>`;
+  el.querySelector("button").onclick = () => el.remove();
+  document.getElementById("toasts").append(el);
+  setTimeout(() => el.remove(), 4500);
+}
+
+/* ---------- data load ---------- */
+async function loadData() {
+  const [sealed, cards, au, fxres] = await Promise.all([
+    fetch("data.json").then(r => r.ok ? r.json() : {products: []}).catch(() => ({products: []})),
+    fetch("cards.json").then(r => r.ok ? r.json() : {cards: []}).catch(() => ({cards: []})),
+    // null (not {}) on failure: "AU data unavailable" must never silently
+    // fall through to a converted price (spec: strict resolution order)
+    fetch("api/au-prices.json").then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch("api/fx.json").then(r => r.ok ? r.json() : null).catch(() => null),
+  ]);
+  auPrices = au ? (au.prices || {}) : null;
+  fx = fxres;
+  rows = [];
+  for (const p of sealed.products) {
+    if (!p.best) continue;
+    rows.push({key: p.id, ref: p.id, kind: "sealed", name: p.name, set: p.set,
+               best: p.best, stores: p.stores_tracked, rare: false});
+  }
+  for (const c of cards.cards) {
+    const rare = /illustration|hyper|shiny/.test(c.variant || "");
+    rows.push({key: c.id, ref: c.id.replace(/^card-/, ""), kind: "card", name: c.name,
+               set: c.set, best: c.best,
+               stores: new Set((c.offers || []).map(o => o.store)).size, rare, image: c.image});
+  }
+  renderFossick();
+  renderNest();
+  checkRestocks();
+}
+
+/* ---------- fossick ---------- */
+function stockBadge(row) {
+  if (!row.best) return `<span class="mwk-badge mwk-badge--outline">No AU listing</span>`;
+  return row.best.in_stock
+    ? `<span class="mwk-badge mwk-badge--leaf"><span class="mwk-badge-dot"></span>In stock</span>`
+    : `<span class="mwk-badge mwk-badge--spark"><span class="mwk-badge-dot"></span>Out</span>`;
+}
+function renderFossick() {
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const sealedOnly = document.getElementById("sealed-only").checked;
+  const sort = document.getElementById("sort").value;
+  const tracked = new Set(nest().map(i => i.ref));
+  let shown = rows.filter(r =>
+    (!sealedOnly || r.kind === "sealed") &&
+    (!q || `${r.name} ${r.set}`.toLowerCase().includes(q)));
+  shown.sort((a, b) => {
+    if (sort === "name") return a.name.localeCompare(b.name);
+    if (sort === "fresh") return (b.best?.observed_at || "").localeCompare(a.best?.observed_at || "");
+    const ap = a.best ? a.best.price_cents : Infinity, bp = b.best ? b.best.price_cents : Infinity;
+    return ap - bp;
+  });
+  const tbody = document.getElementById("rows");
+  if (!shown.length) {
+    tbody.innerHTML = `<tr><td colspan="5" class="tbl-empty">Nothing shiny matches that. Try a different search.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = shown.map(r => {
+    const store = r.best
+      ? `<a href="${esc(safeUrl(r.best.url))}" rel="nofollow noopener">${esc(r.best.store)}</a>${r.stores > 1 ? " + " + (r.stores - 1) + " more" : ""}`
+      : "—";
+    return `<tr>
+      <td><div class="pname">${esc(r.name)}${r.rare ? ' <span class="mwk-badge mwk-badge--gold">Rare find</span>' : ""}</div>
+        <div class="pmeta">${esc(r.set)} · ${store}</div></td>
+      <td class="price">${r.best ? aud(r.best.price_cents) : "–"}</td>
+      <td class="seen">${r.best ? esc(ago(r.best.observed_at)) : "–"}</td>
+      <td>${stockBadge(r)}</td>
+      <td class="act">${tracked.has(r.ref)
+        ? '<span class="mwk-badge mwk-badge--ink">Tracked</span>'
+        : `<button class="mwk-btn mwk-btn--outline mwk-btn--sm" data-track="${esc(r.key)}">Track</button>`}</td>
+    </tr>`;
+  }).join("");
+}
+document.getElementById("rows").addEventListener("click", e => {
+  const btn = e.target.closest("[data-track]");
+  if (!btn) return;
+  const row = rows.find(r => r.key === btn.dataset.track);
+  if (row) track(row);
+});
+function track(row) {
+  const items = nest();
+  if (items.some(i => i.ref === row.ref)) return;
+  items.push({
+    ref: row.ref, kind: row.kind, name: row.name, set: row.set,
+    added_at: new Date().toISOString(),
+    price_snapshot: row.best
+      ? {aud_cents: row.best.price_cents, source_type: row.kind === "sealed" ? "au_store" : (row.best.source_type === "ebay_active" ? "au_ebay" : "au_store"),
+         source_label: `${row.best.store} (AU local price)`, in_stock: !!row.best.in_stock}
+      : {aud_cents: null, source_type: "none", source_label: "no price at track time"},
+  });
+  saveNest(items);
+  toast(`Tracked. Mowka will keep a sharp eye on ${row.name}.`);
+  renderFossick(); renderNest();
+}
+
+/* ---------- nest ---------- */
+function currentBest(item) {
+  const row = rows.find(r => r.ref === item.ref);
+  return row ? row.best : null;
+}
+function renderNest() {
+  const items = nest();
+  document.getElementById("nest-count").textContent = items.length;
+  document.getElementById("stat-count").textContent = `${items.length} item${items.length === 1 ? "" : "s"}`;
+  const sealedN = items.filter(i => i.kind === "sealed").length;
+  document.getElementById("stat-tags").innerHTML =
+    `<span class="tagchip">Sealed ${sealedN}</span> <span class="tagchip" style="margin-left:6px">Singles ${items.length - sealedN}</span>`;
+  // one basis per item: current price when we have a live row, else the
+  // snapshot; the delta compares only items that have BOTH (like with like)
+  let now = 0, pairNow = 0, pairThen = 0;
+  for (const i of items) {
+    const cur = currentBest(i);
+    const snap = i.price_snapshot?.aud_cents;
+    now += cur ? cur.price_cents : (snap || 0);
+    if (cur && snap) { pairNow += cur.price_cents; pairThen += snap; }
+  }
+  document.getElementById("stat-value").textContent = aud(now);
+  const deltaEl = document.getElementById("stat-delta");
+  if (pairThen > 0) {
+    const d = (pairNow - pairThen) / pairThen * 100;
+    if (Math.abs(d) < 0.05) {
+      deltaEl.className = "";
+      deltaEl.textContent = "— unchanged since tracked";
+    } else {
+      deltaEl.className = d < 0 ? "delta-down" : "delta-up";
+      deltaEl.textContent = `${d < 0 ? "▼" : "▲"} ${Math.abs(d).toFixed(1)}% since tracked`;
+    }
+  } else deltaEl.textContent = "";
+  const host = document.getElementById("nest-items");
+  if (!items.length) {
+    host.className = "";
+    host.innerHTML = `<div class="mwk-card mwk-card--art"><div class="mwk-card-body empty-nest">
+      <img class="art" src="assets/mowka-swoop.webp" alt="">
+      <p>Nothing shiny here yet. Fossick for a card and track it — Mowka will bring finds back to your nest.</p>
+    </div></div>`;
+    return;
+  }
+  host.className = "nest-grid";
+  host.innerHTML = items.map(i => {
+    const cur = currentBest(i);
+    const snap = i.price_snapshot?.aud_cents;
+    let deltaHtml = "";
+    if (cur && snap) {
+      const d = (cur.price_cents - snap) / snap * 100;
+      deltaHtml = Math.abs(d) < 0.05
+        ? `<span style="font-family:var(--font-mono);font-size:12px;margin-left:10px;color:var(--text-muted)">— unchanged</span>`
+        : `<span style="font-family:var(--font-mono);font-size:12px;margin-left:10px"
+            class="${d < 0 ? "delta-down" : "delta-up"}">${d < 0 ? "▼" : "▲"} ${Math.abs(d).toFixed(1)}% since tracked</span>`;
+    }
+    const badge = cur
+      ? (cur.in_stock ? '<span class="mwk-badge mwk-badge--leaf"><span class="mwk-badge-dot"></span>In stock</span>'
+                      : '<span class="mwk-badge mwk-badge--spark"><span class="mwk-badge-dot"></span>Out</span>')
+      : '<span class="mwk-badge mwk-badge--outline">No AU listing</span>';
+    return `<div class="mwk-card mwk-card--hover">
+      <div class="mwk-card-head"><div><div class="mwk-card-label">${esc(i.set)}</div>
+        <h3 class="mwk-card-title">${esc(i.name)}</h3></div>${badge}</div>
+      <div class="mwk-card-body">
+        <span style="font-family:var(--font-mono);font-size:20px;font-weight:600">${cur ? aud(cur.price_cents) : (snap ? aud(snap) + " (snapshot)" : "–")}</span>${deltaHtml}
+      </div>
+      <div class="mwk-card-foot">
+        ${cur ? `<a class="mwk-btn mwk-btn--ghost mwk-btn--sm" href="${esc(safeUrl(cur.url))}" rel="nofollow noopener">View source</a>` : ""}
+        <button class="mwk-btn mwk-btn--ghost mwk-btn--sm" data-untrack="${esc(i.ref)}">Stop tracking</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+document.getElementById("nest-items").addEventListener("click", e => {
+  const btn = e.target.closest("[data-untrack]");
+  if (!btn) return;
+  saveNest(nest().filter(i => i.ref !== btn.dataset.untrack));
+  toast("Out of the nest. Mowka let that one go.");
+  renderFossick(); renderNest();
+  checkRestocks();  // a banner must not advertise an item no longer tracked
+});
+const alertsSwitch = document.getElementById("alerts-switch");
+alertsSwitch.checked = alertsOn();
+alertsSwitch.addEventListener("change", () => {
+  localStorage.setItem(ALERTS_KEY, alertsSwitch.checked ? "on" : "off");
+  toast(alertsSwitch.checked ? "Squawk! Alerts stay on." : "Alerts off. Mowka will stay quiet.");
+  document.getElementById("swoop-slot").innerHTML = "";
+  if (alertsSwitch.checked) checkRestocks();
+});
+
+/* ---------- swoop alert: tracked item came back in stock ---------- */
+const DISMISSED_KEY = "mowka.swoop.dismissed.v1";
+const dismissedRefs = () => {
+  try { const v = JSON.parse(localStorage.getItem(DISMISSED_KEY)); return Array.isArray(v) ? v : []; }
+  catch { return []; }
+};
+function checkRestocks() {
+  document.getElementById("swoop-slot").innerHTML = "";
+  if (!alertsOn()) return;
+  let dismissed = dismissedRefs();
+  // a ref that went out of stock again may genuinely restock later: forget it
+  const stillIn = new Set(nest().filter(i => currentBest(i)?.in_stock).map(i => i.ref));
+  const pruned = dismissed.filter(ref => stillIn.has(ref));
+  if (pruned.length !== dismissed.length) {
+    dismissed = pruned;
+    localStorage.setItem(DISMISSED_KEY, JSON.stringify(dismissed));
+  }
+  for (const i of nest()) {
+    const cur = currentBest(i);
+    if (!cur || !cur.in_stock || i.price_snapshot?.in_stock !== false) continue;
+    if (dismissed.includes(i.ref)) continue;
+    document.getElementById("swoop-slot").innerHTML = `
+      <div class="mwk-swoop" role="alert" style="margin-bottom:20px">
+        <div class="mwk-swoop-body">
+          <p class="mwk-swoop-label">Swoop · Restock</p>
+          <p class="mwk-swoop-title">${esc(i.name)}</p>
+          <p class="mwk-swoop-meta">${esc(cur.store)} · <strong>${aud(cur.price_cents)}</strong></p>
+          <div class="mwk-swoop-actions">
+            <a class="mwk-btn mwk-btn--spark mwk-btn--sm" href="${esc(safeUrl(cur.url))}" rel="nofollow noopener">Go to store</a>
+            <button class="mwk-btn mwk-btn--ghost mwk-btn--sm" id="swoop-dismiss">Dismiss</button>
+          </div>
+        </div>
+        <div class="mwk-swoop-art"><img class="art" src="assets/mowka-swoop.webp" alt="Mowka swooping"></div>
+      </div>`;
+    document.getElementById("swoop-dismiss").onclick = () => {
+      localStorage.setItem(DISMISSED_KEY, JSON.stringify([...dismissedRefs(), i.ref]));
+      checkRestocks();  // show the next qualifying restock, if any
+    };
+    break;
+  }
+}
+
+/* ---------- tabs (ARIA pattern: roving tabindex + arrow keys) ---------- */
+const allTabs = [...document.querySelectorAll(".mwk-tab")];
+function activateTab(tab) {
+  for (const t of allTabs) {
+    const active = t === tab;
+    t.classList.toggle("mwk-tab--active", active);
+    t.setAttribute("aria-selected", active ? "true" : "false");
+    t.tabIndex = active ? 0 : -1;
+  }
+  document.getElementById("screen-fossick").hidden = tab.dataset.tab !== "fossick";
+  document.getElementById("screen-nest").hidden = tab.dataset.tab !== "nest";
+}
+for (const tab of allTabs) {
+  tab.addEventListener("click", () => activateTab(tab));
+  tab.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
+    e.preventDefault();
+    const i = allTabs.indexOf(tab);
+    const next = e.key === "Home" ? allTabs[0]
+      : e.key === "End" ? allTabs[allTabs.length - 1]
+      : allTabs[(i + (e.key === "ArrowRight" ? 1 : allTabs.length - 1)) % allTabs.length];
+    next.focus(); activateTab(next);
+  });
+}
+document.getElementById("q").addEventListener("input", renderFossick);
+document.getElementById("sort").addEventListener("change", renderFossick);
+document.getElementById("sealed-only").addEventListener("change", renderFossick);
+
+/* ---------- scan (docs/SCAN_PRICING.md) ---------- */
+const scanDialog = document.getElementById("scan");
+const scanBody = document.getElementById("scan-body");
+document.getElementById("open-scan").addEventListener("click", () => { scanDialog.showModal(); scanStart(); });
+document.getElementById("scan-close").addEventListener("click", () => scanDialog.close());
+
+// Lookbehind in a top-level literal is a parse-time SyntaxError on older
+// WebKit — construct lazily and fall back to manual boundary checks so old
+// iPhones get a working app (scan included), not a blank page.
+let FRACTIONS_RE;
+try { FRACTIONS_RE = new RegExp("(?<![\\d/])(\\d{1,3})\\s*/\\s*(\\d{1,3})(?![\\d/])", "g"); }
+catch { FRACTIONS_RE = null; }
+function findFractions(text) {
+  const out = [];
+  if (FRACTIONS_RE) {
+    for (const m of text.matchAll(FRACTIONS_RE)) out.push([parseInt(m[1], 10), parseInt(m[2], 10)]);
+    return out;
+  }
+  for (const m of text.matchAll(/(\d{1,3})\s*\/\s*(\d{1,3})/g)) {
+    const before = text[m.index - 1], after = text[m.index + m[0].length];
+    if (before && /[\d/]/.test(before)) continue;
+    if (after && /[\d/]/.test(after)) continue;
+    out.push([parseInt(m[1], 10), parseInt(m[2], 10)]);
+  }
+  return out;
+}
+const cleanText = t => t.toLowerCase().replace(/[$€£]\s*\d+(?:[.,]\d+)?/g, " ").replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
+const nameTokens = t => new Set(cleanText(t).split(" ").filter(w => w.length > 2 && !/^\d+$/.test(w)));
+
+async function ensureIndex() {
+  if (!cardIndex) {
+    scanStatus("Loading card index…");
+    const r = await fetch("api/card-index.json");
+    if (!r.ok) throw new Error("card index " + r.status);
+    cardIndex = await r.json();
+  }
+  return cardIndex;
+}
+function identify(text, index, limit = 5) {
+  const tokens = nameTokens(text);
+  const score = name => { let s = 0; for (const t of nameTokens(name)) if (tokens.has(t)) s++; return s; };
+  const seen = new Set(); const out = [];
+  for (const [num, den] of findFractions(text)) {
+    if (!den) continue;
+    const sets = new Set(index.sets.filter(s => s.official === den).map(s => s.id));
+    if (!sets.size) continue;
+    for (const [id, localId, name] of index.cards) {
+      const setId = id.slice(0, id.lastIndexOf("-"));
+      if (sets.has(setId) && /^\d+$/.test(localId) && parseInt(localId, 10) === num && !seen.has(id)) {
+        seen.add(id);
+        out.push({id, localId, name, set_id: setId,
+                  set_name: (index.sets.find(s => s.id === setId) || {}).name || setId});
+      }
+    }
+  }
+  out.sort((a, b) => score(b.name) - score(a.name));
+  if (!out.length && tokens.size) {
+    const scored = index.cards.map(row => [score(row[2]), row]).filter(([s]) => s > 0);
+    scored.sort((a, b) => b[0] - a[0]);
+    for (const [, [id, localId, name]] of scored.slice(0, limit)) {
+      const setId = id.slice(0, id.lastIndexOf("-"));
+      out.push({id, localId, name, set_id: setId,
+                set_name: (index.sets.find(s => s.id === setId) || {}).name || setId});
+    }
+  }
+  return out.slice(0, limit);
+}
+function scanStatus(msg) {
+  const el = document.getElementById("scan-status");
+  if (el) el.textContent = msg;
+}
+function scanStart() {
+  scanBody.innerHTML = `
+    <label class="scan-drop" for="scan-file">
+      <strong>Photo the card</strong> — frame the whole card, collector number visible (e.g. 161/131).<br>
+      Tap to open the camera or choose a photo.
+      <input id="scan-file" class="sr-only" type="file" accept="image/*" capture="environment">
+    </label>
+    <label class="mwk-field">
+      <span class="mwk-field-label">Or type it</span>
+      <span class="mwk-input-wrap"><input class="mwk-input" id="scan-text" placeholder="e.g. umbreon 161/131" autocomplete="off"></span>
+    </label>
+    <p class="scan-status" id="scan-status"></p>
+    <div id="scan-results"></div>`;
+  document.getElementById("scan-file").addEventListener("change", e => {
+    if (e.target.files && e.target.files[0]) scanImage(e.target.files[0]);
+  });
+  const typed = document.getElementById("scan-text");
+  let debounce;
+  typed.addEventListener("input", () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => scanIdentify(typed.value), 350);
+  });
+}
+async function scanImage(file) {
+  try {
+    scanStatus("Reading the card… (first scan downloads the reader)");
+    if (!window.Tesseract) {
+      await new Promise((res, rej) => {
+        const s = document.createElement("script");
+        s.src = "https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js";
+        s.onload = res; s.onerror = () => rej(new Error("could not load the OCR reader"));
+        document.head.append(s);
+      });
+    }
+    const { data } = await Tesseract.recognize(file, "eng",
+      { logger: m => { if (m.status === "recognizing text") scanStatus(`Reading… ${Math.round(m.progress * 100)}%`); } });
+    scanStatus("");
+    await scanIdentify(data.text || "");
+  } catch (err) {
+    scanStatus("Squawk — couldn't read that. Try again with more light, or type the card below.");
+  }
+}
+async function scanIdentify(text) {
+  if (!text.trim()) { document.getElementById("scan-results").innerHTML = ""; return; }
+  let index;
+  try {
+    index = await ensureIndex();
+  } catch {
+    scanStatus("Squawk — couldn't load the card index. Check your connection and try again.");
+    return;
+  }
+  if (window.goatcounter?.count) goatcounter.count({path: "card-scan", title: "Card scan", event: true});
+  const candidates = identify(text, index);
+  const host = document.getElementById("scan-results");
+  if (!candidates.length) {
+    scanStatus("No match — check the collector number (like 161/131) or the name spelling.");
+    host.innerHTML = "";
+    return;
+  }
+  scanStatus(candidates.length === 1 ? "Found it — confirm:" : "Tap the card you scanned:");
+  host.innerHTML = `<div style="display:flex;flex-direction:column;gap:8px">` + candidates.map(c => `
+    <button class="cand" data-ref="${esc(c.id)}">
+      <img data-thumb="${esc(c.id)}" alt="" src="">
+      <div><div class="cname">${esc(c.name)}</div>
+      <div class="cmeta">${esc(c.set_name)} · #${esc(c.localId)}</div></div>
+    </button>`).join("") + `</div>`;
+  for (const btn of host.querySelectorAll(".cand")) {
+    btn.addEventListener("click", () => scanPrice(btn.dataset.ref));
+    fetch(`${TCGDEX}/cards/${encodeURIComponent(btn.dataset.ref)}`).then(r => r.json()).then(d => {
+      if (d.image) btn.querySelector("img").src = safeUrl(d.image + "/low.webp");
+    }).catch(() => {});
+  }
+}
+async function scanPrice(ref) {
+  scanStatus("Fossicking for the price…");
+  document.getElementById("scan-results").innerHTML = "";
+  await dataReady;  // never price against not-yet-loaded artifacts
+  let info = null;
+  try { info = await fetch(`${TCGDEX}/cards/${encodeURIComponent(ref)}`).then(r => r.ok ? r.json() : null); } catch {}
+  // resolution order per docs/SCAN_PRICING.md: AU local -> USD x fx -> EUR x fx
+  if (auPrices === null) {
+    scanStatus("Squawk — AU price data is unreachable right now; a converted reference could be misleading. Try again shortly.");
+    return;
+  }
+  const au = auPrices[ref];
+  let priceHtml, trackSnapshot;
+  if (au) {
+    priceHtml = `<div class="rprice">${aud(au.price_cents)}</div>
+      <div class="rsource">${au.in_stock ? "In stock" : "Out of stock"} at
+        <a href="${esc(safeUrl(au.url))}" rel="nofollow noopener">${esc(au.store)}</a> — AU local price, seen ${esc(ago(au.observed_at))}</div>`;
+    trackSnapshot = {aud_cents: au.price_cents,
+      source_type: au.source_type === "ebay_active" ? "au_ebay" : "au_store",
+      source_label: `${au.store} (AU local price)`, in_stock: !!au.in_stock};
+  } else {
+    const usd = tcgplayerUsd(info), eur = cardmarketEur(info);
+    const conv = usd && fx?.usd_aud ? {amt: usd, cur: "USD", rate: fx.usd_aud, label: "US market (TCGplayer)"}
+             : eur && fx?.eur_aud ? {amt: eur, cur: "EUR", rate: fx.eur_aud, label: "EU market (Cardmarket)"}
+             : null;
+    if (conv) {
+      const cents = Math.round(conv.amt * conv.rate * 100);
+      priceHtml = `<div class="rprice">${aud(cents)}</div>
+        <div class="rsource">${esc(conv.label)}, converted at ECB rate ${esc(fx.date)} — reference, not an AU market price</div>
+        <div class="rwork">${conv.cur === "USD" ? "US$" : "€"}${conv.amt.toFixed(2)} × ${conv.rate}</div>`;
+      trackSnapshot = {aud_cents: cents, source_type: conv.cur.toLowerCase() + "_converted",
+        source_label: `${conv.label}, converted at ECB rate ${fx.date}`};
+    } else {
+      priceHtml = `<div class="rprice">–</div><div class="rsource">No price found — no AU listing and no reference price available.</div>`;
+      trackSnapshot = {aud_cents: null, source_type: "none", source_label: "no price found"};
+    }
+  }
+  scanStatus("");
+  const name = info?.name || ref, setName = info?.set?.name || "";
+  document.getElementById("scan-results").innerHTML = `
+    <div class="result">
+      ${info?.image ? `<img src="${esc(safeUrl(info.image + "/high.webp"))}" alt="">` : ""}
+      <div>
+        <div style="font-weight:700;font-size:var(--text-lg);letter-spacing:var(--tracking-tight)">${esc(name)}</div>
+        <div style="font-size:var(--text-sm);color:var(--text-muted);margin-bottom:10px">${esc(setName)}</div>
+        ${priceHtml}
+        <div class="ractions">
+          <button class="mwk-btn mwk-btn--spark mwk-btn--md" id="scan-track">Track in Nest</button>
+          <button class="mwk-btn mwk-btn--ghost mwk-btn--md" id="scan-again">Scan another</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById("scan-track").onclick = () => {
+    const items = nest();
+    if (!items.some(i => i.ref === ref)) {
+      items.push({ref, kind: "card", name, set: setName,
+                  added_at: new Date().toISOString(), price_snapshot: trackSnapshot});
+      saveNest(items);
+    }
+    toast(`Found! ${name} is in the nest.`, "success");
+    scanDialog.close();
+    renderFossick(); renderNest();
+  };
+  document.getElementById("scan-again").onclick = scanStart;
+}
+// TCGdex serves pricing per-variant for modern cards but at the TOP level for
+// vintage ones (e.g. base1-4 Charizard) — check both, variants first.
+function pricingSources(info) {
+  return [...(info?.variants_detailed || []).map(v => v?.pricing), info?.pricing];
+}
+function tcgplayerUsd(info) {
+  for (const finish of ["holofoil", "normal", "reverseHolofoil", "1stEditionHolofoil"])
+    for (const p of pricingSources(info)) {
+      const m = p?.tcgplayer?.[finish]?.marketPrice;
+      if (m) return Number(m);
+    }
+  return null;
+}
+function cardmarketEur(info) {
+  for (const p of pricingSources(info))
+    for (const k of ["trend", "avg30"]) {
+      const m = p?.cardmarket?.[k];
+      if (m) return Number(m);
+    }
+  return null;
+}
+
+const dataReady = loadData().catch(err => {
+  console.error(err);
+  document.getElementById("rows").innerHTML =
+    `<tr><td colspan="5" class="tbl-empty">Squawk — couldn't reach the index. Check your connection and reload.</td></tr>`;
+});
+</script>
+<script data-goatcounter="https://mowka.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
