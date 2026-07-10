@@ -19,6 +19,7 @@ class CardInfo:
     image_url: str | None
     usd_market: float | None  # TCGplayer market price (reference only)
     source_url: str
+    eur_market: float | None = None  # Cardmarket trend price (reference only)
 
 
 class CardCatalogError(Exception):
