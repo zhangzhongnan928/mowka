@@ -24,8 +24,15 @@ domain decision lands, this section names the new canonical base.
 
 Live per-card USD/EUR references come straight from TCGdex in the client
 (`https://api.tcgdex.net/v2/en/cards/{ref}`, CORS-open, no key):
-USD = best `variants_detailed[].pricing.tcgplayer.{holofoil>normal>reverseHolofoil}.marketPrice`,
-EUR = first `variants_detailed[].pricing.cardmarket.trend` (fallback `avg30`).
+USD = best `pricing.tcgplayer.{holofoil>normal>reverseHolofoil}.marketPrice`,
+EUR = first `pricing.cardmarket.trend` (fallback `avg30`) — checking each
+`variants_detailed[].pricing` first, then the card's TOP-LEVEL `pricing`
+(vintage cards like `base1-4` only carry the latter).
+
+`au-prices.json` excludes placeholder listings: a card offer priced below 20%
+of its USD-converted reference (when that reference is ≥ A$20) is a sold-out
+placeholder, not a price (live-verified: A$99.99 "listings" against a
+US$1,528 card).
 
 ## Identify (OCR text → card)
 
@@ -68,6 +75,13 @@ Converted results carry `base_amount`, `base_currency`, `fx_rate`, `fx_date`
 so the UI can show the working (e.g. "US$100.00 × 1.441"). A converted price
 is a **reference**, not an AU market price — the label must make that
 distinction; this mirrors the sealed index's US-reference rule.
+
+Rounding convention: cents round **half-up** (`Math.round` in JS;
+`int(x * 100 + 0.5)` in Python) so every client agrees at .5 boundaries.
+
+If the AU price artifact itself fails to load, say so — do NOT fall through
+to a converted price as if the card had no AU listing; the strict order only
+applies when the AU data was actually consulted.
 
 ## Collection storage (client-side, no accounts in v0)
 

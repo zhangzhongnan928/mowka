@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-10T02:42:24+00:00",
+ "generated_at": "2026-07-10T04:00:14+00:00",
  "cards": [
   {
    "id": "card-sv08.5-161",
@@ -13,25 +13,15 @@
    "usd_reference": 1528.09,
    "best": {
     "sku_id": "card-sv08.5-161",
-    "store": "Kawaii Collector",
-    "url": "https://kawaiicollector.com.au/products/umbreon-ex-161-131-scarlet-and-violet-prismatic-evolutions-special-illustration-rare-pokemon-card-tcg",
-    "price_cents": 9999,
+    "store": "ACE Collectibles",
+    "url": "https://www.acecollectibles.com.au/products/umbreon-ex-161-131-sv-prismatic-evolutions-610516",
+    "price_cents": 264100,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-09T23:29:59+00:00",
+    "observed_at": "2026-07-09T23:31:25+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
-    {
-     "sku_id": "card-sv08.5-161",
-     "store": "Kawaii Collector",
-     "url": "https://kawaiicollector.com.au/products/umbreon-ex-161-131-scarlet-and-violet-prismatic-evolutions-special-illustration-rare-pokemon-card-tcg",
-     "price_cents": 9999,
-     "currency": "AUD",
-     "in_stock": false,
-     "observed_at": "2026-07-09T23:29:59+00:00",
-     "source_type": "store_shopify"
-    },
     {
      "sku_id": "card-sv08.5-161",
      "store": "ACE Collectibles",
@@ -103,25 +93,15 @@
    "usd_reference": 555.64,
    "best": {
     "sku_id": "card-sv08.5-156",
-    "store": "Kawaii Collector",
-    "url": "https://kawaiicollector.com.au/products/sylveon-ex-156-131-scarlet-and-violet-prismatic-evolutions-special-illustration-rare-pokemon-card-tcg",
-    "price_cents": 9999,
+    "store": "Gameology",
+    "url": "https://www.gameology.com.au/products/sylveon-ex-156-131-156-sv-prismatic-evolutions-holofoil",
+    "price_cents": 96299,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-09T23:29:59+00:00",
+    "observed_at": "2026-07-09T23:24:00+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
-    {
-     "sku_id": "card-sv08.5-156",
-     "store": "Kawaii Collector",
-     "url": "https://kawaiicollector.com.au/products/sylveon-ex-156-131-scarlet-and-violet-prismatic-evolutions-special-illustration-rare-pokemon-card-tcg",
-     "price_cents": 9999,
-     "currency": "AUD",
-     "in_stock": false,
-     "observed_at": "2026-07-09T23:29:59+00:00",
-     "source_type": "store_shopify"
-    },
     {
      "sku_id": "card-sv08.5-156",
      "store": "Gameology",
@@ -202,16 +182,6 @@
     "source_type": "store_shopify"
    },
    "offers": [
-    {
-     "sku_id": "card-sv03.5-199",
-     "store": "Kawaii Collector",
-     "url": "https://kawaiicollector.com.au/products/charizard-ex-199-165-sv-151-set-full-art-special-illustration-rare-pokemon-card-tcg",
-     "price_cents": 9999,
-     "currency": "AUD",
-     "in_stock": false,
-     "observed_at": "2026-07-09T23:30:17+00:00",
-     "source_type": "store_shopify"
-    },
     {
      "sku_id": "card-sv03.5-199",
      "store": "Gameology",
@@ -358,25 +328,15 @@
    "usd_reference": 362.3,
    "best": {
     "sku_id": "card-sv08-238",
-    "store": "Kawaii Collector",
-    "url": "https://kawaiicollector.com.au/products/pikachu-ex-238-191-sv-surging-sparks-special-illustration-rare-pokemon-card-tcg",
-    "price_cents": 9999,
+    "store": "Gameology",
+    "url": "https://www.gameology.com.au/products/pikachu-ex-238-sv08-surging-sparks-holofoil",
+    "price_cents": 63499,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-09T23:30:02+00:00",
+    "observed_at": "2026-07-09T23:23:48+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
-    {
-     "sku_id": "card-sv08-238",
-     "store": "Kawaii Collector",
-     "url": "https://kawaiicollector.com.au/products/pikachu-ex-238-191-sv-surging-sparks-special-illustration-rare-pokemon-card-tcg",
-     "price_cents": 9999,
-     "currency": "AUD",
-     "in_stock": false,
-     "observed_at": "2026-07-09T23:30:02+00:00",
-     "source_type": "store_shopify"
-    },
     {
      "sku_id": "card-sv08-238",
      "store": "Gameology",
@@ -446,28 +406,8 @@
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv10/231/low.webp",
    "usd_reference": 548.09,
-   "best": {
-    "sku_id": "card-sv10-231",
-    "store": "Kawaii Collector",
-    "url": "https://kawaiicollector.com.au/products/team-rockets-mewtwo-ex-231-182-scarlet-and-violet-destined-rivals-illustration-rare-pokemon-card-tcg",
-    "price_cents": 9999,
-    "currency": "AUD",
-    "in_stock": false,
-    "observed_at": "2026-07-09T23:29:55+00:00",
-    "source_type": "store_shopify"
-   },
-   "offers": [
-    {
-     "sku_id": "card-sv10-231",
-     "store": "Kawaii Collector",
-     "url": "https://kawaiicollector.com.au/products/team-rockets-mewtwo-ex-231-182-scarlet-and-violet-destined-rivals-illustration-rare-pokemon-card-tcg",
-     "price_cents": 9999,
-     "currency": "AUD",
-     "in_stock": false,
-     "observed_at": "2026-07-09T23:29:55+00:00",
-     "source_type": "store_shopify"
-    }
-   ],
+   "best": null,
+   "offers": [],
    "active_count": null,
    "active_count_capped": false
   },

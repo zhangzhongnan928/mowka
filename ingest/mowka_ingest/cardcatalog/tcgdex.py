@@ -9,21 +9,28 @@ UA = "MowkaAU/0.1 (+contact: zhangzhongnan928@gmail.com) card catalog sync"
 _FINISH_PRIORITY = ("holofoil", "normal", "reverseHolofoil", "1stEditionHolofoil")
 
 
+def _pricing_sources(payload: dict) -> list[dict]:
+    """Modern cards carry pricing per variant; vintage cards (e.g. base1-4)
+    carry it at the top level. Check variants first, then the top level."""
+    sources = [(v.get("pricing") or {}) for v in payload.get("variants_detailed") or []]
+    sources.append(payload.get("pricing") or {})
+    return sources
+
+
 def _usd_market(payload: dict) -> float | None:
     for finish in _FINISH_PRIORITY:
-        for variant in payload.get("variants_detailed") or []:
-            tcgplayer = (variant.get("pricing") or {}).get("tcgplayer") or {}
-            market = (tcgplayer.get(finish) or {}).get("marketPrice")
+        for pricing in _pricing_sources(payload):
+            market = ((pricing.get("tcgplayer") or {}).get(finish) or {}).get("marketPrice")
             if market:
                 return float(market)
     return None
 
 
 def _eur_market(payload: dict) -> float | None:
-    """Cardmarket price per variant is flat (no finish sub-keys): prefer trend,
-    fall back to the 30-day average."""
-    for variant in payload.get("variants_detailed") or []:
-        cardmarket = (variant.get("pricing") or {}).get("cardmarket") or {}
+    """Cardmarket pricing is flat (no finish sub-keys): prefer trend, fall
+    back to the 30-day average."""
+    for pricing in _pricing_sources(payload):
+        cardmarket = pricing.get("cardmarket") or {}
         for key in ("trend", "avg30"):
             if cardmarket.get(key):
                 return float(cardmarket[key])

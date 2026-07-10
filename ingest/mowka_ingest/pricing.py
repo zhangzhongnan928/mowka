@@ -142,7 +142,9 @@ def resolve_price(ref: str, au_prices: dict, info: CardInfo | None, fx: dict | N
         if amount and fx and fx.get(rate_key):
             rate = fx[rate_key]
             return {
-                "aud_cents": round(amount * rate * 100),
+                # half-up, matching JS Math.round — Python's banker's round
+                # would disagree with clients at exact .5 cent boundaries
+                "aud_cents": int(amount * rate * 100 + 0.5),
                 "source_type": f"{currency.lower()}_converted",
                 "source_label": f"{market_label}, converted at ECB rate {fx['date']}",
                 "source_url": info.source_url if info else None,

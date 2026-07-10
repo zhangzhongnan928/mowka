@@ -101,7 +101,8 @@ a{color:inherit}
 @media(max-width:560px){.mwk-swoop-art{width:110px}}
 
 /* ============ kit: toast ============ */
-#toasts{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:60}
+#toasts{position:fixed;right:16px;bottom:16px;left:16px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:60;pointer-events:none}
+#toasts .mwk-toast{pointer-events:auto}
 .mwk-toast{display:flex;align-items:flex-start;gap:12px;background:var(--surface-ink);color:var(--text-on-ink);border-radius:var(--radius-md);padding:14px 14px 14px 16px;max-width:420px;box-shadow:var(--shadow-pop);animation:mwk-toast-in var(--duration-swoop) var(--ease-swoop)}
 @keyframes mwk-toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .mwk-toast-label{font-family:var(--font-mono);font-size:var(--text-label);font-weight:600;letter-spacing:var(--tracking-label);text-transform:uppercase;margin:0 0 3px;color:var(--gold)}
@@ -119,6 +120,7 @@ header.app{background:var(--surface-card);border-bottom:1px solid var(--line)}
 .headmark{width:36px;height:36px;border-radius:50%;background:var(--surface-art);object-fit:cover}
 .scan-eye{height:16px;width:auto;mix-blend-mode:multiply}
 @media(max-width:560px){.masthead .tagline{display:none}}
+@media(pointer:coarse){.mwk-btn--sm{height:40px;padding:0 14px}.mwk-toast-x,.mwk-tab{min-height:40px}}
 
 /* ============ screens ============ */
 main{padding:20px 0 64px}
@@ -155,7 +157,7 @@ td.act{text-align:right;white-space:nowrap}
 .delta-up{color:var(--spark-deep)}
 
 /* ============ scan dialog ============ */
-dialog#scan{border:var(--border-keyline);border-radius:var(--radius-lg);padding:0;width:min(560px,calc(100vw - 32px));background:var(--surface-card)}
+dialog#scan{border:var(--border-keyline);border-radius:var(--radius-lg);padding:0;width:min(560px,calc(100vw - 32px));background:var(--surface-card);margin:auto}
 dialog#scan::backdrop{background:rgba(23,23,28,.5)}
 .scan-head{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line)}
 .scan-head img{height:22px;width:auto}
@@ -163,7 +165,8 @@ dialog#scan::backdrop{background:rgba(23,23,28,.5)}
 .scan-head .mwk-toast-x{color:var(--ink)}
 .scan-body{padding:20px;display:flex;flex-direction:column;gap:16px}
 .scan-drop{border:2px dashed var(--line);border-radius:var(--radius-md);padding:22px;text-align:center;color:var(--text-muted);font-size:var(--text-sm);cursor:pointer;background:var(--surface-sunken)}
-.scan-drop:hover{border-color:var(--ink);color:var(--text-body)}
+.scan-drop:hover,.scan-drop:focus-within{border-color:var(--ink);color:var(--text-body)}
+.scan-drop:focus-within{box-shadow:var(--focus-ring)}
 .scan-status{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--text-muted)}
 .cand{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--line);border-radius:var(--radius-md);cursor:pointer;background:var(--surface-card);width:100%;text-align:left;font:inherit}
 .cand:hover{border-color:var(--ink);box-shadow:var(--shadow-lift)}
@@ -193,8 +196,8 @@ dialog#scan::backdrop{background:rgba(23,23,28,.5)}
       </div>
     </div>
     <div class="mwk-tabs" role="tablist" style="border-bottom:0">
-      <button class="mwk-tab mwk-tab--active" role="tab" aria-selected="true" id="tab-fossick" data-tab="fossick">Fossick</button>
-      <button class="mwk-tab" role="tab" aria-selected="false" id="tab-nest" data-tab="nest">Nest <span class="mwk-tab-count" id="nest-count">0</span></button>
+      <button class="mwk-tab mwk-tab--active" role="tab" aria-selected="true" aria-controls="screen-fossick" id="tab-fossick" data-tab="fossick">Fossick</button>
+      <button class="mwk-tab" role="tab" aria-selected="false" aria-controls="screen-nest" tabindex="-1" id="tab-nest" data-tab="nest">Nest <span class="mwk-tab-count" id="nest-count">0</span></button>
     </div>
   </div>
 </header>
@@ -280,7 +283,13 @@ let rows = [];          // merged fossick rows
 let auPrices = {};      // ref -> offer
 let fx = null;
 let cardIndex = null;   // lazy (716KB)
-const nest = () => { try { return JSON.parse(localStorage.getItem(COLLECTION_KEY)) || []; } catch { return []; } };
+const nest = () => {
+  // corruption-tolerant per spec: wrong-shape JSON must never brick the app
+  try {
+    const v = JSON.parse(localStorage.getItem(COLLECTION_KEY));
+    return Array.isArray(v) ? v.filter(i => i && typeof i === "object" && typeof i.ref === "string") : [];
+  } catch { return []; }
+};
 const saveNest = items => localStorage.setItem(COLLECTION_KEY, JSON.stringify(items));
 const alertsOn = () => localStorage.getItem(ALERTS_KEY) !== "off";
 
@@ -302,10 +311,12 @@ async function loadData() {
   const [sealed, cards, au, fxres] = await Promise.all([
     fetch("data.json").then(r => r.ok ? r.json() : {products: []}).catch(() => ({products: []})),
     fetch("cards.json").then(r => r.ok ? r.json() : {cards: []}).catch(() => ({cards: []})),
-    fetch("api/au-prices.json").then(r => r.ok ? r.json() : {prices: {}}).catch(() => ({prices: {}})),
+    // null (not {}) on failure: "AU data unavailable" must never silently
+    // fall through to a converted price (spec: strict resolution order)
+    fetch("api/au-prices.json").then(r => r.ok ? r.json() : null).catch(() => null),
     fetch("api/fx.json").then(r => r.ok ? r.json() : null).catch(() => null),
   ]);
-  auPrices = au.prices || {};
+  auPrices = au ? (au.prices || {}) : null;
   fx = fxres;
   rows = [];
   for (const p of sealed.products) {
@@ -316,7 +327,8 @@ async function loadData() {
   for (const c of cards.cards) {
     const rare = /illustration|hyper|shiny/.test(c.variant || "");
     rows.push({key: c.id, ref: c.id.replace(/^card-/, ""), kind: "card", name: c.name,
-               set: c.set, best: c.best, stores: c.best ? 1 : 0, rare, image: c.image});
+               set: c.set, best: c.best,
+               stores: new Set((c.offers || []).map(o => o.store)).size, rare, image: c.image});
   }
   renderFossick();
   renderNest();
@@ -399,21 +411,30 @@ function renderNest() {
   const sealedN = items.filter(i => i.kind === "sealed").length;
   document.getElementById("stat-tags").innerHTML =
     `<span class="tagchip">Sealed ${sealedN}</span> <span class="tagchip" style="margin-left:6px">Singles ${items.length - sealedN}</span>`;
-  let now = 0, then = 0;
+  // one basis per item: current price when we have a live row, else the
+  // snapshot; the delta compares only items that have BOTH (like with like)
+  let now = 0, pairNow = 0, pairThen = 0;
   for (const i of items) {
     const cur = currentBest(i);
-    if (cur) now += cur.price_cents;
-    if (i.price_snapshot?.aud_cents) then += i.price_snapshot.aud_cents;
+    const snap = i.price_snapshot?.aud_cents;
+    now += cur ? cur.price_cents : (snap || 0);
+    if (cur && snap) { pairNow += cur.price_cents; pairThen += snap; }
   }
   document.getElementById("stat-value").textContent = aud(now);
   const deltaEl = document.getElementById("stat-delta");
-  if (then > 0 && now > 0) {
-    const d = (now - then) / then * 100;
-    deltaEl.className = d <= 0 ? "delta-down" : "delta-up";
-    deltaEl.textContent = `${d <= 0 ? "▼" : "▲"} ${Math.abs(d).toFixed(1)}% since tracked`;
+  if (pairThen > 0) {
+    const d = (pairNow - pairThen) / pairThen * 100;
+    if (Math.abs(d) < 0.05) {
+      deltaEl.className = "";
+      deltaEl.textContent = "— unchanged since tracked";
+    } else {
+      deltaEl.className = d < 0 ? "delta-down" : "delta-up";
+      deltaEl.textContent = `${d < 0 ? "▼" : "▲"} ${Math.abs(d).toFixed(1)}% since tracked`;
+    }
   } else deltaEl.textContent = "";
   const host = document.getElementById("nest-items");
   if (!items.length) {
+    host.className = "";
     host.innerHTML = `<div class="mwk-card mwk-card--art"><div class="mwk-card-body empty-nest">
       <img class="art" src="assets/mowka-swoop.webp" alt="">
       <p>Nothing shiny here yet. Fossick for a card and track it — Mowka will bring finds back to your nest.</p>
@@ -427,8 +448,10 @@ function renderNest() {
     let deltaHtml = "";
     if (cur && snap) {
       const d = (cur.price_cents - snap) / snap * 100;
-      deltaHtml = `<span style="font-family:var(--font-mono);font-size:12px;margin-left:10px"
-        class="${d <= 0 ? "delta-down" : "delta-up"}">${d <= 0 ? "▼" : "▲"} ${Math.abs(d).toFixed(1)}% since tracked</span>`;
+      deltaHtml = Math.abs(d) < 0.05
+        ? `<span style="font-family:var(--font-mono);font-size:12px;margin-left:10px;color:var(--text-muted)">— unchanged</span>`
+        : `<span style="font-family:var(--font-mono);font-size:12px;margin-left:10px"
+            class="${d < 0 ? "delta-down" : "delta-up"}">${d < 0 ? "▼" : "▲"} ${Math.abs(d).toFixed(1)}% since tracked</span>`;
     }
     const badge = cur
       ? (cur.in_stock ? '<span class="mwk-badge mwk-badge--leaf"><span class="mwk-badge-dot"></span>In stock</span>'
@@ -453,6 +476,7 @@ document.getElementById("nest-items").addEventListener("click", e => {
   saveNest(nest().filter(i => i.ref !== btn.dataset.untrack));
   toast("Out of the nest. Mowka let that one go.");
   renderFossick(); renderNest();
+  checkRestocks();  // a banner must not advertise an item no longer tracked
 });
 const alertsSwitch = document.getElementById("alerts-switch");
 alertsSwitch.checked = alertsOn();
@@ -464,14 +488,26 @@ alertsSwitch.addEventListener("change", () => {
 });
 
 /* ---------- swoop alert: tracked item came back in stock ---------- */
+const DISMISSED_KEY = "mowka.swoop.dismissed.v1";
+const dismissedRefs = () => {
+  try { const v = JSON.parse(localStorage.getItem(DISMISSED_KEY)); return Array.isArray(v) ? v : []; }
+  catch { return []; }
+};
 function checkRestocks() {
+  document.getElementById("swoop-slot").innerHTML = "";
   if (!alertsOn()) return;
-  const dismissed = localStorage.getItem("mowka.swoop.dismissed") || "";
+  let dismissed = dismissedRefs();
+  // a ref that went out of stock again may genuinely restock later: forget it
+  const stillIn = new Set(nest().filter(i => currentBest(i)?.in_stock).map(i => i.ref));
+  const pruned = dismissed.filter(ref => stillIn.has(ref));
+  if (pruned.length !== dismissed.length) {
+    dismissed = pruned;
+    localStorage.setItem(DISMISSED_KEY, JSON.stringify(dismissed));
+  }
   for (const i of nest()) {
     const cur = currentBest(i);
     if (!cur || !cur.in_stock || i.price_snapshot?.in_stock !== false) continue;
-    const key = i.ref + "@" + cur.observed_at;
-    if (dismissed === key) continue;
+    if (dismissed.includes(i.ref)) continue;
     document.getElementById("swoop-slot").innerHTML = `
       <div class="mwk-swoop" role="alert" style="margin-bottom:20px">
         <div class="mwk-swoop-body">
@@ -486,22 +522,35 @@ function checkRestocks() {
         <div class="mwk-swoop-art"><img class="art" src="assets/mowka-swoop.webp" alt="Mowka swooping"></div>
       </div>`;
     document.getElementById("swoop-dismiss").onclick = () => {
-      localStorage.setItem("mowka.swoop.dismissed", key);
-      document.getElementById("swoop-slot").innerHTML = "";
+      localStorage.setItem(DISMISSED_KEY, JSON.stringify([...dismissedRefs(), i.ref]));
+      checkRestocks();  // show the next qualifying restock, if any
     };
     break;
   }
 }
 
-/* ---------- tabs ---------- */
-for (const tab of document.querySelectorAll(".mwk-tab")) {
-  tab.addEventListener("click", () => {
-    for (const t of document.querySelectorAll(".mwk-tab")) {
-      t.classList.toggle("mwk-tab--active", t === tab);
-      t.setAttribute("aria-selected", t === tab ? "true" : "false");
-    }
-    document.getElementById("screen-fossick").hidden = tab.dataset.tab !== "fossick";
-    document.getElementById("screen-nest").hidden = tab.dataset.tab !== "nest";
+/* ---------- tabs (ARIA pattern: roving tabindex + arrow keys) ---------- */
+const allTabs = [...document.querySelectorAll(".mwk-tab")];
+function activateTab(tab) {
+  for (const t of allTabs) {
+    const active = t === tab;
+    t.classList.toggle("mwk-tab--active", active);
+    t.setAttribute("aria-selected", active ? "true" : "false");
+    t.tabIndex = active ? 0 : -1;
+  }
+  document.getElementById("screen-fossick").hidden = tab.dataset.tab !== "fossick";
+  document.getElementById("screen-nest").hidden = tab.dataset.tab !== "nest";
+}
+for (const tab of allTabs) {
+  tab.addEventListener("click", () => activateTab(tab));
+  tab.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
+    e.preventDefault();
+    const i = allTabs.indexOf(tab);
+    const next = e.key === "Home" ? allTabs[0]
+      : e.key === "End" ? allTabs[allTabs.length - 1]
+      : allTabs[(i + (e.key === "ArrowRight" ? 1 : allTabs.length - 1)) % allTabs.length];
+    next.focus(); activateTab(next);
   });
 }
 document.getElementById("q").addEventListener("input", renderFossick);
@@ -511,20 +560,38 @@ document.getElementById("sealed-only").addEventListener("change", renderFossick)
 /* ---------- scan (docs/SCAN_PRICING.md) ---------- */
 const scanDialog = document.getElementById("scan");
 const scanBody = document.getElementById("scan-body");
-document.getElementById("open-scan").addEventListener("click", () => {
-  scanDialog.showModal(); scanStart();
-  if (window.goatcounter?.count) goatcounter.count({path: "card-scan", title: "Card scan", event: true});
-});
+document.getElementById("open-scan").addEventListener("click", () => { scanDialog.showModal(); scanStart(); });
 document.getElementById("scan-close").addEventListener("click", () => scanDialog.close());
 
-const FRACTIONS_RE = /(?<![\d\/])(\d{1,3})\s*\/\s*(\d{1,3})(?![\d\/])/g;
+// Lookbehind in a top-level literal is a parse-time SyntaxError on older
+// WebKit — construct lazily and fall back to manual boundary checks so old
+// iPhones get a working app (scan included), not a blank page.
+let FRACTIONS_RE;
+try { FRACTIONS_RE = new RegExp("(?<![\\d/])(\\d{1,3})\\s*/\\s*(\\d{1,3})(?![\\d/])", "g"); }
+catch { FRACTIONS_RE = null; }
+function findFractions(text) {
+  const out = [];
+  if (FRACTIONS_RE) {
+    for (const m of text.matchAll(FRACTIONS_RE)) out.push([parseInt(m[1], 10), parseInt(m[2], 10)]);
+    return out;
+  }
+  for (const m of text.matchAll(/(\d{1,3})\s*\/\s*(\d{1,3})/g)) {
+    const before = text[m.index - 1], after = text[m.index + m[0].length];
+    if (before && /[\d/]/.test(before)) continue;
+    if (after && /[\d/]/.test(after)) continue;
+    out.push([parseInt(m[1], 10), parseInt(m[2], 10)]);
+  }
+  return out;
+}
 const cleanText = t => t.toLowerCase().replace(/[$€£]\s*\d+(?:[.,]\d+)?/g, " ").replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
 const nameTokens = t => new Set(cleanText(t).split(" ").filter(w => w.length > 2 && !/^\d+$/.test(w)));
 
 async function ensureIndex() {
   if (!cardIndex) {
     scanStatus("Loading card index…");
-    cardIndex = await fetch("api/card-index.json").then(r => r.json());
+    const r = await fetch("api/card-index.json");
+    if (!r.ok) throw new Error("card index " + r.status);
+    cardIndex = await r.json();
   }
   return cardIndex;
 }
@@ -532,8 +599,7 @@ function identify(text, index, limit = 5) {
   const tokens = nameTokens(text);
   const score = name => { let s = 0; for (const t of nameTokens(name)) if (tokens.has(t)) s++; return s; };
   const seen = new Set(); const out = [];
-  for (const m of text.matchAll(FRACTIONS_RE)) {
-    const num = parseInt(m[1], 10), den = parseInt(m[2], 10);
+  for (const [num, den] of findFractions(text)) {
     if (!den) continue;
     const sets = new Set(index.sets.filter(s => s.official === den).map(s => s.id));
     if (!sets.size) continue;
@@ -567,7 +633,7 @@ function scanStart() {
     <label class="scan-drop" for="scan-file">
       <strong>Photo the card</strong> — frame the whole card, collector number visible (e.g. 161/131).<br>
       Tap to open the camera or choose a photo.
-      <input id="scan-file" type="file" accept="image/*" capture="environment" style="display:none">
+      <input id="scan-file" class="sr-only" type="file" accept="image/*" capture="environment">
     </label>
     <label class="mwk-field">
       <span class="mwk-field-label">Or type it</span>
@@ -606,7 +672,14 @@ async function scanImage(file) {
 }
 async function scanIdentify(text) {
   if (!text.trim()) { document.getElementById("scan-results").innerHTML = ""; return; }
-  const index = await ensureIndex();
+  let index;
+  try {
+    index = await ensureIndex();
+  } catch {
+    scanStatus("Squawk — couldn't load the card index. Check your connection and try again.");
+    return;
+  }
+  if (window.goatcounter?.count) goatcounter.count({path: "card-scan", title: "Card scan", event: true});
   const candidates = identify(text, index);
   const host = document.getElementById("scan-results");
   if (!candidates.length) {
@@ -631,9 +704,14 @@ async function scanIdentify(text) {
 async function scanPrice(ref) {
   scanStatus("Fossicking for the price…");
   document.getElementById("scan-results").innerHTML = "";
+  await dataReady;  // never price against not-yet-loaded artifacts
   let info = null;
-  try { info = await fetch(`${TCGDEX}/cards/${encodeURIComponent(ref)}`).then(r => r.json()); } catch {}
+  try { info = await fetch(`${TCGDEX}/cards/${encodeURIComponent(ref)}`).then(r => r.ok ? r.json() : null); } catch {}
   // resolution order per docs/SCAN_PRICING.md: AU local -> USD x fx -> EUR x fx
+  if (auPrices === null) {
+    scanStatus("Squawk — AU price data is unreachable right now; a converted reference could be misleading. Try again shortly.");
+    return;
+  }
   const au = auPrices[ref];
   let priceHtml, trackSnapshot;
   if (au) {
@@ -688,24 +766,33 @@ async function scanPrice(ref) {
   };
   document.getElementById("scan-again").onclick = scanStart;
 }
+// TCGdex serves pricing per-variant for modern cards but at the TOP level for
+// vintage ones (e.g. base1-4 Charizard) — check both, variants first.
+function pricingSources(info) {
+  return [...(info?.variants_detailed || []).map(v => v?.pricing), info?.pricing];
+}
 function tcgplayerUsd(info) {
   for (const finish of ["holofoil", "normal", "reverseHolofoil", "1stEditionHolofoil"])
-    for (const v of info?.variants_detailed || []) {
-      const m = v?.pricing?.tcgplayer?.[finish]?.marketPrice;
+    for (const p of pricingSources(info)) {
+      const m = p?.tcgplayer?.[finish]?.marketPrice;
       if (m) return Number(m);
     }
   return null;
 }
 function cardmarketEur(info) {
-  for (const v of info?.variants_detailed || [])
+  for (const p of pricingSources(info))
     for (const k of ["trend", "avg30"]) {
-      const m = v?.pricing?.cardmarket?.[k];
+      const m = p?.cardmarket?.[k];
       if (m) return Number(m);
     }
   return null;
 }
 
-loadData();
+const dataReady = loadData().catch(err => {
+  console.error(err);
+  document.getElementById("rows").innerHTML =
+    `<tr><td colspan="5" class="tbl-empty">Squawk — couldn't reach the index. Check your connection and reload.</td></tr>`;
+});
 </script>
 <script data-goatcounter="https://mowka.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
