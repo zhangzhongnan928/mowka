@@ -1,0 +1,31 @@
+name: card-index
+on:
+  schedule:
+    - cron: "13 19 * * 1"   # weekly, Tuesdays 05:13 AEST — new sets land slowly
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: card-index
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ingest/requirements.txt
+      - run: pip install -r ingest/requirements.txt
+      - name: build identify index from TCGdex
+        run: python scripts/build_card_index.py
+      - name: commit index
+        run: |
+          git config user.name "mowka-bot"
+          git config user.email "zhangzhongnan928@gmail.com"
+          git add site/api/card-index.json
+          git diff --cached --quiet || git commit -m "data: refresh card identify index"
+          n=0; until git push; do n=$((n+1)); [ $n -ge 3 ] && exit 1; git pull --rebase || exit 1; done

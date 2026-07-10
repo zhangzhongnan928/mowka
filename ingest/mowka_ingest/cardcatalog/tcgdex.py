@@ -19,6 +19,17 @@ def _usd_market(payload: dict) -> float | None:
     return None
 
 
+def _eur_market(payload: dict) -> float | None:
+    """Cardmarket price per variant is flat (no finish sub-keys): prefer trend,
+    fall back to the 30-day average."""
+    for variant in payload.get("variants_detailed") or []:
+        cardmarket = (variant.get("pricing") or {}).get("cardmarket") or {}
+        for key in ("trend", "avg30"):
+            if cardmarket.get(key):
+                return float(cardmarket[key])
+    return None
+
+
 class TcgdexCatalog:
     def __init__(self, session: requests.Session | None = None):
         self.session = session or requests.Session()
@@ -40,4 +51,5 @@ class TcgdexCatalog:
             image_url=f"{image}/low.webp" if image else None,
             usd_market=_usd_market(d),
             source_url=f"{BASE}/cards/{ref}",
+            eur_market=_eur_market(d),
         )

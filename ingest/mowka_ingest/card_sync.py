@@ -23,7 +23,7 @@ import pathlib
 import time
 from datetime import datetime, timedelta, timezone
 
-from . import gitstore
+from . import gitstore, pricing
 from .cardcatalog import get_adapter
 from .normalize import load_catalog
 from .ranking import rank
@@ -76,6 +76,9 @@ def main() -> None:
     ap.add_argument("--cards", default=str(ROOT / "catalog" / "cards.yaml"))
     ap.add_argument("--data-dir", required=True)
     ap.add_argument("--site-out", required=True)
+    ap.add_argument("--api-dir", default=None,
+                    help="where to write the scan artifacts au-prices.json + fx.json "
+                         "(default: <site-out dir>/api)")
     ap.add_argument("--max-calls", type=int, default=300)
     args = ap.parse_args()
 
@@ -143,6 +146,23 @@ def main() -> None:
     site_out.parent.mkdir(parents=True, exist_ok=True)
     site_out.write_text(json.dumps(payload, indent=1) + "\n")
     print(f"exported {len(payload['cards'])} cards -> {site_out}")
+
+    # 4. scan artifacts: tracked AU prices keyed by catalog ref + daily FX
+    api_dir = pathlib.Path(args.api_dir) if args.api_dir else site_out.parent / "api"
+    api_dir.mkdir(parents=True, exist_ok=True)
+    au_prices = {}
+    for card, exported in zip(cards, payload["cards"]):
+        if card.catalog_ref and exported["best"]:
+            au_prices[card.catalog_ref] = exported["best"]
+    (api_dir / "au-prices.json").write_text(json.dumps({
+        "generated_at": payload["generated_at"], "prices": au_prices}, indent=1) + "\n")
+    print(f"au-prices: {len(au_prices)} refs -> {api_dir / 'au-prices.json'}")
+    try:
+        fx = pricing.fetch_fx()
+        (api_dir / "fx.json").write_text(json.dumps(fx, indent=1) + "\n")
+        print(f"fx: USD/AUD {fx['usd_aud']}, EUR/AUD {fx['eur_aud']} ({fx['date']})")
+    except Exception as exc:  # a rates outage must not sink the card sync
+        print(f"WARN fx fetch failed, keeping previous fx.json: {exc}")
 
 
 if __name__ == "__main__":
