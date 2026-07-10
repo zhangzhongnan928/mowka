@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write   # dispatch the pages deploy (GITHUB_TOKEN pushes don't trigger it)
 concurrency:
   group: card-index
   cancel-in-progress: false
@@ -23,9 +24,20 @@ jobs:
       - name: build identify index from TCGdex
         run: python scripts/build_card_index.py
       - name: commit index
+        id: commit
         run: |
           git config user.name "mowka-bot"
           git config user.email "zhangzhongnan928@gmail.com"
           git add site/api/card-index.json
-          git diff --cached --quiet || git commit -m "data: refresh card identify index"
-          n=0; until git push; do n=$((n+1)); [ $n -ge 3 ] && exit 1; git pull --rebase || exit 1; done
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "data: refresh card identify index"
+            n=0; until git push; do n=$((n+1)); [ $n -ge 3 ] && exit 1; git pull --rebase || exit 1; done
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: deploy site (GITHUB_TOKEN pushes don't trigger pages.yml)
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main

@@ -1,8 +1,13 @@
 """Scan-to-price resolution: identify + fallback chain (docs/SCAN_PRICING.md)."""
+import pathlib
+import sys
+
 import pytest
 
 from mowka_ingest import pricing
 from mowka_ingest.cardcatalog import CardInfo
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "scripts"))
 
 INDEX = {
     "sets": [
@@ -38,6 +43,20 @@ def test_parse_fraction_variants():
     assert pricing.parse_fraction("064/198") == (64, 198)
     assert pricing.parse_fraction("no numbers here") is None
     assert pricing.parse_fraction("1/0") is None  # zero denominator implausible
+
+
+def test_parse_fraction_rejects_embedded_digit_runs():
+    assert pricing.parse_fraction("12/2025") is None       # a date, not a card
+    assert pricing.parse_fraction("161/1311") is None      # OCR run-on
+    assert pricing.parse_fraction("1234/165") is None      # OCR run-on numerator
+    assert pricing.parse_fractions("12/2025 umbreon 161/131") == [(161, 131)]
+
+
+def test_identify_date_noise_cannot_shadow_real_fraction():
+    # even a plausible-looking noise fraction contributes nothing when its
+    # denominator matches no set; the real fraction still identifies
+    got = pricing.identify("07/25 umbreon 161/131", INDEX)
+    assert got[0]["id"] == "sv08.5-161"
 
 
 # --- identify -----------------------------------------------------------------
@@ -131,19 +150,62 @@ def test_out_of_stock_au_price_still_au_but_flagged():
 
 # --- fx fetch ----------------------------------------------------------------
 
-def test_fetch_fx_parses_both_pairs(monkeypatch):
+def test_fetch_fx_single_call_inverts_aud_base(monkeypatch):
+    calls = []
+
     class Resp:
-        def __init__(self, base):
-            self.base = base
         def raise_for_status(self):
             pass
         def json(self):
-            return {"base": self.base, "date": "2026-07-09",
-                    "rates": {"AUD": 1.441 if self.base == "USD" else 1.68}}
+            return {"base": "AUD", "date": "2026-07-09",
+                    "rates": {"USD": 0.5, "EUR": 0.625}}
+
     class S:
         headers = {}
         def get(self, url, params=None, timeout=None):
-            return Resp(params["base"])
+            calls.append(params)
+            return Resp()
+
     fx = pricing.fetch_fx(session=S())
-    assert fx["usd_aud"] == 1.441 and fx["eur_aud"] == 1.68
+    assert len(calls) == 1                      # one request = one shared date
+    assert fx["usd_aud"] == 2.0 and fx["eur_aud"] == 1.6
     assert fx["date"] == "2026-07-09" and "ECB" in fx["source"]
+
+
+def test_index_build_refuses_partial_output():
+    from build_card_index import safe_to_write
+    full = {"cards": [[str(i), str(i), "x"] for i in range(100)]}
+    ok, _ = safe_to_write(full, skipped=0, previous=None)
+    assert ok
+    ok, reason = safe_to_write(full, skipped=3, previous=None)
+    assert not ok and "3 set fetches failed" in reason
+    shrunken = {"cards": full["cards"][:80]}
+    ok, reason = safe_to_write(shrunken, skipped=0, previous=full)
+    assert not ok and "dropped" in reason
+    slightly_smaller = {"cards": full["cards"][:97]}
+    ok, _ = safe_to_write(slightly_smaller, skipped=0, previous=full)
+    assert ok
+
+
+def test_cli_answers_from_artifacts_when_network_is_down(tmp_path, monkeypatch, capsys):
+    import json as jsonlib
+    import sys as syslib
+    (tmp_path / "index.json").write_text(jsonlib.dumps(INDEX))
+    (tmp_path / "au.json").write_text(jsonlib.dumps({"prices": AU}))
+    (tmp_path / "fx.json").write_text(jsonlib.dumps(FX))
+
+    def down(*a, **k):
+        raise pricing.requests.ConnectionError("network down")
+
+    monkeypatch.setattr(pricing, "get_adapter",
+                        lambda name: type("A", (), {"card": staticmethod(down)})())
+    monkeypatch.setattr(pricing, "fetch_fx", down)
+    monkeypatch.setattr(syslib, "argv",
+                        ["pricing", "umbreon 161/131",
+                         "--index", str(tmp_path / "index.json"),
+                         "--au-prices", str(tmp_path / "au.json"),
+                         "--fx", str(tmp_path / "fx.json")])
+    pricing.main()
+    out = jsonlib.loads(capsys.readouterr().out)
+    assert out["price"]["aud_cents"] == 140000
+    assert out["price"]["source_type"] == "au_store"

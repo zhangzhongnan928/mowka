@@ -32,10 +32,14 @@ from .normalize import _clean
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DEFAULT_INDEX = ROOT / "site" / "api" / "card-index.json"
 DEFAULT_AU_PRICES = ROOT / "site" / "api" / "au-prices.json"
+DEFAULT_FX = ROOT / "site" / "api" / "fx.json"
 FRANKFURTER = "https://api.frankfurter.dev/v1/latest"
 FX_UA = "MowkaAU/0.1 (+contact: zhangzhongnan928@gmail.com) fx fetch"
 
-FRACTION_RE = re.compile(r"(\d{1,3})\s*/\s*(\d{1,3})")
+# Digit boundaries matter: "12/2025" (a date) must not truncate to 12/202 and
+# "1234/165" (OCR run-on) must not shed its leading digit into a confident
+# wrong answer. Lookarounds reject fractions embedded in longer digit runs.
+FRACTION_RE = re.compile(r"(?<![\d/])(\d{1,3})\s*/\s*(\d{1,3})(?![\d/])")
 
 SOURCE_TYPE_LABELS = {
     "store_shopify": "au_store",
@@ -43,13 +47,20 @@ SOURCE_TYPE_LABELS = {
 }
 
 
-def parse_fraction(text: str) -> tuple[int, int] | None:
-    """First plausible collector fraction in scanned text, e.g. '161/131'."""
+def parse_fractions(text: str) -> list[tuple[int, int]]:
+    """All plausible collector fractions in scanned text, in order."""
+    out = []
     for m in FRACTION_RE.finditer(text):
         num, den = int(m.group(1)), int(m.group(2))
         if den > 0:
-            return num, den
-    return None
+            out.append((num, den))
+    return out
+
+
+def parse_fraction(text: str) -> tuple[int, int] | None:
+    """First plausible collector fraction, e.g. '161/131'."""
+    fractions = parse_fractions(text)
+    return fractions[0] if fractions else None
 
 
 def _name_tokens(text: str) -> set[str]:
@@ -57,9 +68,10 @@ def _name_tokens(text: str) -> set[str]:
 
 
 def identify(text: str, index: dict, limit: int = 10) -> list[dict]:
-    """Scanned text -> candidate cards, best first."""
+    """Scanned text -> candidate cards, best first. Every fraction found in
+    the text is tried — OCR noise (dates, HP values) whose denominator matches
+    no real set produces nothing, so it can never shadow the true fraction."""
     sets_by_id = {s["id"]: s for s in index["sets"]}
-    fraction = parse_fraction(text)
     tokens = _name_tokens(text)
 
     def entry(card_row, set_id):
@@ -71,16 +83,19 @@ def identify(text: str, index: dict, limit: int = 10) -> list[dict]:
         return len(tokens & _name_tokens(name)) if tokens else 0
 
     candidates: list[dict] = []
-    if fraction:
-        num, den = fraction
+    seen: set[str] = set()
+    for num, den in parse_fractions(text):
         matching_sets = {s["id"] for s in index["sets"] if s.get("official") == den}
+        if not matching_sets:
+            continue
         for row in index["cards"]:
             set_id = row[0].rsplit("-", 1)[0]
-            if set_id in matching_sets and row[1].isdigit() and int(row[1]) == num:
+            if (set_id in matching_sets and row[1].isdigit() and int(row[1]) == num
+                    and row[0] not in seen):
+                seen.add(row[0])
                 candidates.append(entry(row, set_id))
-        candidates.sort(key=lambda c: -name_score(c["name"]))
+    candidates.sort(key=lambda c: -name_score(c["name"]))
     if not candidates and tokens:
-        needle = " ".join(sorted(tokens))
         scored = []
         for row in index["cards"]:
             score = name_score(row[2])
@@ -92,20 +107,19 @@ def identify(text: str, index: dict, limit: int = 10) -> list[dict]:
 
 
 def fetch_fx(session: requests.Session | None = None) -> dict:
-    """ECB reference rates via frankfurter.dev (free, keyless)."""
+    """ECB reference rates via frankfurter.dev (free, keyless). One request so
+    both rates share one publication date — two calls could straddle the daily
+    ECB publish and label a stale rate with a fresh date."""
     s = session or requests.Session()
     s.headers.setdefault("User-Agent", FX_UA)
-    rates = {}
-    date = None
-    for base in ("USD", "EUR"):
-        resp = s.get(FRANKFURTER, params={"base": base, "symbols": "AUD"}, timeout=20)
-        resp.raise_for_status()
-        payload = resp.json()
-        rates[f"{base.lower()}_aud"] = float(payload["rates"]["AUD"])
-        date = payload["date"]
-    return {"date": date, "source": "ECB reference rates via frankfurter.dev",
+    resp = s.get(FRANKFURTER, params={"base": "AUD", "symbols": "USD,EUR"}, timeout=20)
+    resp.raise_for_status()
+    payload = resp.json()
+    return {"date": payload["date"],
+            "source": "ECB reference rates via frankfurter.dev",
             "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            **rates}
+            "usd_aud": round(1 / float(payload["rates"]["USD"]), 6),
+            "eur_aud": round(1 / float(payload["rates"]["EUR"]), 6)}
 
 
 def resolve_price(ref: str, au_prices: dict, info: CardInfo | None, fx: dict | None) -> dict:
@@ -151,6 +165,9 @@ def main() -> None:
     ap.add_argument("text", help="scanned text, e.g. '161/131' or 'umbreon ex 161/131'")
     ap.add_argument("--index", default=str(DEFAULT_INDEX))
     ap.add_argument("--au-prices", default=str(DEFAULT_AU_PRICES))
+    ap.add_argument("--fx", default=str(DEFAULT_FX),
+                    help="fx.json artifact (the one clients use); live ECB fetch "
+                         "is only a fallback when it is missing")
     ap.add_argument("--limit", type=int, default=5)
     args = ap.parse_args()
 
@@ -166,9 +183,20 @@ def main() -> None:
         return
 
     top = candidates[0]
-    adapter = get_adapter("tcgdex")
-    info = adapter.card(top["id"])
-    fx = fetch_fx()
+    # Network is best-effort: the AU-local path must answer from artifacts
+    # alone when TCGdex or the FX source is unreachable (per the spec).
+    try:
+        info = get_adapter("tcgdex").card(top["id"])
+    except Exception as exc:
+        print(f"WARN tcgdex unreachable, reference price unavailable: {exc}",
+              file=sys.stderr)
+        info = None
+    fx = _load_json(pathlib.Path(args.fx), None)
+    if fx is None:
+        try:
+            fx = fetch_fx()
+        except Exception as exc:
+            print(f"WARN fx unavailable, conversions disabled: {exc}", file=sys.stderr)
     price = resolve_price(top["id"], au_prices, info, fx)
     print(json.dumps({
         "identified": top,

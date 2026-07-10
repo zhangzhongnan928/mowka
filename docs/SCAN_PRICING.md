@@ -9,7 +9,12 @@ produces identical results. The Python reference implementation is
 cd ingest && python -m mowka_ingest.pricing "umbreon 161/131"
 ```
 
-## Artifacts (all on the public site, refreshed by cron)
+## Artifacts (refreshed by cron)
+
+Canonical base URL today: **`https://zhangzhongnan928.github.io/mowka`**
+(GitHub Pages origin — serves gzip with open CORS). `mowka.com` currently
+points at a different deployment and does NOT serve these paths; when the
+domain decision lands, this section names the new canonical base.
 
 | Path | Refreshed | Contents |
 |---|---|---|
@@ -24,16 +29,20 @@ EUR = first `variants_detailed[].pricing.cardmarket.trend` (fallback `avg30`).
 
 ## Identify (OCR text → card)
 
-1. Find the first collector fraction `N/D` in the scanned text
-   (regex `(\d{1,3})\s*/\s*(\d{1,3})`, reject `D = 0`). Modern cards print it
-   bottom-left/bottom-right; secret rares print `N > D` — that's fine.
-2. Candidate sets = sets whose `official` count equals `D`.
+1. Find ALL collector fractions `N/D` in the scanned text with the
+   digit-bounded regex `(?<![\d/])(\d{1,3})\s*/\s*(\d{1,3})(?![\d/])`
+   (reject `D = 0`). The boundaries stop dates ("12/2025") and OCR run-ons
+   ("161/1311") from truncating into confident wrong answers. Modern cards
+   print the fraction bottom-left/bottom-right; secret rares print `N > D` —
+   that's fine.
+2. For each fraction: candidate sets = sets whose `official` count equals
+   `D`. Fractions matching no set (dates, HP values) contribute nothing and
+   can never shadow the true fraction.
 3. Candidate cards = cards in those sets whose numeric `localId` equals `N`
    (localIds are zero-padded strings — compare as integers).
-4. If several sets share the same `official` total, rank candidates by overlap
-   between OCR'd name tokens and the card name; show the user the top
-   candidates with images and let them tap to confirm. Never auto-commit an
-   ambiguous match.
+4. Rank all candidates by overlap between OCR'd name tokens and the card
+   name; show the user the top candidates with images and let them tap to
+   confirm. Never auto-commit when more than one candidate survives.
 5. No fraction found → name-token search over the index (normalized, ranked
    by token overlap) as the type-to-search fallback.
 
