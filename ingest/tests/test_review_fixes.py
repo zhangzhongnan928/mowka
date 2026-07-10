@@ -155,3 +155,13 @@ def test_send_outbox_retires_stale_alerts_unsent(tmp_path, monkeypatch):
     monkeypatch.setattr("sys.argv", ["send_outbox", "--data-dir", str(tmp_path)])
     send_outbox.main()
     assert (outbox / "sent" / "20200101T000000Z.stale.json").exists()
+
+
+def test_zero_price_placeholder_listings_are_not_offers():
+    catalog = load_catalog(CATALOG_PATH)
+    payload = {"products": [{
+        "title": "Pokemon 151 ETB Elite Trainer Box",
+        "handle": "151-etb",
+        "variants": [{"price": "0.00", "available": True}],
+    }]}
+    assert parse_products(payload, "S", "https://s.example", catalog) == []

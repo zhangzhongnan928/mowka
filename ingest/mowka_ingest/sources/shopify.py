@@ -39,6 +39,8 @@ def _variant_prices(variants: list[dict]) -> tuple[list[float], list[float]]:
             price = float(raw)
         except (TypeError, ValueError):
             continue
+        if price <= 0:
+            continue  # $0 placeholder listings are not offers (seen live at Kollecter)
         all_prices.append(price)
         if v.get("available"):
             in_stock.append(price)
