@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-13T23:14:26+00:00",
+ "generated_at": "2026-07-14T00:02:36+00:00",
  "products": [
   {
    "id": "sv-prismatic-evolutions-etb",
@@ -41,7 +41,7 @@
      "price_cents": 10500,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-13T23:12:20+00:00"
+     "observed_at": "2026-07-14T00:02:32+00:00"
     },
     {
      "sku_id": "sv-prismatic-evolutions-etb",
