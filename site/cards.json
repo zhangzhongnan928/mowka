@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-15T14:23:34+00:00",
+ "generated_at": "2026-07-15T16:52:50+00:00",
  "cards": [
   {
    "id": "card-sv08.5-161",
@@ -10,7 +10,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv08.5/161/low.webp",
-   "usd_reference": 1511.45,
+   "usd_reference": 1503.91,
    "best": {
     "sku_id": "card-sv08.5-161",
     "store": "ACE Collectibles",
@@ -55,7 +55,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv08.5/155/low.webp",
-   "usd_reference": 319.52,
+   "usd_reference": 320.36,
    "best": {
     "sku_id": "card-sv08.5-155",
     "store": "Gameology",
@@ -170,7 +170,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv03.5/199/low.webp",
-   "usd_reference": 397.07,
+   "usd_reference": 396.99,
    "best": {
     "sku_id": "card-sv03.5-199",
     "store": "Gameology",
@@ -215,7 +215,7 @@
    "variant": "hyper-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv03.5/205/low.webp",
-   "usd_reference": 28.2,
+   "usd_reference": 27.32,
    "best": {
     "sku_id": "card-sv03.5-205",
     "store": "ACE Collectibles",
@@ -241,10 +241,10 @@
      "sku_id": "card-sv03.5-205",
      "store": "Cherry Collectables",
      "url": "https://www.cherrycollectables.com.au/products/mew-ex-205-165-hyper-rare-pokemon-sv-scarlet-violet-151",
-     "price_cents": 4799,
+     "price_cents": 4599,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-15T14:02:11+00:00",
+     "observed_at": "2026-07-15T15:40:35+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -370,7 +370,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv08/239/low.webp",
-   "usd_reference": 199.12,
+   "usd_reference": 199.03,
    "best": {
     "sku_id": "card-sv08-239",
     "store": "Kawaii Collector",
@@ -438,7 +438,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-15T09:23:16+00:00",
+    "observed_at": "2026-07-15T15:51:02+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -449,7 +449,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-15T09:23:16+00:00",
+     "observed_at": "2026-07-15T15:51:02+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -483,7 +483,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-15T11:53:22+00:00",
+    "observed_at": "2026-07-15T15:51:01+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -494,7 +494,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-15T11:53:22+00:00",
+     "observed_at": "2026-07-15T15:51:01+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -528,7 +528,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-15T11:53:20+00:00",
+    "observed_at": "2026-07-15T15:51:00+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -539,7 +539,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-15T11:53:20+00:00",
+     "observed_at": "2026-07-15T15:51:00+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -573,7 +573,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-15T11:53:19+00:00",
+    "observed_at": "2026-07-15T15:50:58+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -584,7 +584,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-15T11:53:19+00:00",
+     "observed_at": "2026-07-15T15:50:58+00:00",
      "source_type": "store_shopify"
     },
     {
