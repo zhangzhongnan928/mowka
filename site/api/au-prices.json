@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-15T11:12:45+00:00",
+ "generated_at": "2026-07-15T14:23:34+00:00",
  "prices": {
   "sv08.5-161": {
    "sku_id": "card-sv08.5-161",
@@ -108,7 +108,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-15T09:23:14+00:00",
+   "observed_at": "2026-07-15T11:53:22+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5w-166": {
@@ -118,7 +118,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-15T09:23:13+00:00",
+   "observed_at": "2026-07-15T11:53:20+00:00",
    "source_type": "store_shopify"
   },
   "me01-178": {
@@ -128,7 +128,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-15T09:23:11+00:00",
+   "observed_at": "2026-07-15T11:53:19+00:00",
    "source_type": "store_shopify"
   }
  }
