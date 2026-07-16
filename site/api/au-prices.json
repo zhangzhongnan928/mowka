@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-16T08:56:56+00:00",
+ "generated_at": "2026-07-16T11:19:46+00:00",
  "prices": {
   "sv08.5-161": {
    "sku_id": "card-sv08.5-161",
@@ -8,7 +8,7 @@
    "price_cents": 260100,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-16T06:37:18+00:00",
+   "observed_at": "2026-07-16T09:32:10+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-155": {
@@ -18,7 +18,7 @@
    "price_cents": 55499,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-16T06:30:14+00:00",
+   "observed_at": "2026-07-16T09:24:56+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-156": {
@@ -28,7 +28,7 @@
    "price_cents": 96699,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-16T06:30:14+00:00",
+   "observed_at": "2026-07-16T09:24:56+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-144": {
@@ -38,17 +38,17 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-16T06:35:59+00:00",
+   "observed_at": "2026-07-16T09:30:46+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-199": {
    "sku_id": "card-sv03.5-199",
    "store": "Gameology",
    "url": "https://www.gameology.com.au/products/charizard-ex-199-165-199-165-mew",
-   "price_cents": 68799,
+   "price_cents": 69399,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-16T06:29:31+00:00",
+   "observed_at": "2026-07-16T09:24:16+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-205": {
@@ -58,7 +58,7 @@
    "price_cents": 4150,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-16T06:37:25+00:00",
+   "observed_at": "2026-07-16T09:32:17+00:00",
    "source_type": "store_shopify"
   },
   "sv04.5-234": {
@@ -68,7 +68,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-16T06:36:13+00:00",
+   "observed_at": "2026-07-16T09:31:00+00:00",
    "source_type": "store_shopify"
   },
   "sv08-238": {
@@ -78,7 +78,7 @@
    "price_cents": 61599,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-16T06:30:00+00:00",
+   "observed_at": "2026-07-16T09:24:44+00:00",
    "source_type": "store_shopify"
   },
   "sv08-239": {
@@ -88,7 +88,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-16T06:36:02+00:00",
+   "observed_at": "2026-07-16T09:30:49+00:00",
    "source_type": "store_shopify"
   },
   "sv10-230": {
@@ -98,7 +98,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-16T06:35:55+00:00",
+   "observed_at": "2026-07-16T09:30:42+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5b-166": {
@@ -108,7 +108,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-16T06:35:54+00:00",
+   "observed_at": "2026-07-16T09:30:41+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5w-166": {
@@ -118,7 +118,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-16T06:35:52+00:00",
+   "observed_at": "2026-07-16T09:30:40+00:00",
    "source_type": "store_shopify"
   },
   "me01-178": {
@@ -128,7 +128,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-16T06:35:51+00:00",
+   "observed_at": "2026-07-16T09:30:39+00:00",
    "source_type": "store_shopify"
   }
  }
