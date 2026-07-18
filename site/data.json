@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-18T17:18:24+00:00",
+ "generated_at": "2026-07-18T19:27:11+00:00",
  "products": [
   {
    "id": "sv-prismatic-evolutions-etb",
@@ -13,7 +13,7 @@
     "price_cents": 9995,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T17:18:09+00:00"
+    "observed_at": "2026-07-18T19:26:55+00:00"
    },
    "offers": [
     {
@@ -23,7 +23,7 @@
      "price_cents": 9995,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:18:09+00:00"
+     "observed_at": "2026-07-18T19:26:55+00:00"
     },
     {
      "sku_id": "sv-prismatic-evolutions-etb",
@@ -32,7 +32,7 @@
      "price_cents": 9995,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:13:27+00:00"
+     "observed_at": "2026-07-18T19:22:00+00:00"
     },
     {
      "sku_id": "sv-prismatic-evolutions-etb",
@@ -41,7 +41,7 @@
      "price_cents": 10500,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:16:25+00:00"
+     "observed_at": "2026-07-18T19:25:07+00:00"
     },
     {
      "sku_id": "sv-prismatic-evolutions-etb",
@@ -50,7 +50,7 @@
      "price_cents": 14999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:16:39+00:00"
+     "observed_at": "2026-07-18T19:25:22+00:00"
     },
     {
      "sku_id": "sv-prismatic-evolutions-etb",
@@ -59,7 +59,7 @@
      "price_cents": 23900,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:11:28+00:00"
+     "observed_at": "2026-07-18T19:19:58+00:00"
     },
     {
      "sku_id": "sv-prismatic-evolutions-etb",
@@ -68,7 +68,7 @@
      "price_cents": 35000,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:18:00+00:00"
+     "observed_at": "2026-07-18T19:26:45+00:00"
     }
    ],
    "stores_tracked": 6
@@ -85,7 +85,7 @@
     "price_cents": 5999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T17:16:39+00:00"
+    "observed_at": "2026-07-18T19:25:22+00:00"
    },
    "offers": [
     {
@@ -95,7 +95,7 @@
      "price_cents": 5999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:16:39+00:00"
+     "observed_at": "2026-07-18T19:25:22+00:00"
     },
     {
      "sku_id": "sv-prismatic-evolutions-booster-bundle",
@@ -104,7 +104,7 @@
      "price_cents": 16900,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:11:28+00:00"
+     "observed_at": "2026-07-18T19:19:58+00:00"
     }
    ],
    "stores_tracked": 2
@@ -121,7 +121,7 @@
     "price_cents": 18999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T17:16:08+00:00"
+    "observed_at": "2026-07-18T19:24:49+00:00"
    },
    "offers": [
     {
@@ -131,7 +131,7 @@
      "price_cents": 18999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:16:08+00:00"
+     "observed_at": "2026-07-18T19:24:49+00:00"
     },
     {
      "sku_id": "sv-surging-sparks-booster-box",
@@ -140,7 +140,7 @@
      "price_cents": 19995,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:18:09+00:00"
+     "observed_at": "2026-07-18T19:26:55+00:00"
     },
     {
      "sku_id": "sv-surging-sparks-booster-box",
@@ -149,7 +149,7 @@
      "price_cents": 29995,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:16:42+00:00"
+     "observed_at": "2026-07-18T19:25:25+00:00"
     },
     {
      "sku_id": "sv-surging-sparks-booster-box",
@@ -158,7 +158,7 @@
      "price_cents": 32400,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:13:27+00:00"
+     "observed_at": "2026-07-18T19:22:00+00:00"
     },
     {
      "sku_id": "sv-surging-sparks-booster-box",
@@ -167,7 +167,7 @@
      "price_cents": 36000,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:15:07+00:00"
+     "observed_at": "2026-07-18T19:23:45+00:00"
     },
     {
      "sku_id": "sv-surging-sparks-booster-box",
@@ -176,7 +176,7 @@
      "price_cents": 41900,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:11:31+00:00"
+     "observed_at": "2026-07-18T19:20:01+00:00"
     }
    ],
    "stores_tracked": 6
@@ -193,7 +193,7 @@
     "price_cents": 94000,
     "currency": "AUD",
     "in_stock": true,
-    "observed_at": "2026-07-18T17:16:23+00:00"
+    "observed_at": "2026-07-18T19:25:05+00:00"
    },
    "offers": [
     {
@@ -203,7 +203,7 @@
      "price_cents": 9995,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:18:16+00:00"
+     "observed_at": "2026-07-18T19:27:03+00:00"
     },
     {
      "sku_id": "sv-151-etb",
@@ -212,7 +212,7 @@
      "price_cents": 9995,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:13:30+00:00"
+     "observed_at": "2026-07-18T19:22:04+00:00"
     },
     {
      "sku_id": "sv-151-etb",
@@ -221,7 +221,7 @@
      "price_cents": 94000,
      "currency": "AUD",
      "in_stock": true,
-     "observed_at": "2026-07-18T17:16:23+00:00"
+     "observed_at": "2026-07-18T19:25:05+00:00"
     },
     {
      "sku_id": "sv-151-etb",
@@ -230,7 +230,7 @@
      "price_cents": 129900,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:11:39+00:00"
+     "observed_at": "2026-07-18T19:20:08+00:00"
     }
    ],
    "stores_tracked": 4
@@ -247,7 +247,7 @@
     "price_cents": 32400,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T17:13:27+00:00"
+    "observed_at": "2026-07-18T19:22:00+00:00"
    },
    "offers": [
     {
@@ -257,7 +257,7 @@
      "price_cents": 32400,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:13:27+00:00"
+     "observed_at": "2026-07-18T19:22:00+00:00"
     },
     {
      "sku_id": "sv-destined-rivals-booster-box",
@@ -266,7 +266,7 @@
      "price_cents": 41900,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:11:28+00:00"
+     "observed_at": "2026-07-18T19:19:58+00:00"
     },
     {
      "sku_id": "sv-destined-rivals-booster-box",
@@ -275,7 +275,7 @@
      "price_cents": 100000,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:17:37+00:00"
+     "observed_at": "2026-07-18T19:26:21+00:00"
     },
     {
      "sku_id": "sv-destined-rivals-booster-box",
@@ -284,7 +284,7 @@
      "price_cents": 255000,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:18:09+00:00"
+     "observed_at": "2026-07-18T19:26:55+00:00"
     }
    ],
    "stores_tracked": 4
@@ -301,7 +301,7 @@
     "price_cents": 9900,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T17:13:25+00:00"
+    "observed_at": "2026-07-18T19:21:59+00:00"
    },
    "offers": [
     {
@@ -311,7 +311,7 @@
      "price_cents": 9900,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:13:25+00:00"
+     "observed_at": "2026-07-18T19:21:59+00:00"
     },
     {
      "sku_id": "me-mega-evolution-etb",
@@ -320,7 +320,7 @@
      "price_cents": 10500,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:15:46+00:00"
+     "observed_at": "2026-07-18T19:24:25+00:00"
     },
     {
      "sku_id": "me-mega-evolution-etb",
@@ -329,7 +329,7 @@
      "price_cents": 14900,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:11:28+00:00"
+     "observed_at": "2026-07-18T19:19:58+00:00"
     },
     {
      "sku_id": "me-mega-evolution-etb",
@@ -338,7 +338,7 @@
      "price_cents": 19000,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T17:18:00+00:00"
+     "observed_at": "2026-07-18T19:26:45+00:00"
     }
    ],
    "stores_tracked": 4
