@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-17T22:26:32+00:00",
+ "generated_at": "2026-07-18T03:43:01+00:00",
  "prices": {
   "sv08.5-161": {
    "sku_id": "card-sv08.5-161",
@@ -8,17 +8,17 @@
    "price_cents": 260600,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-17T21:13:28+00:00",
+   "observed_at": "2026-07-18T03:26:01+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-155": {
    "sku_id": "card-sv08.5-155",
    "store": "Gameology",
    "url": "https://www.gameology.com.au/products/espeon-ex-155-131-155-sv-prismatic-evolutions-holofoil",
-   "price_cents": 55499,
+   "price_cents": 55199,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-17T22:04:23+00:00",
+   "observed_at": "2026-07-18T03:22:35+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-156": {
@@ -28,7 +28,7 @@
    "price_cents": 96099,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-17T22:04:23+00:00",
+   "observed_at": "2026-07-18T03:22:35+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-144": {
@@ -38,7 +38,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-17T21:12:14+00:00",
+   "observed_at": "2026-07-18T03:24:48+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-199": {
@@ -48,7 +48,7 @@
    "price_cents": 69899,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-17T22:03:44+00:00",
+   "observed_at": "2026-07-18T03:21:53+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-205": {
@@ -58,7 +58,7 @@
    "price_cents": 4200,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-17T21:13:35+00:00",
+   "observed_at": "2026-07-18T03:26:08+00:00",
    "source_type": "store_shopify"
   },
   "sv04.5-234": {
@@ -68,17 +68,17 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-17T21:12:28+00:00",
+   "observed_at": "2026-07-18T03:25:02+00:00",
    "source_type": "store_shopify"
   },
   "sv08-238": {
    "sku_id": "card-sv08-238",
    "store": "Gameology",
    "url": "https://www.gameology.com.au/products/pikachu-ex-238-sv08-surging-sparks-holofoil",
-   "price_cents": 61899,
+   "price_cents": 61399,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-17T22:04:11+00:00",
+   "observed_at": "2026-07-18T03:22:21+00:00",
    "source_type": "store_shopify"
   },
   "sv08-239": {
@@ -88,7 +88,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-17T21:12:17+00:00",
+   "observed_at": "2026-07-18T03:24:51+00:00",
    "source_type": "store_shopify"
   },
   "sv10-230": {
@@ -98,7 +98,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-17T21:12:11+00:00",
+   "observed_at": "2026-07-18T03:24:45+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5b-166": {
@@ -108,7 +108,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-17T21:12:09+00:00",
+   "observed_at": "2026-07-18T03:24:43+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5w-166": {
@@ -118,7 +118,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-17T21:12:08+00:00",
+   "observed_at": "2026-07-18T03:24:42+00:00",
    "source_type": "store_shopify"
   },
   "me01-178": {
@@ -128,7 +128,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-17T21:12:07+00:00",
+   "observed_at": "2026-07-18T03:24:41+00:00",
    "source_type": "store_shopify"
   }
  }
