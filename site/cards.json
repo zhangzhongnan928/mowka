@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-18T19:45:22+00:00",
+ "generated_at": "2026-07-18T22:27:33+00:00",
  "cards": [
   {
    "id": "card-sv08.5-161",
@@ -18,7 +18,7 @@
     "price_cents": 260700,
     "currency": "AUD",
     "in_stock": true,
-    "observed_at": "2026-07-18T19:26:33+00:00",
+    "observed_at": "2026-07-18T22:07:38+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -29,7 +29,7 @@
      "price_cents": 260399,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:19:46+00:00",
+     "observed_at": "2026-07-18T22:01:03+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -39,7 +39,7 @@
      "price_cents": 260700,
      "currency": "AUD",
      "in_stock": true,
-     "observed_at": "2026-07-18T19:26:33+00:00",
+     "observed_at": "2026-07-18T22:07:38+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -55,7 +55,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv08.5/155/low.webp",
-   "usd_reference": 318.42,
+   "usd_reference": 318.38,
    "best": {
     "sku_id": "card-sv08.5-155",
     "store": "Gameology",
@@ -63,7 +63,7 @@
     "price_cents": 55199,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T19:19:46+00:00",
+    "observed_at": "2026-07-18T22:01:03+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -74,7 +74,7 @@
      "price_cents": 55199,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:19:46+00:00",
+     "observed_at": "2026-07-18T22:01:03+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -98,7 +98,7 @@
     "price_cents": 96099,
     "currency": "AUD",
     "in_stock": true,
-    "observed_at": "2026-07-18T19:19:46+00:00",
+    "observed_at": "2026-07-18T22:01:03+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -109,7 +109,7 @@
      "price_cents": 96099,
      "currency": "AUD",
      "in_stock": true,
-     "observed_at": "2026-07-18T19:19:46+00:00",
+     "observed_at": "2026-07-18T22:01:03+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -133,7 +133,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T19:25:18+00:00",
+    "observed_at": "2026-07-18T22:06:24+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -144,7 +144,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:25:18+00:00",
+     "observed_at": "2026-07-18T22:06:24+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -154,7 +154,7 @@
      "price_cents": 58799,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:19:46+00:00",
+     "observed_at": "2026-07-18T22:01:03+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -170,7 +170,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv03.5/199/low.webp",
-   "usd_reference": 403.76,
+   "usd_reference": 403.4,
    "best": {
     "sku_id": "card-sv03.5-199",
     "store": "Gameology",
@@ -178,7 +178,7 @@
     "price_cents": 69899,
     "currency": "AUD",
     "in_stock": true,
-    "observed_at": "2026-07-18T19:19:06+00:00",
+    "observed_at": "2026-07-18T22:00:25+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -189,7 +189,7 @@
      "price_cents": 69899,
      "currency": "AUD",
      "in_stock": true,
-     "observed_at": "2026-07-18T19:19:06+00:00",
+     "observed_at": "2026-07-18T22:00:25+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -199,7 +199,7 @@
      "price_cents": 70100,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:26:35+00:00",
+     "observed_at": "2026-07-18T22:07:40+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -215,7 +215,7 @@
    "variant": "hyper-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv03.5/205/low.webp",
-   "usd_reference": 26.69,
+   "usd_reference": 27.06,
    "best": {
     "sku_id": "card-sv03.5-205",
     "store": "ACE Collectibles",
@@ -223,7 +223,7 @@
     "price_cents": 4250,
     "currency": "AUD",
     "in_stock": true,
-    "observed_at": "2026-07-18T19:26:39+00:00",
+    "observed_at": "2026-07-18T22:07:45+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -234,7 +234,7 @@
      "price_cents": 4250,
      "currency": "AUD",
      "in_stock": true,
-     "observed_at": "2026-07-18T19:26:39+00:00",
+     "observed_at": "2026-07-18T22:07:45+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -244,7 +244,7 @@
      "price_cents": 4599,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:17:14+00:00",
+     "observed_at": "2026-07-18T21:58:37+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -254,7 +254,7 @@
      "price_cents": 5599,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:19:19+00:00",
+     "observed_at": "2026-07-18T22:00:38+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -264,7 +264,7 @@
      "price_cents": 33149,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:23:01+00:00",
+     "observed_at": "2026-07-18T22:04:13+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -274,7 +274,7 @@
      "price_cents": 49999,
      "currency": "AUD",
      "in_stock": true,
-     "observed_at": "2026-07-18T19:25:36+00:00",
+     "observed_at": "2026-07-18T22:06:42+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -298,7 +298,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T19:25:32+00:00",
+    "observed_at": "2026-07-18T22:06:38+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -309,17 +309,17 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:25:32+00:00",
+     "observed_at": "2026-07-18T22:06:38+00:00",
      "source_type": "store_shopify"
     },
     {
      "sku_id": "card-sv04.5-234",
      "store": "Gameology",
      "url": "https://www.gameology.com.au/products/charizard-ex-234-091-234-091",
-     "price_cents": 56499,
+     "price_cents": 56199,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:19:16+00:00",
+     "observed_at": "2026-07-18T22:00:35+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -335,7 +335,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv08/238/low.webp",
-   "usd_reference": 354.26,
+   "usd_reference": 353.04,
    "best": {
     "sku_id": "card-sv08-238",
     "store": "Gameology",
@@ -343,7 +343,7 @@
     "price_cents": 61399,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T19:19:35+00:00",
+    "observed_at": "2026-07-18T22:00:52+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -354,7 +354,7 @@
      "price_cents": 61399,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:19:35+00:00",
+     "observed_at": "2026-07-18T22:00:52+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -378,7 +378,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T19:25:20+00:00",
+    "observed_at": "2026-07-18T22:06:27+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -389,7 +389,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:25:20+00:00",
+     "observed_at": "2026-07-18T22:06:27+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -399,7 +399,7 @@
      "price_cents": 36899,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:19:35+00:00",
+     "observed_at": "2026-07-18T22:00:52+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -415,7 +415,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv10/231/low.webp",
-   "usd_reference": 543.07,
+   "usd_reference": 542.71,
    "best": null,
    "offers": [],
    "active_count": null,
@@ -430,7 +430,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv10/230/low.webp",
-   "usd_reference": 189.36,
+   "usd_reference": 188.71,
    "best": {
     "sku_id": "card-sv10-230",
     "store": "Kawaii Collector",
@@ -438,7 +438,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T19:25:14+00:00",
+    "observed_at": "2026-07-18T22:06:20+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -449,7 +449,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:25:14+00:00",
+     "observed_at": "2026-07-18T22:06:20+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -475,7 +475,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv10.5b/166/low.webp",
-   "usd_reference": 285.13,
+   "usd_reference": 284.11,
    "best": {
     "sku_id": "card-sv10.5b-166",
     "store": "Kawaii Collector",
@@ -483,7 +483,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T19:25:12+00:00",
+    "observed_at": "2026-07-18T22:06:19+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -494,7 +494,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:25:12+00:00",
+     "observed_at": "2026-07-18T22:06:19+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -504,7 +504,7 @@
      "price_cents": 44600,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:26:20+00:00",
+     "observed_at": "2026-07-18T22:07:25+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -520,7 +520,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/sv/sv10.5w/166/low.webp",
-   "usd_reference": 220.29,
+   "usd_reference": 220.65,
    "best": {
     "sku_id": "card-sv10.5w-166",
     "store": "Kawaii Collector",
@@ -528,7 +528,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T19:25:11+00:00",
+    "observed_at": "2026-07-18T22:06:17+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -539,7 +539,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:25:11+00:00",
+     "observed_at": "2026-07-18T22:06:17+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -549,7 +549,7 @@
      "price_cents": 25200,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:26:42+00:00",
+     "observed_at": "2026-07-18T22:07:47+00:00",
      "source_type": "store_shopify"
     }
    ],
@@ -565,7 +565,7 @@
    "variant": "special-illustration-rare",
    "language": "EN",
    "image": "https://assets.tcgdex.net/en/me/me01/178/low.webp",
-   "usd_reference": 197.05,
+   "usd_reference": 197.09,
    "best": {
     "sku_id": "card-me01-178",
     "store": "Kawaii Collector",
@@ -573,7 +573,7 @@
     "price_cents": 9999,
     "currency": "AUD",
     "in_stock": false,
-    "observed_at": "2026-07-18T19:25:10+00:00",
+    "observed_at": "2026-07-18T22:06:16+00:00",
     "source_type": "store_shopify"
    },
    "offers": [
@@ -584,7 +584,7 @@
      "price_cents": 9999,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:25:10+00:00",
+     "observed_at": "2026-07-18T22:06:16+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -594,7 +594,7 @@
      "price_cents": 29649,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:22:57+00:00",
+     "observed_at": "2026-07-18T22:04:09+00:00",
      "source_type": "store_shopify"
     },
     {
@@ -604,7 +604,7 @@
      "price_cents": 33100,
      "currency": "AUD",
      "in_stock": false,
-     "observed_at": "2026-07-18T19:26:29+00:00",
+     "observed_at": "2026-07-18T22:07:34+00:00",
      "source_type": "store_shopify"
     }
    ],
