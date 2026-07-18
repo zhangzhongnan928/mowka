@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-07-18T03:43:01+00:00",
+ "generated_at": "2026-07-18T08:24:18+00:00",
  "prices": {
   "sv08.5-161": {
    "sku_id": "card-sv08.5-161",
    "store": "ACE Collectibles",
    "url": "https://www.acecollectibles.com.au/products/umbreon-ex-161-131-sv-prismatic-evolutions-610516",
-   "price_cents": 260600,
+   "price_cents": 260700,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-18T03:26:01+00:00",
+   "observed_at": "2026-07-18T06:22:12+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-155": {
@@ -18,7 +18,7 @@
    "price_cents": 55199,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T03:22:35+00:00",
+   "observed_at": "2026-07-18T06:15:30+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-156": {
@@ -28,7 +28,7 @@
    "price_cents": 96099,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-18T03:22:35+00:00",
+   "observed_at": "2026-07-18T06:15:30+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-144": {
@@ -38,7 +38,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T03:24:48+00:00",
+   "observed_at": "2026-07-18T06:20:59+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-199": {
@@ -48,17 +48,17 @@
    "price_cents": 69899,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-18T03:21:53+00:00",
+   "observed_at": "2026-07-18T06:14:51+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-205": {
    "sku_id": "card-sv03.5-205",
    "store": "ACE Collectibles",
    "url": "https://www.acecollectibles.com.au/products/mew-ex-205-165-sv-scarlet-violet-151-517051",
-   "price_cents": 4200,
+   "price_cents": 4250,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-18T03:26:08+00:00",
+   "observed_at": "2026-07-18T06:22:19+00:00",
    "source_type": "store_shopify"
   },
   "sv04.5-234": {
@@ -68,7 +68,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T03:25:02+00:00",
+   "observed_at": "2026-07-18T06:21:12+00:00",
    "source_type": "store_shopify"
   },
   "sv08-238": {
@@ -78,7 +78,7 @@
    "price_cents": 61399,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T03:22:21+00:00",
+   "observed_at": "2026-07-18T06:15:19+00:00",
    "source_type": "store_shopify"
   },
   "sv08-239": {
@@ -88,7 +88,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T03:24:51+00:00",
+   "observed_at": "2026-07-18T06:21:01+00:00",
    "source_type": "store_shopify"
   },
   "sv10-230": {
@@ -98,7 +98,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T03:24:45+00:00",
+   "observed_at": "2026-07-18T06:20:55+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5b-166": {
@@ -108,7 +108,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T03:24:43+00:00",
+   "observed_at": "2026-07-18T06:20:54+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5w-166": {
@@ -118,7 +118,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T03:24:42+00:00",
+   "observed_at": "2026-07-18T06:20:52+00:00",
    "source_type": "store_shopify"
   },
   "me01-178": {
@@ -128,7 +128,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T03:24:41+00:00",
+   "observed_at": "2026-07-18T06:20:51+00:00",
    "source_type": "store_shopify"
   }
  }
