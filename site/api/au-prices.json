@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-18T22:27:33+00:00",
+ "generated_at": "2026-07-19T04:05:02+00:00",
  "prices": {
   "sv08.5-161": {
    "sku_id": "card-sv08.5-161",
@@ -8,7 +8,7 @@
    "price_cents": 260700,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-18T22:07:38+00:00",
+   "observed_at": "2026-07-19T03:50:20+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-155": {
@@ -18,7 +18,7 @@
    "price_cents": 55199,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T22:01:03+00:00",
+   "observed_at": "2026-07-19T03:43:31+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-156": {
@@ -28,7 +28,7 @@
    "price_cents": 96099,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-18T22:01:03+00:00",
+   "observed_at": "2026-07-19T03:43:31+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-144": {
@@ -38,17 +38,17 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T22:06:24+00:00",
+   "observed_at": "2026-07-19T03:49:02+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-199": {
    "sku_id": "card-sv03.5-199",
    "store": "Gameology",
    "url": "https://www.gameology.com.au/products/charizard-ex-199-165-199-165-mew",
-   "price_cents": 69899,
+   "price_cents": 69799,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-18T22:00:25+00:00",
+   "observed_at": "2026-07-19T03:42:52+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-205": {
@@ -58,7 +58,7 @@
    "price_cents": 4250,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-18T22:07:45+00:00",
+   "observed_at": "2026-07-19T03:50:28+00:00",
    "source_type": "store_shopify"
   },
   "sv04.5-234": {
@@ -68,17 +68,17 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T22:06:38+00:00",
+   "observed_at": "2026-07-19T03:49:15+00:00",
    "source_type": "store_shopify"
   },
   "sv08-238": {
    "sku_id": "card-sv08-238",
    "store": "Gameology",
    "url": "https://www.gameology.com.au/products/pikachu-ex-238-sv08-surging-sparks-holofoil",
-   "price_cents": 61399,
+   "price_cents": 61199,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T22:00:52+00:00",
+   "observed_at": "2026-07-19T03:43:20+00:00",
    "source_type": "store_shopify"
   },
   "sv08-239": {
@@ -88,7 +88,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T22:06:27+00:00",
+   "observed_at": "2026-07-19T03:49:04+00:00",
    "source_type": "store_shopify"
   },
   "sv10-230": {
@@ -98,7 +98,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T22:06:20+00:00",
+   "observed_at": "2026-07-19T03:48:58+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5b-166": {
@@ -108,7 +108,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T22:06:19+00:00",
+   "observed_at": "2026-07-19T03:48:56+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5w-166": {
@@ -118,7 +118,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T22:06:17+00:00",
+   "observed_at": "2026-07-19T03:48:55+00:00",
    "source_type": "store_shopify"
   },
   "me01-178": {
@@ -128,7 +128,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-18T22:06:16+00:00",
+   "observed_at": "2026-07-19T03:48:54+00:00",
    "source_type": "store_shopify"
   }
  }
