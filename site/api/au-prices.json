@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-07-20T04:24:26+00:00",
+ "generated_at": "2026-07-20T09:43:39+00:00",
  "prices": {
   "sv08.5-161": {
    "sku_id": "card-sv08.5-161",
    "store": "ACE Collectibles",
    "url": "https://www.acecollectibles.com.au/products/umbreon-ex-161-131-sv-prismatic-evolutions-610516",
-   "price_cents": 260700,
+   "price_cents": 260400,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-20T04:06:37+00:00",
+   "observed_at": "2026-07-20T07:06:06+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-155": {
@@ -18,7 +18,7 @@
    "price_cents": 55199,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T03:59:39+00:00",
+   "observed_at": "2026-07-20T06:59:03+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-156": {
@@ -28,7 +28,7 @@
    "price_cents": 96299,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-20T03:59:39+00:00",
+   "observed_at": "2026-07-20T06:59:03+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-144": {
@@ -38,7 +38,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T04:05:25+00:00",
+   "observed_at": "2026-07-20T07:04:51+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-199": {
@@ -48,7 +48,7 @@
    "price_cents": 69699,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T03:58:59+00:00",
+   "observed_at": "2026-07-20T06:58:23+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-205": {
@@ -58,7 +58,7 @@
    "price_cents": 4300,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-20T04:06:44+00:00",
+   "observed_at": "2026-07-20T07:06:13+00:00",
    "source_type": "store_shopify"
   },
   "sv04.5-234": {
@@ -68,17 +68,17 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T04:05:38+00:00",
+   "observed_at": "2026-07-20T07:05:05+00:00",
    "source_type": "store_shopify"
   },
   "sv08-238": {
    "sku_id": "card-sv08-238",
    "store": "Gameology",
    "url": "https://www.gameology.com.au/products/pikachu-ex-238-sv08-surging-sparks-holofoil",
-   "price_cents": 61199,
+   "price_cents": 60699,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T03:59:27+00:00",
+   "observed_at": "2026-07-20T06:58:52+00:00",
    "source_type": "store_shopify"
   },
   "sv08-239": {
@@ -88,7 +88,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T04:05:27+00:00",
+   "observed_at": "2026-07-20T07:04:54+00:00",
    "source_type": "store_shopify"
   },
   "sv10-230": {
@@ -98,7 +98,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T04:05:21+00:00",
+   "observed_at": "2026-07-20T07:04:48+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5b-166": {
@@ -108,7 +108,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T04:05:20+00:00",
+   "observed_at": "2026-07-20T07:04:46+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5w-166": {
@@ -118,7 +118,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T04:05:18+00:00",
+   "observed_at": "2026-07-20T07:04:45+00:00",
    "source_type": "store_shopify"
   },
   "me01-178": {
@@ -128,7 +128,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T04:05:17+00:00",
+   "observed_at": "2026-07-20T07:04:44+00:00",
    "source_type": "store_shopify"
   }
  }
