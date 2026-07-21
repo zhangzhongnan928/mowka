@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-20T22:32:23+00:00",
+ "generated_at": "2026-07-21T03:58:16+00:00",
  "prices": {
   "sv08.5-161": {
    "sku_id": "card-sv08.5-161",
@@ -8,7 +8,7 @@
    "price_cents": 260000,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-20T22:17:30+00:00",
+   "observed_at": "2026-07-21T03:46:20+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-155": {
@@ -18,17 +18,17 @@
    "price_cents": 54699,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:10:52+00:00",
+   "observed_at": "2026-07-21T03:39:05+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-156": {
    "sku_id": "card-sv08.5-156",
    "store": "Gameology",
    "url": "https://www.gameology.com.au/products/sylveon-ex-156-131-156-sv-prismatic-evolutions-holofoil",
-   "price_cents": 95599,
+   "price_cents": 94199,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-20T22:10:52+00:00",
+   "observed_at": "2026-07-21T03:39:05+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-144": {
@@ -38,7 +38,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:16:18+00:00",
+   "observed_at": "2026-07-21T03:44:54+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-199": {
@@ -48,7 +48,7 @@
    "price_cents": 69199,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:10:13+00:00",
+   "observed_at": "2026-07-21T03:38:24+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-205": {
@@ -58,7 +58,7 @@
    "price_cents": 4300,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-20T22:17:37+00:00",
+   "observed_at": "2026-07-21T03:46:28+00:00",
    "source_type": "store_shopify"
   },
   "sv04.5-234": {
@@ -68,7 +68,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:16:31+00:00",
+   "observed_at": "2026-07-21T03:45:08+00:00",
    "source_type": "store_shopify"
   },
   "sv08-238": {
@@ -78,7 +78,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:16:20+00:00",
+   "observed_at": "2026-07-21T03:44:57+00:00",
    "source_type": "store_shopify"
   },
   "sv08-239": {
@@ -88,7 +88,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:16:20+00:00",
+   "observed_at": "2026-07-21T03:44:57+00:00",
    "source_type": "store_shopify"
   },
   "sv10-230": {
@@ -98,7 +98,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:16:14+00:00",
+   "observed_at": "2026-07-21T03:44:51+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5b-166": {
@@ -108,7 +108,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:16:13+00:00",
+   "observed_at": "2026-07-21T03:44:49+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5w-166": {
@@ -118,7 +118,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:16:11+00:00",
+   "observed_at": "2026-07-21T03:44:48+00:00",
    "source_type": "store_shopify"
   },
   "me01-178": {
@@ -128,7 +128,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-20T22:16:10+00:00",
+   "observed_at": "2026-07-21T03:44:47+00:00",
    "source_type": "store_shopify"
   }
  }
