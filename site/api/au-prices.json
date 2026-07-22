@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-22T03:59:27+00:00",
+ "generated_at": "2026-07-22T09:12:25+00:00",
  "prices": {
   "sv08.5-161": {
    "sku_id": "card-sv08.5-161",
@@ -8,7 +8,7 @@
    "price_cents": 259900,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-22T00:11:10+00:00",
+   "observed_at": "2026-07-22T06:48:18+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-155": {
@@ -18,7 +18,7 @@
    "price_cents": 54699,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T03:36:20+00:00",
+   "observed_at": "2026-07-22T06:41:22+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-156": {
@@ -28,7 +28,7 @@
    "price_cents": 94199,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-22T03:36:20+00:00",
+   "observed_at": "2026-07-22T06:41:22+00:00",
    "source_type": "store_shopify"
   },
   "sv08.5-144": {
@@ -38,7 +38,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T00:09:45+00:00",
+   "observed_at": "2026-07-22T06:47:03+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-199": {
@@ -48,7 +48,7 @@
    "price_cents": 69199,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T03:35:38+00:00",
+   "observed_at": "2026-07-22T06:40:42+00:00",
    "source_type": "store_shopify"
   },
   "sv03.5-205": {
@@ -58,7 +58,7 @@
    "price_cents": 4400,
    "currency": "AUD",
    "in_stock": true,
-   "observed_at": "2026-07-22T00:11:19+00:00",
+   "observed_at": "2026-07-22T06:48:24+00:00",
    "source_type": "store_shopify"
   },
   "sv04.5-234": {
@@ -68,7 +68,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T00:09:59+00:00",
+   "observed_at": "2026-07-22T06:47:17+00:00",
    "source_type": "store_shopify"
   },
   "sv08-238": {
@@ -78,7 +78,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T00:09:48+00:00",
+   "observed_at": "2026-07-22T06:47:06+00:00",
    "source_type": "store_shopify"
   },
   "sv08-239": {
@@ -88,7 +88,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T00:09:48+00:00",
+   "observed_at": "2026-07-22T06:47:06+00:00",
    "source_type": "store_shopify"
   },
   "sv10-230": {
@@ -98,7 +98,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T00:09:42+00:00",
+   "observed_at": "2026-07-22T06:46:59+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5b-166": {
@@ -108,7 +108,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T00:09:40+00:00",
+   "observed_at": "2026-07-22T06:46:58+00:00",
    "source_type": "store_shopify"
   },
   "sv10.5w-166": {
@@ -118,7 +118,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T00:09:39+00:00",
+   "observed_at": "2026-07-22T06:46:56+00:00",
    "source_type": "store_shopify"
   },
   "me01-178": {
@@ -128,7 +128,7 @@
    "price_cents": 9999,
    "currency": "AUD",
    "in_stock": false,
-   "observed_at": "2026-07-22T00:09:38+00:00",
+   "observed_at": "2026-07-22T06:46:55+00:00",
    "source_type": "store_shopify"
   }
  }
